@@ -1,0 +1,129 @@
+=========================================================================
+
+                              SUBMISSION
+
+Before submitting, you must complete the comments at the top of
+"drawing.scala" to say how much you have been able to complete.
+
+Then submit "drawing.scala" to the HW4 dropbox on Desire2Learn.
+
+=========================================================================
+
+                            DEMONSTRATION
+
+Download and unzip the latest version of examples.zip.
+
+Change directory to examples\hw4.
+
+Run: 
+
+  scala -cp drawing.jar drawing
+
+NOTE: this runs the instructor's version (compiled .class files
+packaged up as drawing.jar).
+
+This will open a display with a picture of a square, and a red circle
+(indicating the origin or center).
+
+You can use the scrollbars to move around, or the following keys:
+
+  h - left
+  j - down
+  k - up
+  l - right
+
+Other key bindings:
+
+  c - center the image
+  q - quit
+
+In addition, you can press '1', '2', or '3' to flip between different
+drawings.
+
+=========================================================================
+
+                             INTRODUCTION
+
+In this homework assignment, you will implement an interpreter for a
+small Logo-like language.
+
+Logo is a programming language, primarily known for drawing pictures.
+It was created to help teach programming principles.
+
+  http://en.wikipedia.org/wiki/Logo_(programming_language)
+
+It influenced Smalltalk, and is still used for education.
+
+The distinguishing feature of Logo is a "turtle" that moves around a
+screen, leaving a trail behind it when a pen is down.  It may help to
+view this image to see a physical "turtle" and imagine a pen that can
+move down (to draw when the turtle moves) or move up (so the turtle
+can move without leaving a trail).
+
+  http://incolor.inetnebr.com/bill_r/tasman_turtle_page.htm
+
+The "turtle" (or simply "pen") has a current position and a current
+direction.  The "Forward (n)" command will move the turtle/pen forward
+by "n" units.  The "Left (d)" command will turn the turtle/pen left by
+"d" degrees.  Similarly, "Right (d)" command will turn the turtle/pen
+right by "d" degrees.
+
+The images displayed in the demonstration were created by running code
+in the mini-Logo language, represented as an AST.  For example, the
+AST to print a square is:
+
+  Repeat (4, Block (List (Forward (100), Right (90))))
+
+This creates a block of code "forward 100" followed by turning right
+by 90 degrees.  This is then repeated 4 times to form a square.
+
+=========================================================================
+
+                          TASK: INTERPRETER
+
+Read through the commented code in examples/hw08/drawing.scala.
+
+Complete the body of the "interpret" function in class Display in
+examples/hw08/drawing.scala.  It must produce the same output as the
+instructor's demonstration version for all of the sample programs
+(press "2" and "3" in the GUI to check the second and third sample
+programs).
+
+You can compile and run your program using:
+
+  fsc drawing.scala
+  scala -cp . drawing
+
+NOTE: this command line is different from the one that was used to
+start the instructor's version from the drawing.jar file.
+        
+=========================================================================
+
+                     TASK: ADDING A NEW OPERATION
+
+Add two new operations SaveState() and RestoreState() to the mini-Logo
+programming language.  SaveState() should push the current State onto
+a stack.  RestoreState() should pop the State froom the stack.
+
+This is useful because it allows you to save the turtle/pen state, run
+some other code, and then restore the previous turtle/pen state.  This
+frees you from having to write mini-Logo code to get you back to the
+position before you ran the other code (and restore penColor,
+direction, etc.).
+
+You will need to: 
+
+1. Add case classes extending Program for these two operations.
+
+2. Introduce a stack that holds State instances, initially empty.
+
+3. Update the interpret function to handle SaveState() and
+   RestoreState() using the stack.
+
+4. Write at least one demo program that tests the use of SaveState()
+   and RestoreState().
+
+=========================================================================
+
+
+

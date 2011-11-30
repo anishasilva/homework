@@ -1,0 +1,70 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+hw3-cfg.txt skeleton file
+
+---------------------------------------------------------------
+
+TASK 1
+
+zero or more 'b' symbols followed by one "a" symbol followed by zero or more "c" symbols.  The number of "b" symbols will be equal to the number of "c" symbols.
+
+---------------------------------------------------------------
+
+TASK 2
+
+terminal symbols { "a", "b", "c", "d" }
+non-terminal symbols {S, T, M, A}
+start symbols {S}
+productions:
+
+T -> "b" M
+
+M -> epsilon
+M -> S M
+
+S -> "a" A "d"
+
+A -> epsilon
+A -> T "c" A
+
+---------------------------------------------------------------
+
+TASK 3
+
+1)
+
+this CFG is ambiguous.  for the string "a a a" we can have multiple parsing trees.
+
+a) 		b)
+    S                   S
+ S     S            S       S
+"a"   S  S        S   S    "a"
+     "a""a"      "a" "a"
+
+2)
+the new CFG that is no longer ambiguous, but has the same valid words.
+S -> "a"
+S -> "a" S
+
+---------------------------------------------------------------
+
+TASK 4
+
+1)
+a) valid
+b) valid
+c) not valid
+d) not valid
+e) not valid
+f) valid
+g) not valid
+h) valid
+
+2) 
+a) not ambiguous
+b) not ambiguous
+c) ambiguous
+d) ambiguous
+e) not ambiguous
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

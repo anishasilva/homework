@@ -1,0 +1,207 @@
+===============================================================
+
+                             INTRODUCTION
+
+This homework assignments consists of several tasks with context-free grammars 
+and one task where you write a simple parser using Scala's parser combinators.
+
+You should download the following skeleton file and add your answers to the 
+context-free grammar tasks to that file:
+ 
+  http://fpl.cs.depaul.edu/cpitcher/courses/plconcepts/assignments/hw3-cfg.txt
+
+You should download the following code file and add your code for the parsing task:
+
+  http://fpl.cs.depaul.edu/cpitcher/courses/plconcepts/examples/scala/lisp/LispParser.scala
+
+  (this is also in examples.zip which you may have downloaded already)
+
+The files that you submit must be plain ASCII text files (not Word documents, 
+not PDF, etc.).  A text editor will be better than a word processor, and a 
+monospaced font (e.g., Courier) is recommended.
+
+When you have completed the tasks, please upload hw3-cfg.txt and
+LispParser.scala to the HW3 dropbox on Desire2Learn.
+
+===============================================================
+
+                                TASK 1
+
+Describe, in English, the language defined by the CFG with
+
+* terminal symbols { "a", "b", "c" }
+
+* non-terminal symbols { S }
+
+* start symbol S
+
+* productions:
+
+  S -> "a" 
+  S -> "b" S "c"
+
+Note that you need to do more than just give examples of strings in
+the language. For example, you might describe a CFG with the following
+productions by "zero or more "a" symbols followed by one or more "b"
+symbols".
+
+  S -> "a" S
+  S -> T
+  T -> "b"
+  T -> T "b"
+
+Add your answer to the task 1 section of hw3-cfg.txt.
+
+===============================================================
+
+                                TASK 2
+
+Convert the following EBNF description to an equivalent CFG.
+
+S ::= "a" (T "c")* "d"
+T ::= "b" S*
+
+Note that the Kleene-star "*" binds more tightly than sequencing, so
+("b" S*) is equivalent to ("b" (S*)).
+
+You will have to create new non-terminals.  You may write the empty
+sequence as epsilon.
+
+You should write down your CFG in the form given in Task 1, i.e.,
+define a set of terminal symbols (they will be the same), a set of
+non-terminal symbols, the distinguished start symbol, and a list of
+productions.
+
+Add your answer to the task 2 section of hw3-cfg.txt.
+
+===============================================================
+
+                                TASK 3
+
+Consider the following CFG.
+
+S -> "a"
+S -> S S
+
+1. Demonstrate that the CFG is ambiguous (ASCII art!).
+
+2. Convert the CFG to an equivalent CFG that is NOT ambiguous but has
+   exactly the same valid words.
+
+Add your answer to the task 3 section of hw3-cfg.txt.
+
+===============================================================
+
+                                TASK 4
+
+Consider the following CFG productions (and a starting symbol S):
+
+  D -> "0" | "1" | ... | "9"
+  L -> "a" | "b" | ... | "z"
+  V -> L A
+  A -> epsilon 
+  A -> L A
+  A -> D A
+  E -> D
+  E -> V
+  E -> E "+" E
+  E -> E "*" E
+  E -> E "<" E
+  E -> E "=" E
+  S -> V ":=" E
+  S -> S ";" S
+  S -> "if" E "then" S "else" S
+  S -> "while" E "do" S
+
+Answer the following questions. 
+
+NOTE: Be careful not to confuse "=" and ":=" !
+
+   1. Some of the words in the following list are valid for the CFG.
+      A word is valid if it has a parse tree. Which words are valid?
+
+         a. a := 1 + 2
+         b. a := 1 + y
+         c. if a := b then b := 10 else c := 1 + 9
+         d. if a < b then if b < c then a := b else b := c
+         e. while a < b do a = a + 1; b := b * 1
+         f. b := 1; while a < b do a := a + 1; b := b = 1
+         g. if 2 + a < a then a := a + 1; else b := b * 1
+         h. t := a; a := b; b := t
+
+   2. For each of the following, state whether the word is ambiguous
+      (in the sense that the word has more than one parse tree.)
+
+         a. a := b
+         b. if a < b then a := b else b := c; c := b
+         c. a := b * c + d
+         d. a := 0; b := 5; a := 1
+         e. while a < b do a := a + 2; b := b + 1
+
+Add your answer to the task 4 section of hw3-cfg.txt.
+
+===============================================================
+
+                                TASK 5
+
+Download and extract the updated examples.zip, if you have not done so
+already.
+
+In examples\scala\lisp, you will find:
+
+* pong.el - a Lisp program
+
+* LispParser.scala - skeleton code for a Lisp parser, using parser
+  combinators
+
+Your task is to complete LispParser.scala so that it parses a simple
+fragment of the Lisp programming language.  This will be tested by
+using your code to parse pong.el.  You will have to use parser
+combinators and regular expressions to describe what is to be read.
+
+NOTE: it is not acceptable to write an extremely permissive parser
+that accepts every input file.  For example, your program should
+reject a file containing "foo, bar" (without the quotes); and it
+should also reject Java or Scala code if given as an input.
+
+NOTE: there are quite a few different variants of Lisp.  pong.el is
+written in the Emacs Lisp variant.  It is an actual program for
+playing the game Pong from the Emacs Lisp system.  The only changes
+made to pong.el were to remove a few elements that require
+modifications to white-space handling: notably comments and multi-line
+strings.
+
+REQUIREMENT: you MUST add a comment at the top of your Scala file to
+state whether or not it is working.  If not, you MUST explain what
+does not work.  Submissions without a comment will not be graded.
+
+REQUIREMENT: you MUST NOT change any of the code in LispParser.scala
+other than between "BEGIN CHANGES HERE" and "END CHANGES HERE".
+
+Submit your modified "LispParser.scala".
+
+HINT: look very carefully at the reported line and column number.  For
+example, if you compile and run LispParser.scala you will initially get:
+
+  C:\l\plconcepts\examples\scala\lisp>scala LispParser pong.el
+  Failed to parse: pong.el due to: [1.2] failure: `)' expected but `e' found
+  (eval-when-compile (require 'cl))
+   ^
+
+This says that the parser could not handle column 2 (indexed from 1
+not 0) of line 1 -- the "e" character.  You fix this by extending the
+parser to allow identifiers in "sexp".  Note that Lisp identifiers can
+contain hyphens, which is unusual.  For that reason you will have to
+write your own definition of a Lisp identifier (just make sure that it
+can accommodate all of pong.el --- you do not need to read a Lisp
+reference manual)
+
+
+
+Here is an example of a working parser running (and its output):
+
+C:\l\plconcepts\examples\scala\lisp> scalac LispParser.scala
+
+C:\l\plconcepts\examples\scala\lisp> scala LispParser pong.el
+Successfully parsed: pong.el
+Produced: List((((~List(eval-when-compile, (((~List(require, ('~cl)))~))))~)), (((~List(require, ('~gamegrid)))~)), (((~List(defgroup, pong, nil, "Emacs-Lisp implementation of the classical game pong.", ((:~tag)~"Pong"), ((:~group)~('~games))))~)), (((~List(defcustom, pong-buffer-name, "*Pong*", "*Name of the buffer used to play.", ((:~group)~('~pong)), ((:~type)~('~(((~List(string))~))))))~)), (((~List(defcustom, pong-width, 50, "*Width of the playfield.", ((:~group)~('~pong)), ((:~type)~('~(((~List(integer))~))))))~)), (((~List(defcustom, pong-height, (((~List(min, 30, (((~List(-, (((~List(frame-height))~)), 6))~))))~)), "*Height of the playfield.", ((:~group)~('~pong)), ((:~type)~('~(((~List(integer))~))))))~)), (((~List(defcustom, pong-bat-width, 3, "*Width of the bats for pong.", ((:~group)~('~pong)), ((:~type)~('~(((~List(integer))~))))))~)), (((~List(defcustom, pong-blank-color, "black", "*Color used for background.", ((:~group)~('~pong)), ((:~type)~('~color))))~)), (((~List(defcustom, pong-bat-color, "yellow", "*Color used for bats.", ((:~group)~('~pong)), ((:~type)~('~color))))~)), (((~List(defcustom, pong-ball-color, "red", "*Color used for the ball.", ((:~group)~('~pong)), ((:~type)~('~color))))~)), (((~List(defcustom, pong-border-color, "white", "*Color used for pong borders.", ((:~group)~('~pong)), ((:~type)~('~color))))~)), (((~List(defcustom, pong-left-key, "4", "*Alternate key to press for bat 1 to go up (primary one is [left]).", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-right-key, "6", "*Alternate key to press for bat 1 to go down (primary one is [right]).", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-up-key, "8", "*Alternate key to press for bat 2 to go up (primary one is [up]).", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-down-key, "2", "*Alternate key to press for bat 2 to go down (primary one is [down]).", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-quit-key, "q", "*Key to press to quit pong.", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-pause-key, "p", "Key to press to pause pong.", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-resume-key, "p", "*Key to press to resume pong.", ((:~group)~('~pong)), ((:~type)~('~(((~List(restricted-sexp, ((:~match-alternatives)~(((~List(stringp, vectorp))~)))))~))))))~)), (((~List(defcustom, pong-timer-delay, 0.1, "*Time to wait between every cycle.", ((:~group)~('~pong)), ((:~type)~('~number))))~)), (((~List(defvar, pong-blank-options, ('~(((~List((((~List((((~List(glyph, colorize))~)), (((~List(t, ?\040))~))))~)), (((~List((((~List(color-x, color-x))~)), (((~List(mono-x, grid-x))~)), (((~List(color-tty, color-tty))~))))~)), (((~List((((~List((((~List(glyph, color-x))~)), (([~List(0, 0, 0))~])))~)), (((~List(color-tty, pong-blank-color))~))))~))))~)))))~)), (((~List(defvar, pong-bat-options, ('~(((~List((((~List((((~List(glyph, colorize))~)), (((~List(emacs-tty, ?O))~)), (((~List(t, ?\040))~))))~)), (((~List((((~List(color-x, color-x))~)), (((~List(mono-x, mono-x))~)), (((~List(color-tty, color-tty))~)), (((~List(mono-tty, mono-tty))~))))~)), (((~List((((~List((((~List(glyph, color-x))~)), (([~List(1, 1, 0))~])))~)), (((~List(color-tty, pong-bat-color))~))))~))))~)))))~)), (((~List(defvar, pong-ball-options, ('~(((~List((((~List((((~List(glyph, colorize))~)), (((~List(t, ?\*))~))))~)), (((~List((((~List(color-x, color-x))~)), (((~List(mono-x, grid-x))~)), (((~List(color-tty, color-tty))~))))~)), (((~List((((~List((((~List(glyph, color-x))~)), (([~List(1, 0, 0))~])))~)), (((~List(color-tty, pong-ball-color))~))))~))))~)))))~)), (((~List(defvar, pong-border-options, ('~(((~List((((~List((((~List(glyph, colorize))~)), (((~List(t, ?\+))~))))~)), (((~List((((~List(color-x, color-x))~)), (((~List(mono-x, grid-x))~)), (((~List(color-tty, color-tty))~))))~)), (((~List((((~List((((~List(glyph, color-x))~)), (([~List(0.5, 0.5, 0.5))~])))~)), (((~List(color-tty, pong-border-color))~))))~))))~)))))~)), (((~List(defconst, pong-blank, 0))~)), (((~List(defconst, pong-bat, 1))~)), (((~List(defconst, pong-ball, 2))~)), (((~List(defconst, pong-border, 3))~)), (((~List(defvar, pong-xx, nil, "Horizontal speed of the ball."))~)), (((~List(defvar, pong-yy, nil, "Vertical speed of the ball."))~)), (((~List(defvar, pong-x, nil, "Horizontal position of the ball."))~)), (((~List(defvar, pong-y, nil, "Vertical position of the ball."))~)), (((~List(defvar, pong-bat-player1, nil, "Vertical position of bat 1."))~)), (((~List(defvar, pong-bat-player2, nil, "Vertical position of bat 2."))~)), (((~List(defvar, pong-score-player1, nil))~)), (((~List(defvar, pong-score-player2, nil))~)), (((~List(defvar, pong-mode-map, (((~List(make-sparse-keymap, ('~pong-mode-map)))~)), "Modemap for pong-mode."))~)), (((~List(defvar, pong-null-map, (((~List(make-sparse-keymap, ('~pong-null-map)))~)), "Null map for pong-mode."))~)), (((~List(define-key, pong-mode-map, (([~List(left))~]), ('~pong-move-left)))~)), (((~List(define-key, pong-mode-map, (([~List(right))~]), ('~pong-move-right)))~)), (((~List(define-key, pong-mode-map, (([~List(up))~]), ('~pong-move-up)))~)), (((~List(define-key, pong-mode-map, (([~List(down))~]), ('~pong-move-down)))~)), (((~List(define-key, pong-mode-map, pong-left-key, ('~pong-move-left)))~)), (((~List(define-key, pong-mode-map, pong-right-key, ('~pong-move-right)))~)), (((~List(define-key, pong-mode-map, pong-up-key, ('~pong-move-up)))~)), (((~List(define-key, pong-mode-map, pong-down-key, ('~pong-move-down)))~)), (((~List(define-key, pong-mode-map, pong-quit-key, ('~pong-quit)))~)), (((~List(define-key, pong-mode-map, pong-pause-key, ('~pong-pause)))~)), (((~List(defun, pong-display-options, (((~List())~)), "Computes display options (required by gamegrid for colors).", (((~List(let, (((~List((((~List(options, (((~List(make-vector, 256, nil))~))))~))))~)), (((~List(loop, for, c, from, 0, to, 255, do, (((~List(aset, options, c, (((~List(cond, (((~List((((~List(=, c, pong-blank))~)), pong-blank-options))~)), (((~List((((~List(=, c, pong-bat))~)), pong-bat-options))~)), (((~List((((~List(=, c, pong-ball))~)), pong-ball-options))~)), (((~List((((~List(=, c, pong-border))~)), pong-border-options))~)), (((~List(t, ('~(((~List(nil, nil, nil))~)))))~))))~))))~))))~)), options))~))))~)), (((~List(defun, pong-init-buffer, (((~List())~)), "Initialize pong buffer and draw stuff thanks to gamegrid library.", (((~List(interactive))~)), (((~List(get-buffer-create, pong-buffer-name))~)), (((~List(switch-to-buffer, pong-buffer-name))~)), (((~List(use-local-map, pong-mode-map))~)), (((~List(setq, gamegrid-use-glyphs, t))~)), (((~List(setq, gamegrid-use-color, t))~)), (((~List(gamegrid-init, (((~List(pong-display-options))~))))~)), (((~List(gamegrid-init-buffer, pong-width, (((~List(+, 2, pong-height))~)), ?\s))~)), (((~List(let, (((~List((((~List(buffer-read-only, nil))~))))~)), (((~List(loop, for, y, from, 0, to, (((~List(1, -, pong-height))~)), do, (((~List(loop, for, x, from, 0, to, (((~List(1, -, pong-width))~)), do, (((~List(gamegrid-set-cell, x, y, pong-border))~))))~))))~)), (((~List(loop, for, y, from, 1, to, (((~List(-, pong-height, 2))~)), do, (((~List(loop, for, x, from, 1, to, (((~List(-, pong-width, 2))~)), do, (((~List(gamegrid-set-cell, x, y, pong-blank))~))))~))))~))))~)), (((~List(loop, for, y, from, pong-bat-player1, to, (((~List(1, -, (((~List(+, pong-bat-player1, pong-bat-width))~))))~)), do, (((~List(gamegrid-set-cell, 2, y, pong-bat))~))))~)), (((~List(loop, for, y, from, pong-bat-player2, to, (((~List(1, -, (((~List(+, pong-bat-player2, pong-bat-width))~))))~)), do, (((~List(gamegrid-set-cell, (((~List(-, pong-width, 3))~)), y, pong-bat))~))))~))))~)), (((~List(defun, pong-move-left, (((~List())~)), "Move bat 2 up. This is called left for historical reasons, since in some pong implementations you move with left/right paddle.", (((~List(interactive))~)), (((~List(if, (((~List(>, pong-bat-player1, 1))~)), (((~List(and, (((~List(setq, pong-bat-player1, (((~List(1, -, pong-bat-player1))~))))~)), (((~List(pong-update-bat, 2, pong-bat-player1))~))))~))))~))))~)), (((~List(defun, pong-move-right, (((~List())~)), "Move bat 2 up.", (((~List(interactive))~)), (((~List(if, (((~List(<, (((~List(+, pong-bat-player1, pong-bat-width))~)), (((~List(1, -, pong-height))~))))~)), (((~List(and, (((~List(setq, pong-bat-player1, (((~List(1, +, pong-bat-player1))~))))~)), (((~List(pong-update-bat, 2, pong-bat-player1))~))))~))))~))))~)), (((~List(defun, pong-move-up, (((~List())~)), "Move bat 2 up.", (((~List(interactive))~)), (((~List(if, (((~List(>, pong-bat-player2, 1))~)), (((~List(and, (((~List(setq, pong-bat-player2, (((~List(1, -, pong-bat-player2))~))))~)), (((~List(pong-update-bat, (((~List(-, pong-width, 3))~)), pong-bat-player2))~))))~))))~))))~)), (((~List(defun, pong-move-down, (((~List())~)), "Move bat 2 down.", (((~List(interactive))~)), (((~List(if, (((~List(<, (((~List(+, pong-bat-player2, pong-bat-width))~)), (((~List(1, -, pong-height))~))))~)), (((~List(and, (((~List(setq, pong-bat-player2, (((~List(1, +, pong-bat-player2))~))))~)), (((~List(pong-update-bat, (((~List(-, pong-width, 3))~)), pong-bat-player2))~))))~))))~))))~)), (((~List(defun, pong-update-bat, (((~List(x, y))~)), "Move a bat (suppress a cell and draw another one on the other side).", (((~List(cond, (((~List((((~List(string-equal, (((~List(buffer-name, (((~List(current-buffer))~))))~)), pong-buffer-name))~)), (((~List(gamegrid-set-cell, x, y, pong-bat))~)), (((~List(gamegrid-set-cell, x, (((~List(1, -, (((~List(+, y, pong-bat-width))~))))~)), pong-bat))~)), (((~List(if, (((~List(>, y, 1))~)), (((~List(gamegrid-set-cell, x, (((~List(1, -, y))~)), pong-blank))~))))~)), (((~List(if, (((~List(<, (((~List(+, y, pong-bat-width))~)), (((~List(1, -, pong-height))~))))~)), (((~List(gamegrid-set-cell, x, (((~List(+, y, pong-bat-width))~)), pong-blank))~))))~))))~))))~))))~)), (((~List(defun, pong-init, (((~List())~)), "Initialize a game.", (((~List(define-key, pong-mode-map, pong-pause-key, ('~pong-pause)))~)), (((~List(add-hook, ('~kill-buffer-hook), ('~pong-quit), nil, t))~)), (((~List(setq, pong-bat-player1, (((~List(1, +, (((~List(/, (((~List(-, pong-height, pong-bat-width))~)), 2))~))))~))))~)), (((~List(setq, pong-bat-player2, pong-bat-player1))~)), (((~List(setq, pong-xx, -, 1))~)), (((~List(setq, pong-yy, 0))~)), (((~List(setq, pong-x, (((~List(/, pong-width, 2))~))))~)), (((~List(setq, pong-y, (((~List(/, pong-height, 2))~))))~)), (((~List(pong-init-buffer))~)), (((~List(gamegrid-kill-timer))~)), (((~List(gamegrid-start-timer, pong-timer-delay, ('~pong-update-game)))~)), (((~List(pong-update-score))~))))~)), (((~List(defun, pong-update-game, (((~List(pong-buffer))~)), "Main function for pong. It is called every pong-cycle-delay seconds and updates ball and bats positions.  It is responsible of collision detection and checks if a player scores.", (((~List(if, (((~List(not, (((~List(eq, (((~List(current-buffer))~)), pong-buffer))~))))~)), (((~List(pong-pause))~)), (((~List(let, (((~List((((~List(old-x, pong-x))~)), (((~List(old-y, pong-y))~))))~)), (((~List(setq, pong-x, (((~List(+, pong-x, pong-xx))~))))~)), (((~List(setq, pong-y, (((~List(+, pong-y, pong-yy))~))))~)), (((~List(if, (((~List(and, (((~List(>, old-y, 0))~)), (((~List(<, old-y, (((~List(-, pong-height, 1))~))))~))))~)), (((~List(gamegrid-set-cell, old-x, old-y, pong-blank))~))))~)), (((~List(if, (((~List(and, (((~List(>, pong-y, 0))~)), (((~List(<, pong-y, (((~List(-, pong-height, 1))~))))~))))~)), (((~List(gamegrid-set-cell, pong-x, pong-y, pong-ball))~))))~)), (((~List(cond, (((~List((((~List(or, (((~List(=, pong-x, 3))~)), (((~List(=, pong-x, 2))~))))~)), (((~List(if, (((~List(and, (((~List(>, =, pong-y, pong-bat-player1))~)), (((~List(<, pong-y, (((~List(+, pong-bat-player1, pong-bat-width))~))))~))))~)), (((~List(and, (((~List(setq, pong-yy, (((~List(+, pong-yy, (((~List(cond, (((~List((((~List(=, pong-y, pong-bat-player1))~)), -, 1))~)), (((~List((((~List(=, pong-y, (((~List(1, +, pong-bat-player1))~))))~)), 0))~)), (((~List(t, 1))~))))~))))~))))~)), (((~List(setq, pong-xx, (((~List(-, pong-xx))~))))~))))~))))~))))~)), (((~List((((~List(or, (((~List(=, pong-x, (((~List(-, pong-width, 4))~))))~)), (((~List(=, pong-x, (((~List(-, pong-width, 3))~))))~))))~)), (((~List(if, (((~List(and, (((~List(>, =, pong-y, pong-bat-player2))~)), (((~List(<, pong-y, (((~List(+, pong-bat-player2, pong-bat-width))~))))~))))~)), (((~List(and, (((~List(setq, pong-yy, (((~List(+, pong-yy, (((~List(cond, (((~List((((~List(=, pong-y, pong-bat-player2))~)), -, 1))~)), (((~List((((~List(=, pong-y, (((~List(1, +, pong-bat-player2))~))))~)), 0))~)), (((~List(t, 1))~))))~))))~))))~)), (((~List(setq, pong-xx, (((~List(-, pong-xx))~))))~))))~))))~))))~)), (((~List((((~List(<, =, pong-y, 1))~)), (((~List(setq, pong-yy, (((~List(-, pong-yy))~))))~))))~)), (((~List((((~List(>, =, pong-y, (((~List(-, pong-height, 2))~))))~)), (((~List(setq, pong-yy, (((~List(-, pong-yy))~))))~))))~)), (((~List((((~List(<, pong-x, 1))~)), (((~List(setq, pong-score-player2, (((~List(1, +, pong-score-player2))~))))~)), (((~List(pong-init))~))))~)), (((~List((((~List(>, =, pong-x, (((~List(-, pong-width, 1))~))))~)), (((~List(setq, pong-score-player1, (((~List(1, +, pong-score-player1))~))))~)), (((~List(pong-init))~))))~))))~))))~))))~))))~)), (((~List(defun, pong-update-score, (((~List())~)), "Update score and print it on bottom of the game grid.", (((~List(let*, (((~List((((~List(string, (((~List(format, "Score:  %d / %d", pong-score-player1, pong-score-player2))~))))~)), (((~List(len, (((~List(length, string))~))))~))))~)), (((~List(loop, for, x, from, 0, to, (((~List(1, -, len))~)), do, (((~List(if, (((~List(string-equal, (((~List(buffer-name, (((~List(current-buffer))~))))~)), pong-buffer-name))~)), (((~List(gamegrid-set-cell, x, pong-height, (((~List(aref, string, x))~))))~))))~))))~))))~))))~)), (((~List(defun, pong-pause, (((~List())~)), "Pause the game.", (((~List(interactive))~)), (((~List(gamegrid-kill-timer))~)), (((~List(cancel-function-timers, ('~pong-update-game)))~)), (((~List(define-key, pong-mode-map, pong-resume-key, ('~pong-resume)))~))))~)), (((~List(defun, pong-resume, (((~List())~)), "Resume a paused game.", (((~List(interactive))~)), (((~List(define-key, pong-mode-map, pong-pause-key, ('~pong-pause)))~)), (((~List(gamegrid-start-timer, pong-timer-delay, ('~pong-update-game)))~))))~)), (((~List(defun, pong-quit, (((~List())~)), "Quit the game and kill the pong buffer.", (((~List(interactive))~)), (((~List(gamegrid-kill-timer))~)), (((~List(run-with-timer, pong-timer-delay, nil, ('~kill-buffer), pong-buffer-name))~))))~)), (((~List(defun, pong, (((~List())~)), "Play pong and waste time. This is an implementation of the classical game pong. Move left and right bats and try to bounce the ball to your opponent. pong-mode keybindings:\\<pong-mode-map> \\{pong-mode-map}", (((~List(interactive))~)), (((~List(setq, pong-score-player1, 0))~)), (((~List(setq, pong-score-player2, 0))~)), (((~List(pong-init))~))))~)), (((~List(provide, ('~pong)))~)))
