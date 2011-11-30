@@ -3,6 +3,4 @@ CSC 447
 
 Program Language Concepts
 -------------------------
-These are the homework assignments in scala.  This class was taken by me (Raymond Elward) in Spring of 2011.
-
-the Drawing.scala was done as homework 4.
+This class was mainly focused on the midterm and final exam.  These short assignments are done in scala to demonstrate programming language concepts that are prevalent throughout many programming languages.
