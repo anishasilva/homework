@@ -1,0 +1,694 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		640075041365239A00FCA667 /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640075021365239A00FCA667 /* SubmitViewController.m */; };
+		640075051365239A00FCA667 /* SubmitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 640075031365239A00FCA667 /* SubmitViewController.xib */; };
+		64007509136523B200FCA667 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64007507136523B200FCA667 /* AboutViewController.m */; };
+		6400750A136523B200FCA667 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64007508136523B200FCA667 /* AboutViewController.xib */; };
+		64162D79136609A0006CFCFA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64162D77136609A0006CFCFA /* SearchViewController.m */; };
+		64162D7A136609A0006CFCFA /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64162D78136609A0006CFCFA /* SearchViewController.xib */; };
+		641788E013749A4700F07F34 /* lioli-leave-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788D813749A4700F07F34 /* lioli-leave-button-pressed.png */; };
+		641788E113749A4700F07F34 /* lioli-leave-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788D913749A4700F07F34 /* lioli-leave-button-pressed@2x.png */; };
+		641788E213749A4700F07F34 /* lioli-leave-button-unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DA13749A4700F07F34 /* lioli-leave-button-unpressed.png */; };
+		641788E313749A4700F07F34 /* lioli-leave-button-unpressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DB13749A4700F07F34 /* lioli-leave-button-unpressed@2x.png */; };
+		641788E413749A4700F07F34 /* lioli-love-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DC13749A4700F07F34 /* lioli-love-button-pressed.png */; };
+		641788E513749A4700F07F34 /* lioli-love-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DD13749A4700F07F34 /* lioli-love-button-pressed@2x.png */; };
+		641788E613749A4700F07F34 /* lioli-love-button-unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DE13749A4700F07F34 /* lioli-love-button-unpressed.png */; };
+		641788E713749A4700F07F34 /* lioli-love-button-unpressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788DF13749A4700F07F34 /* lioli-love-button-unpressed@2x.png */; };
+		641788E913749BBD00F07F34 /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788E813749BBD00F07F34 /* question-mark.png */; };
+		641788EC13749C3B00F07F34 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788EA13749C3B00F07F34 /* heart.png */; };
+		641788ED13749C3B00F07F34 /* submit.png in Resources */ = {isa = PBXBuildFile; fileRef = 641788EB13749C3B00F07F34 /* submit.png */; };
+		641A5226138373BB00A37667 /* SdbRequestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 641A5225138373BB00A37667 /* SdbRequestDelegate.m */; };
+		642FFD531367610C00ABD752 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642FFD521367610C00ABD752 /* MessageUI.framework */; };
+		64359FFE1374884B001A6024 /* lioli-icon3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64359FFD1374884B001A6024 /* lioli-icon3@2x.png */; };
+		6435A00013748854001A6024 /* lioli-icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 64359FFF13748854001A6024 /* lioli-icon3.png */; };
+		6435A00213748ABF001A6024 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6435A00113748ABF001A6024 /* Default@2x.png */; };
+		6435A00413748AC8001A6024 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6435A00313748AC8001A6024 /* Default.png */; };
+		644D96FF13660E0F00C26856 /* RandomEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644D96FD13660E0F00C26856 /* RandomEntryViewController.m */; };
+		644D970013660E0F00C26856 /* RandomEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644D96FE13660E0F00C26856 /* RandomEntryViewController.xib */; };
+		644D9708136612C100C26856 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 644D9703136612C100C26856 /* Constants.m */; };
+		644D9709136612C100C26856 /* StaticFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 644D9705136612C100C26856 /* StaticFunctions.m */; };
+		644D970A136612C100C26856 /* Story.m in Sources */ = {isa = PBXBuildFile; fileRef = 644D9707136612C100C26856 /* Story.m */; };
+		645C873E139177BF008C1293 /* AWSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645C873D139177BF008C1293 /* AWSiOSSDK.framework */; };
+		645C87411391950C008C1293 /* LIOLI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 645C873F1391950C008C1293 /* LIOLI.xcdatamodeld */; };
+		645C874413919549008C1293 /* LocalEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 645C874313919549008C1293 /* LocalEntry.m */; };
+		645C874713919586008C1293 /* LocalArrayStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 645C874613919586008C1293 /* LocalArrayStore.m */; };
+		645C87491391A9D3008C1293 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645C87481391A9D3008C1293 /* CoreData.framework */; };
+		645C874C1391CB5E008C1293 /* LIOLITests.octest in Resources */ = {isa = PBXBuildFile; fileRef = 6488B66913593D7300E5AE76 /* LIOLITests.octest */; };
+		647BB094137854F4004A3F7C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647BB093137854F4004A3F7C /* iAd.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		6488B64413593D7200E5AE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64313593D7200E5AE76 /* UIKit.framework */; };
+		6488B64613593D7200E5AE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64513593D7200E5AE76 /* Foundation.framework */; };
+		6488B64813593D7200E5AE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64713593D7200E5AE76 /* CoreGraphics.framework */; };
+		6488B64E13593D7200E5AE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6488B64C13593D7200E5AE76 /* InfoPlist.strings */; };
+		6488B65113593D7200E5AE76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488B65013593D7200E5AE76 /* main.m */; };
+		6488B65413593D7200E5AE76 /* LIOLIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488B65313593D7200E5AE76 /* LIOLIAppDelegate.m */; };
+		6488B65713593D7200E5AE76 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6488B65513593D7200E5AE76 /* MainWindow.xib */; };
+		6488B66A13593D7300E5AE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64313593D7200E5AE76 /* UIKit.framework */; };
+		6488B66B13593D7300E5AE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64513593D7200E5AE76 /* Foundation.framework */; };
+		6488B66C13593D7300E5AE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6488B64713593D7200E5AE76 /* CoreGraphics.framework */; };
+		6488B67413593D7300E5AE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6488B67213593D7300E5AE76 /* InfoPlist.strings */; };
+		6488B67713593D7300E5AE76 /* LIOLITests.h in Resources */ = {isa = PBXBuildFile; fileRef = 6488B67613593D7300E5AE76 /* LIOLITests.h */; };
+		6488B67913593D7300E5AE76 /* LIOLITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488B67813593D7300E5AE76 /* LIOLITests.m */; };
+		64CACE681374A8F3004C1F29 /* heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CACE651374A8F3004C1F29 /* heart@2x.png */; };
+		64CACE691374A8F3004C1F29 /* question-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CACE661374A8F3004C1F29 /* question-mark@2x.png */; };
+		64CACE6A1374A8F3004C1F29 /* submit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CACE671374A8F3004C1F29 /* submit@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6488B66D13593D7300E5AE76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6488B63613593D7200E5AE76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6488B63E13593D7200E5AE76;
+			remoteInfo = LIOLI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		640075011365239A00FCA667 /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
+		640075021365239A00FCA667 /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
+		640075031365239A00FCA667 /* SubmitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitViewController.xib; sourceTree = "<group>"; };
+		64007506136523B200FCA667 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		64007507136523B200FCA667 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		64007508136523B200FCA667 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		64162D76136609A0006CFCFA /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		64162D77136609A0006CFCFA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		64162D78136609A0006CFCFA /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		641788D813749A4700F07F34 /* lioli-leave-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-leave-button-pressed.png"; sourceTree = "<group>"; };
+		641788D913749A4700F07F34 /* lioli-leave-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-leave-button-pressed@2x.png"; sourceTree = "<group>"; };
+		641788DA13749A4700F07F34 /* lioli-leave-button-unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-leave-button-unpressed.png"; sourceTree = "<group>"; };
+		641788DB13749A4700F07F34 /* lioli-leave-button-unpressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-leave-button-unpressed@2x.png"; sourceTree = "<group>"; };
+		641788DC13749A4700F07F34 /* lioli-love-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-love-button-pressed.png"; sourceTree = "<group>"; };
+		641788DD13749A4700F07F34 /* lioli-love-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-love-button-pressed@2x.png"; sourceTree = "<group>"; };
+		641788DE13749A4700F07F34 /* lioli-love-button-unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-love-button-unpressed.png"; sourceTree = "<group>"; };
+		641788DF13749A4700F07F34 /* lioli-love-button-unpressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-love-button-unpressed@2x.png"; sourceTree = "<group>"; };
+		641788E813749BBD00F07F34 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "images/question-mark.png"; sourceTree = "<group>"; };
+		641788EA13749C3B00F07F34 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = heart.png; path = images/heart.png; sourceTree = "<group>"; };
+		641788EB13749C3B00F07F34 /* submit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = submit.png; path = images/submit.png; sourceTree = "<group>"; };
+		641A5224138373BB00A37667 /* SdbRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdbRequestDelegate.h; sourceTree = "<group>"; };
+		641A5225138373BB00A37667 /* SdbRequestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SdbRequestDelegate.m; sourceTree = "<group>"; };
+		642FFD521367610C00ABD752 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		64359FFD1374884B001A6024 /* lioli-icon3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-icon3@2x.png"; sourceTree = "<group>"; };
+		64359FFF13748854001A6024 /* lioli-icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lioli-icon3.png"; sourceTree = "<group>"; };
+		6435A00113748ABF001A6024 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		6435A00313748AC8001A6024 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		644D96FC13660E0F00C26856 /* RandomEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomEntryViewController.h; sourceTree = "<group>"; };
+		644D96FD13660E0F00C26856 /* RandomEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomEntryViewController.m; sourceTree = "<group>"; };
+		644D96FE13660E0F00C26856 /* RandomEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RandomEntryViewController.xib; sourceTree = "<group>"; };
+		644D9702136612C100C26856 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		644D9703136612C100C26856 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		644D9704136612C100C26856 /* StaticFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticFunctions.h; sourceTree = "<group>"; };
+		644D9705136612C100C26856 /* StaticFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticFunctions.m; sourceTree = "<group>"; };
+		644D9706136612C100C26856 /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
+		644D9707136612C100C26856 /* Story.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Story.m; sourceTree = "<group>"; };
+		645C873D139177BF008C1293 /* AWSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSiOSSDK.framework; path = "../aws-ios-sdk-0.2.3/AWSiOSSDK.framework"; sourceTree = "<group>"; };
+		645C87401391950C008C1293 /* LIOLI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LIOLI.xcdatamodel; sourceTree = "<group>"; };
+		645C874213919549008C1293 /* LocalEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalEntry.h; sourceTree = "<group>"; };
+		645C874313919549008C1293 /* LocalEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalEntry.m; sourceTree = "<group>"; };
+		645C874513919585008C1293 /* LocalArrayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalArrayStore.h; sourceTree = "<group>"; };
+		645C874613919586008C1293 /* LocalArrayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalArrayStore.m; sourceTree = "<group>"; };
+		645C87481391A9D3008C1293 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		647BB093137854F4004A3F7C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		6488B63F13593D7200E5AE76 /* LIOLI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIOLI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6488B64313593D7200E5AE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6488B64513593D7200E5AE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6488B64713593D7200E5AE76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6488B64B13593D7200E5AE76 /* LIOLI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LIOLI-Info.plist"; sourceTree = "<group>"; };
+		6488B64D13593D7200E5AE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6488B64F13593D7200E5AE76 /* LIOLI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LIOLI-Prefix.pch"; sourceTree = "<group>"; };
+		6488B65013593D7200E5AE76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6488B65213593D7200E5AE76 /* LIOLIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIOLIAppDelegate.h; sourceTree = "<group>"; };
+		6488B65313593D7200E5AE76 /* LIOLIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIOLIAppDelegate.m; sourceTree = "<group>"; };
+		6488B65613593D7200E5AE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		6488B66913593D7300E5AE76 /* LIOLITests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LIOLITests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6488B67113593D7300E5AE76 /* LIOLITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LIOLITests-Info.plist"; sourceTree = "<group>"; };
+		6488B67313593D7300E5AE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6488B67513593D7300E5AE76 /* LIOLITests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LIOLITests-Prefix.pch"; sourceTree = "<group>"; };
+		6488B67613593D7300E5AE76 /* LIOLITests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIOLITests.h; sourceTree = "<group>"; };
+		6488B67813593D7300E5AE76 /* LIOLITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIOLITests.m; sourceTree = "<group>"; };
+		64CACE651374A8F3004C1F29 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart@2x.png"; path = "images/heart@2x.png"; sourceTree = "<group>"; };
+		64CACE661374A8F3004C1F29 /* question-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark@2x.png"; path = "images/question-mark@2x.png"; sourceTree = "<group>"; };
+		64CACE671374A8F3004C1F29 /* submit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "submit@2x.png"; path = "images/submit@2x.png"; sourceTree = "<group>"; };
+		64F8170C1394A91100C0434B /* LIOLIAdmin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LIOLIAdmin.xcodeproj; path = /Users/rayelward/Desktop/Elward_FinalWeek/LIOLI/LIOLIAdmin/LIOLIAdmin.xcodeproj; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6488B63C13593D7200E5AE76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				645C87491391A9D3008C1293 /* CoreData.framework in Frameworks */,
+				645C873E139177BF008C1293 /* AWSiOSSDK.framework in Frameworks */,
+				647BB094137854F4004A3F7C /* iAd.framework in Frameworks */,
+				642FFD531367610C00ABD752 /* MessageUI.framework in Frameworks */,
+				6488B64413593D7200E5AE76 /* UIKit.framework in Frameworks */,
+				6488B64613593D7200E5AE76 /* Foundation.framework in Frameworks */,
+				6488B64813593D7200E5AE76 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6488B66513593D7300E5AE76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6488B66A13593D7300E5AE76 /* UIKit.framework in Frameworks */,
+				6488B66B13593D7300E5AE76 /* Foundation.framework in Frameworks */,
+				6488B66C13593D7300E5AE76 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6400750B136523CC00FCA667 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				644D96FC13660E0F00C26856 /* RandomEntryViewController.h */,
+				644D96FD13660E0F00C26856 /* RandomEntryViewController.m */,
+				64162D76136609A0006CFCFA /* SearchViewController.h */,
+				64162D77136609A0006CFCFA /* SearchViewController.m */,
+				640075011365239A00FCA667 /* SubmitViewController.h */,
+				640075021365239A00FCA667 /* SubmitViewController.m */,
+				64007506136523B200FCA667 /* AboutViewController.h */,
+				64007507136523B200FCA667 /* AboutViewController.m */,
+				644D96FE13660E0F00C26856 /* RandomEntryViewController.xib */,
+				64162D78136609A0006CFCFA /* SearchViewController.xib */,
+				640075031365239A00FCA667 /* SubmitViewController.xib */,
+				64007508136523B200FCA667 /* AboutViewController.xib */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		641788D713749A4700F07F34 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+				641788D813749A4700F07F34 /* lioli-leave-button-pressed.png */,
+				641788D913749A4700F07F34 /* lioli-leave-button-pressed@2x.png */,
+				641788DA13749A4700F07F34 /* lioli-leave-button-unpressed.png */,
+				641788DB13749A4700F07F34 /* lioli-leave-button-unpressed@2x.png */,
+				641788DC13749A4700F07F34 /* lioli-love-button-pressed.png */,
+				641788DD13749A4700F07F34 /* lioli-love-button-pressed@2x.png */,
+				641788DE13749A4700F07F34 /* lioli-love-button-unpressed.png */,
+				641788DF13749A4700F07F34 /* lioli-love-button-unpressed@2x.png */,
+			);
+			name = buttons;
+			path = images/buttons;
+			sourceTree = "<group>";
+		};
+		64359FF6137483A1001A6024 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				64CACE6B1374A9B1004C1F29 /* tab bar icons */,
+				641788D713749A4700F07F34 /* buttons */,
+				6435A00313748AC8001A6024 /* Default.png */,
+				6435A00113748ABF001A6024 /* Default@2x.png */,
+				64359FFF13748854001A6024 /* lioli-icon3.png */,
+				64359FFD1374884B001A6024 /* lioli-icon3@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		644D9701136612C100C26856 /* database */ = {
+			isa = PBXGroup;
+			children = (
+				644D9702136612C100C26856 /* Constants.h */,
+				644D9703136612C100C26856 /* Constants.m */,
+				641A5224138373BB00A37667 /* SdbRequestDelegate.h */,
+				641A5225138373BB00A37667 /* SdbRequestDelegate.m */,
+				644D9704136612C100C26856 /* StaticFunctions.h */,
+				644D9705136612C100C26856 /* StaticFunctions.m */,
+				644D9706136612C100C26856 /* Story.h */,
+				644D9707136612C100C26856 /* Story.m */,
+				645C873F1391950C008C1293 /* LIOLI.xcdatamodeld */,
+				645C874513919585008C1293 /* LocalArrayStore.h */,
+				645C874613919586008C1293 /* LocalArrayStore.m */,
+				645C874213919549008C1293 /* LocalEntry.h */,
+				645C874313919549008C1293 /* LocalEntry.m */,
+			);
+			name = database;
+			path = ../../LIOLIAdmin/LIOLIAdmin;
+			sourceTree = "<group>";
+		};
+		6488B63413593D7200E5AE76 = {
+			isa = PBXGroup;
+			children = (
+				64359FF6137483A1001A6024 /* Images */,
+				6488B64913593D7200E5AE76 /* LIOLI */,
+				6488B66F13593D7300E5AE76 /* LIOLITests */,
+				6488B64213593D7200E5AE76 /* Frameworks */,
+				6488B64013593D7200E5AE76 /* Products */,
+				64F8170C1394A91100C0434B /* LIOLIAdmin.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		6488B64013593D7200E5AE76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6488B63F13593D7200E5AE76 /* LIOLI.app */,
+				6488B66913593D7300E5AE76 /* LIOLITests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6488B64213593D7200E5AE76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				645C87481391A9D3008C1293 /* CoreData.framework */,
+				645C873D139177BF008C1293 /* AWSiOSSDK.framework */,
+				647BB093137854F4004A3F7C /* iAd.framework */,
+				642FFD521367610C00ABD752 /* MessageUI.framework */,
+				6488B64313593D7200E5AE76 /* UIKit.framework */,
+				6488B64513593D7200E5AE76 /* Foundation.framework */,
+				6488B64713593D7200E5AE76 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6488B64913593D7200E5AE76 /* LIOLI */ = {
+			isa = PBXGroup;
+			children = (
+				644D9701136612C100C26856 /* database */,
+				6488B65513593D7200E5AE76 /* MainWindow.xib */,
+				6488B65213593D7200E5AE76 /* LIOLIAppDelegate.h */,
+				6488B65313593D7200E5AE76 /* LIOLIAppDelegate.m */,
+				6400750B136523CC00FCA667 /* UI */,
+				6488B64A13593D7200E5AE76 /* Supporting Files */,
+			);
+			path = LIOLI;
+			sourceTree = "<group>";
+		};
+		6488B64A13593D7200E5AE76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6488B64B13593D7200E5AE76 /* LIOLI-Info.plist */,
+				6488B64C13593D7200E5AE76 /* InfoPlist.strings */,
+				6488B64F13593D7200E5AE76 /* LIOLI-Prefix.pch */,
+				6488B65013593D7200E5AE76 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6488B66F13593D7300E5AE76 /* LIOLITests */ = {
+			isa = PBXGroup;
+			children = (
+				6488B67613593D7300E5AE76 /* LIOLITests.h */,
+				6488B67813593D7300E5AE76 /* LIOLITests.m */,
+				6488B67013593D7300E5AE76 /* Supporting Files */,
+			);
+			path = LIOLITests;
+			sourceTree = "<group>";
+		};
+		6488B67013593D7300E5AE76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6488B67113593D7300E5AE76 /* LIOLITests-Info.plist */,
+				6488B67213593D7300E5AE76 /* InfoPlist.strings */,
+				6488B67513593D7300E5AE76 /* LIOLITests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		64CACE6B1374A9B1004C1F29 /* tab bar icons */ = {
+			isa = PBXGroup;
+			children = (
+				64CACE651374A8F3004C1F29 /* heart@2x.png */,
+				64CACE661374A8F3004C1F29 /* question-mark@2x.png */,
+				64CACE671374A8F3004C1F29 /* submit@2x.png */,
+				641788EA13749C3B00F07F34 /* heart.png */,
+				641788EB13749C3B00F07F34 /* submit.png */,
+				641788E813749BBD00F07F34 /* question-mark.png */,
+			);
+			name = "tab bar icons";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6488B63E13593D7200E5AE76 /* LIOLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6488B67C13593D7300E5AE76 /* Build configuration list for PBXNativeTarget "LIOLI" */;
+			buildPhases = (
+				6488B63B13593D7200E5AE76 /* Sources */,
+				6488B63C13593D7200E5AE76 /* Frameworks */,
+				6488B63D13593D7200E5AE76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LIOLI;
+			productName = LIOLI;
+			productReference = 6488B63F13593D7200E5AE76 /* LIOLI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6488B66813593D7300E5AE76 /* LIOLITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6488B67F13593D7300E5AE76 /* Build configuration list for PBXNativeTarget "LIOLITests" */;
+			buildPhases = (
+				6488B66413593D7300E5AE76 /* Sources */,
+				6488B66513593D7300E5AE76 /* Frameworks */,
+				6488B66613593D7300E5AE76 /* Resources */,
+				6488B66713593D7300E5AE76 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6488B66E13593D7300E5AE76 /* PBXTargetDependency */,
+			);
+			name = LIOLITests;
+			productName = LIOLITests;
+			productReference = 6488B66913593D7300E5AE76 /* LIOLITests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6488B63613593D7200E5AE76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Raymond Elward";
+			};
+			buildConfigurationList = 6488B63913593D7200E5AE76 /* Build configuration list for PBXProject "LIOLI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6488B63413593D7200E5AE76;
+			productRefGroup = 6488B64013593D7200E5AE76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6488B63E13593D7200E5AE76 /* LIOLI */,
+				6488B66813593D7300E5AE76 /* LIOLITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6488B63D13593D7200E5AE76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6488B64E13593D7200E5AE76 /* InfoPlist.strings in Resources */,
+				6488B65713593D7200E5AE76 /* MainWindow.xib in Resources */,
+				640075051365239A00FCA667 /* SubmitViewController.xib in Resources */,
+				6400750A136523B200FCA667 /* AboutViewController.xib in Resources */,
+				64162D7A136609A0006CFCFA /* SearchViewController.xib in Resources */,
+				644D970013660E0F00C26856 /* RandomEntryViewController.xib in Resources */,
+				64359FFE1374884B001A6024 /* lioli-icon3@2x.png in Resources */,
+				6435A00013748854001A6024 /* lioli-icon3.png in Resources */,
+				6435A00213748ABF001A6024 /* Default@2x.png in Resources */,
+				6435A00413748AC8001A6024 /* Default.png in Resources */,
+				641788E013749A4700F07F34 /* lioli-leave-button-pressed.png in Resources */,
+				641788E113749A4700F07F34 /* lioli-leave-button-pressed@2x.png in Resources */,
+				641788E213749A4700F07F34 /* lioli-leave-button-unpressed.png in Resources */,
+				641788E313749A4700F07F34 /* lioli-leave-button-unpressed@2x.png in Resources */,
+				641788E413749A4700F07F34 /* lioli-love-button-pressed.png in Resources */,
+				641788E513749A4700F07F34 /* lioli-love-button-pressed@2x.png in Resources */,
+				641788E613749A4700F07F34 /* lioli-love-button-unpressed.png in Resources */,
+				641788E713749A4700F07F34 /* lioli-love-button-unpressed@2x.png in Resources */,
+				641788E913749BBD00F07F34 /* question-mark.png in Resources */,
+				641788EC13749C3B00F07F34 /* heart.png in Resources */,
+				641788ED13749C3B00F07F34 /* submit.png in Resources */,
+				64CACE681374A8F3004C1F29 /* heart@2x.png in Resources */,
+				64CACE691374A8F3004C1F29 /* question-mark@2x.png in Resources */,
+				64CACE6A1374A8F3004C1F29 /* submit@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6488B66613593D7300E5AE76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6488B67413593D7300E5AE76 /* InfoPlist.strings in Resources */,
+				6488B67713593D7300E5AE76 /* LIOLITests.h in Resources */,
+				645C874C1391CB5E008C1293 /* LIOLITests.octest in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6488B66713593D7300E5AE76 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6488B63B13593D7200E5AE76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6488B65113593D7200E5AE76 /* main.m in Sources */,
+				6488B65413593D7200E5AE76 /* LIOLIAppDelegate.m in Sources */,
+				640075041365239A00FCA667 /* SubmitViewController.m in Sources */,
+				64007509136523B200FCA667 /* AboutViewController.m in Sources */,
+				64162D79136609A0006CFCFA /* SearchViewController.m in Sources */,
+				644D96FF13660E0F00C26856 /* RandomEntryViewController.m in Sources */,
+				644D9708136612C100C26856 /* Constants.m in Sources */,
+				644D9709136612C100C26856 /* StaticFunctions.m in Sources */,
+				644D970A136612C100C26856 /* Story.m in Sources */,
+				641A5226138373BB00A37667 /* SdbRequestDelegate.m in Sources */,
+				645C87411391950C008C1293 /* LIOLI.xcdatamodeld in Sources */,
+				645C874413919549008C1293 /* LocalEntry.m in Sources */,
+				645C874713919586008C1293 /* LocalArrayStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6488B66413593D7300E5AE76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6488B67913593D7300E5AE76 /* LIOLITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6488B66E13593D7300E5AE76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6488B63E13593D7200E5AE76 /* LIOLI */;
+			targetProxy = 6488B66D13593D7300E5AE76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6488B64C13593D7200E5AE76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6488B64D13593D7200E5AE76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6488B65513593D7200E5AE76 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6488B65613593D7200E5AE76 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		6488B67213593D7300E5AE76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6488B67313593D7300E5AE76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6488B67A13593D7300E5AE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6488B67B13593D7300E5AE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		6488B67D13593D7300E5AE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../LIOLIAdmin\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../aws-ios-sdk-0.2.3\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLI/LIOLI-Prefix.pch";
+				INFOPLIST_FILE = "LIOLI/LIOLI-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6488B67E13593D7300E5AE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Raymond Elward";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../LIOLIAdmin\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../aws-ios-sdk-0.2.3\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLI/LIOLI-Prefix.pch";
+				INFOPLIST_FILE = "LIOLI/LIOLI-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2D9DB825-B0A7-42CA-86AE-02D97096FF11";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		6488B68013593D7300E5AE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LIOLI.app/LIOLI";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLITests/LIOLITests-Prefix.pch";
+				INFOPLIST_FILE = "LIOLITests/LIOLITests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6488B68113593D7300E5AE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LIOLI.app/LIOLI";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLITests/LIOLITests-Prefix.pch";
+				INFOPLIST_FILE = "LIOLITests/LIOLITests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6488B63913593D7200E5AE76 /* Build configuration list for PBXProject "LIOLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6488B67A13593D7300E5AE76 /* Debug */,
+				6488B67B13593D7300E5AE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6488B67C13593D7300E5AE76 /* Build configuration list for PBXNativeTarget "LIOLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6488B67D13593D7300E5AE76 /* Debug */,
+				6488B67E13593D7300E5AE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6488B67F13593D7300E5AE76 /* Build configuration list for PBXNativeTarget "LIOLITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6488B68013593D7300E5AE76 /* Debug */,
+				6488B68113593D7300E5AE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		645C873F1391950C008C1293 /* LIOLI.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				645C87401391950C008C1293 /* LIOLI.xcdatamodel */,
+			);
+			currentVersion = 645C87401391950C008C1293 /* LIOLI.xcdatamodel */;
+			path = LIOLI.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6488B63613593D7200E5AE76 /* Project object */;
+}
