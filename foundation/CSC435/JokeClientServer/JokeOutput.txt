@@ -1,0 +1,216 @@
+/*********************************
+**The following is JokeOutput.txt
+**annotations indicated by //
+**Raymond Elward
+**CSC 435
+**********************************/
+
+
+//default in joke mode and tested 10 times
+
+Joke B:Why was the Energizer Bunny arrested? He was charged with battery.
+Joke D:Two pretzels walk into a bar.  One was a salted.
+Joke A:Why did Ray cross the road?  To get to the other side.
+Joke C:What do you call a fish with no eyes?  A fsh!
+Joke E:Why don't aliens eat clowns? Because they taste funny.
+Joke D:Two pretzels walk into a bar.  One was a salted.
+Joke C:What do you call a fish with no eyes?  A fsh!
+Joke B:Why was the Energizer Bunny arrested? He was charged with battery.
+Joke E:Why don't aliens eat clowns? Because they taste funny.
+Joke A:Why did Ray cross the road?  To get to the other side.
+
+//put into proverb mode and tested 10 times
+
+Proverb 1:Ignorance is bliss.
+Proverb 5:A person is known by the company (s)he keeps.
+Proverb 4:A good beginning makes a good ending.
+Proverb 3:Don't kill a mosquito with a bazooka.
+Proverb 2:It is important to remember that if Ray is early to bed and early to rise, then Ray will be healthy, wealthy and wise. 
+Proverb 3:Don't kill a mosquito with a bazooka.
+Proverb 2:It is important to remember that if Ray is early to bed and early to rise, then Ray will be healthy, wealthy and wise. 
+Proverb 4:A good beginning makes a good ending.
+Proverb 5:A person is known by the company (s)he keeps.
+Proverb 1:Ignorance is bliss.
+
+//tested 10 times switching the mode every time.
+
+Joke D:Two pretzels walk into a bar.  One was a salted.
+Proverb 4:A good beginning makes a good ending.
+Joke A:Why did Ray cross the road?  To get to the other side.
+Proverb 1:Ignorance is bliss.
+Joke E:Why don't aliens eat clowns? Because they taste funny.
+Proverb 5:A person is known by the company (s)he keeps.
+Joke B:Why was the Energizer Bunny arrested? He was charged with battery.
+Proverb 2:It is important to remember that if Ray is early to bed and early to rise, then Ray will be healthy, wealthy and wise. 
+Joke C:What do you call a fish with no eyes?  A fsh!
+Proverb 3:Don't kill a mosquito with a bazoka.
+
+//admin puts the server in maintenance mode.
+
+The server is temporarily unavailable -- check-back shortly.
+The server is temporarily unavailable -- check-back shortly.
+The server is temporarily unavailable -- check-back shortly.
+The server is temporarily unavailable -- check-back shortly.
+
+//taken out of maintenance mode and tested 5 more times in joke mode.
+
+Joke E:Why don't aliens eat clowns? Because they taste funny.
+Joke A:Why did Ray cross the road?  To get to the other side.
+Joke D:Two pretzels walk into a bar.  One was a salted.
+Joke C:What do you call a fish with no eyes?  A fsh!
+Joke B:Why was the Energizer Bunny arrested? He was charged with battery.
+
+
+//What follows is the same interaction above but it is the output that the server gave
+//when running the server with "java JokeServer > ServerOutput.txt"
+
+this is the admin inner run function! port 6010
+Ray's joke server is up and running at port: 6001
+
+//Server has started up
+
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+
+//Admin switches the mode to proverb.
+
+Admin is on the server.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+
+//here the admin switches it after every call.
+
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+
+//here the admin puts it in maintenance mode while the client tries 4 times to get more jokes/proverbs.
+
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+
+//Here the admin switches it out into Joke mode!
+
+Admin is on the server.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+
+
+
+/*********************************
+**The following is ServerOutput.txt
+**********************************/
+//server starts up.
+
+this is the admin inner run function! port 6010
+Ray's joke server is up and running at port: 6001
+
+//default in joke mode.
+
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+
+//admin switches to proverb mode
+
+Admin is on the server.
+
+//proverb mode
+
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+Looking up Proverb.
+
+//interweave of joke and proverb as admin changes mode after every 
+//client request.
+
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+Looking up Joke.
+Admin is on the server.
+Looking up Proverb.
+Admin is on the server.
+
+//Admin puts the server in maintenance mode.
+
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+Admin client has put the server in maintenance mode.
+
+//Admin changes to joke mode.
+
+Admin is on the server.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.
+Looking up Joke.

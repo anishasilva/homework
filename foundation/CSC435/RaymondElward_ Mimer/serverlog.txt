@@ -1,0 +1,6 @@
+/*
+ * This is the output from the server on a simple run testing its
+ * mimer's BChandler!
+ */
+
+C:\Users\Raymond Elward\Desktop\Mimer\Mimer\src>java MyWebServerIn BC Looper thread, waiting for 2570 connectionsRay's Web Server up and running at port 2540Client request:GET / HTTP/1.1ServerSending:Directory: /Client request:GET /favicon.ico HTTP/1.1java.io.FileNotFoundException        at Worker.run(MyWebServer.java:109)Client request:GET /mimer-call.htm HTTP/1.1Server sending:contentType: text/htmlfilename: mimer-call.htmClient request:GET /favicon.ico HTTP/1.1java.io.FileNotFoundException        at Worker.run(MyWebServer.java:109)Client request:GET /mimer-data.xyz HTTP/1.1Server sending:contentType: application/xyzfilename: mimer-data.xyzCalled BC worker.The XML marshaled data:<myDataArray>  <num__lines>5</num__lines>  <lines>    <string>One partridge in a pear tree</string>    <string>Two turtle doves</string>    <string>Three French hens</string>    <string>Four calling birds</string>    <string>Five golden rings</string>    <null/>    <null/>    <null/>    <null/>    <null/>  </lines></myDataArray>Here is the restored data:One partridge in a pear treeTwo turtle dovesThree French hensFour calling birdsFive golden rings

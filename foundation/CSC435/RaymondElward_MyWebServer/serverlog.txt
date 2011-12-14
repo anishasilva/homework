@@ -1,0 +1,27 @@
+/*
+ * This is the output from the server on a simply run testing its
+ * 3 main features.
+ */
+
+
+Ray's Web Server up and running at port 2540
+
+Client request:
+GET / HTTP/1.1
+
+ServerSending:
+
+Directory: /
+
+Client request:
+GET /addnums.html HTTP/1.1
+
+Server sending:
+contentType: text/html
+filename: addnums.html
+
+Client request:
+GET /cgi/addnums.fake-cgi?person=Raymond&num1=3&num2=10 HTTP/1.1
+
+Server sending:
+Hello Raymond, The result of adding 3 and 10 is: 13

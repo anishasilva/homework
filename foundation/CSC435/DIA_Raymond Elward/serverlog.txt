@@ -1,0 +1,176 @@
+Raymond Elward
+DIA
+Serverlog.txt
+
+This is from the NameServer log:
+
+run:
+NS: in NameServer Thread
+NS: in service NameServer worker!
+NS: in service NameServer worker!
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in service NameServer worker!
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in service NameServer worker!
+NS: in service NameServer worker!
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in service NameServer worker!
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in service NameServer worker!
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in service NameServer worker!
+NS: in service NameServer worker!
+NS: receiving: 
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+NS: in communication NameServer worker!
+NS: Sending list of agents and hosts to browser.
+
+
+This is from the hostserver log:
+
+run:
+DIA Master receiver started at 45051.
+
+Host registered with NameServer: IP: localhost Port: 45051
+Starting an AgentListener at port 56668
+SENT TO AGENTLISTENER: GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+HS: registered NEWAGENT:&Grant&567893 with NameServer.
+Got a connection to agent at port 56668
+In AgentWorker Thread for Agent.
+HS: line sent to agent Grant is GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56668
+In AgentWorker Thread for Agent.
+HS: line sent to agent Grant is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56668
+In AgentWorker Thread for Agent.
+HS: line sent to agent Grant is GET /favicon.ico HTTP/1.1
+Starting an AgentListener at port 56691
+SENT TO AGENTLISTENER: GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+HS: registered NEWAGENT:&Raymond&ABCDEF with NameServer.
+Got a connection to agent at port 56691
+In AgentWorker Thread for Agent.
+HS: line sent to agent Raymond is GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56691
+In AgentWorker Thread for Agent.
+HS: line sent to agent Raymond is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56691
+In AgentWorker Thread for Agent.
+HS: line sent to agent Raymond is GET /favicon.ico HTTP/1.1
+
+This is from the other hostserver log:
+
+run:
+DIA Master receiver started at 45050.
+
+Host registered with NameServer: IP: localhost Port: 45050
+Starting an AgentListener at port 56664
+SENT TO AGENTLISTENER: GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+HS: registered NEWAGENT:&Joni&00FF00 with NameServer.
+Got a connection to agent at port 56664
+In AgentWorker Thread for Agent.
+HS: line sent to agent Joni is GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56664
+In AgentWorker Thread for Agent.
+HS: line sent to agent Joni is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56664
+In AgentWorker Thread for Agent.
+HS: line sent to agent Joni is GET /favicon.ico HTTP/1.1
+Starting an AgentListener at port 56674
+SENT TO AGENTLISTENER: GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+HS: registered NEWAGENT:&Mia&567893 with NameServer.
+Starting an AgentListener at port 56684
+SENT TO AGENTLISTENER: GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+HS: registered NEWAGENT:&Chris&00FF00 with NameServer.
+Got a connection to agent at port 56664
+In AgentWorker Thread for Agent.
+HS: line sent to agent Joni is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56664
+In AgentWorker Thread for Agent.
+HS: line sent to agent Joni is GET /?data=54 HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /?data=456 HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56674
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /?data=jkhj HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Agent:Mia is migrating.
+Starting an AgentListener at port 56687
+SENT TO AGENTLISTENER: MIGRATING:Agent&001000000002&567893&Mia&3
+HS: newPort for agent Mia is:56687
+Mia is Migrating to localhost 56687
+killing parent listening loop.
+HS: agent Mia is registering his/her new port with name server.
+Either connection failed, or just killed Listener Loop for agent at port 56674
+HS: Agent Mia registered new port.
+Got a connection to agent at port 56687
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET / HTTP/1.1
+HS: Sending a spawning agent screen to browser.
+Got a connection to agent at port 56687
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+Got a connection to agent at port 56687
+In AgentWorker Thread for Agent.
+HS: line sent to agent Mia is GET /favicon.ico HTTP/1.1
+
+
+This is from the DIAdb log:
+
+run:
+DIAdb up and running at port:6010
+DIAdb: request sent:GET&00FF00
+DIAdb: response sent: DATA&
+DIAdb: request sent:GET&567893
+DIAdb: response sent: DATA&
+DIAdb: request sent:GET&ABCDEF
+DIAdb: response sent: DATA&
+DIAdb: request sent:STORE&00FF00&54
+DIAdb: response sent: ACCEPTED
+DIAdb: request sent:GET&00FF00
+DIAdb: response sent: DATA&54&
+DIAdb: request sent:GET&567893
+DIAdb: response sent: DATA&
+DIAdb: request sent:STORE&567893&456
+DIAdb: response sent: ACCEPTED
+DIAdb: request sent:GET&567893
+DIAdb: response sent: DATA&456&
+DIAdb: request sent:STORE&567893&jkhj
+DIAdb: response sent: ACCEPTED
+DIAdb: request sent:GET&567893
+DIAdb: response sent: DATA&456&jkhj&
+DIAdb: request sent:GET&567893
+DIAdb: response sent: DATA&456&jkhj&
+

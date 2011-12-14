@@ -1,0 +1,65 @@
+//This part is from my listener
+
+Ray's port listener up and running at port 2540
+
+GET /cat.html HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 115
+Connection: keep-alive
+
+GET /dog.txt HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 115
+Connection: keep-alive
+
+GET /lion.wml HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 115
+Connection: keep-alive
+
+
+//This part is from telnet against the students.depaul.edu
+
+
+
+Script started on Sun Jan 23 01:08:43 2011
+bash-3.2$ telnet students.depaul.edu 80
+Trying 140.192.1.99...
+Connected to students.depaul.edu.
+Escape character is '^]'.
+GET /~relward/dog.txt HTTP/1.1
+Host: condor.depaul.edu:80
+
+HTTP/1.1 200 OK
+Date: Sun, 23 Jan 2011 07:09:06 GMT
+Server: Apache/2.2.3 (Red Hat)
+Last-Modified: Sun, 23 Jan 2011 06:06:48 GMT
+ETag: "1478158-23-49a7d49e24e00"
+Accept-Ranges: bytes
+Content-Length: 35
+Connection: close
+Content-Type: text/plain; charset=ISO-8859-1
+
+, 
+
+hi, this is my dog file.  woof
+Connection closed by foreign host.
+bash-3.2$ exit
+
+Script done on Sun Jan 23 01:09:40 2011
+
