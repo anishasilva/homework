@@ -1,0 +1,129 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>CSC 453 Assignment 2</title>
+</head>
+
+<body leftmargin="50" rightmargin="50">
+
+<h2 align="center" style="margin-left: 100px; margin-right: 100px">&nbsp;</h2>
+<h2 align="center" style="margin-left: 100px; margin-right: 100px">CSC 453 
+Database Technologies</h2>
+<h3 align="center" style="margin-left: 100px; margin-right: 100px">Assignment 2 
+(4/4)</h3>
+<p style="margin-left: 100px; margin-right: 100px"><b>Due 5:45pm, Monday 4/11.&nbsp; 
+(Note: As we will be discussing nested queries again next week, this assignment 
+can be turned in up to three days late -- that is, until 5:45pm on Thursday 4/14 
+-- with no penalty.&nbsp; However, no assignments will be accepted beyond 5:45pm on 
+Thursday 4/14.)</b></p>
+<p style="margin-left: 100px; margin-right: 100px"><b>Reading:</b>  Sections 
+4.3, 5.1, and 5.3 of Elmasri &amp; Navathe (and also pp.70-75 for the example 
+database).&nbsp; Chapters 2, 3, 6, 8, and 10 of Price's SQL book may also be 
+helpful, though they contain much more material than we have covered.</p>
+<p style="margin-left: 100px; margin-right: 100px">Your task in this assignment 
+is to write a set of SQL queries on a set of tables I supply.</p>
+<p style="margin-left: 100px; margin-right: 100px"><b>1.&nbsp; </b>First, 
+download the script file company.sql from the course web site and run it in 
+SQLDeveloper to construct the example database illustrated in Chapter 3 of Elmasri &amp; Navathe (pp.70-75).&nbsp; Inspect the schemas and tables in SQLDeveloper to make sure you understand the structure of the database.&nbsp; 
+(Note that some changes have been made to the database state -- it differs 
+somewhat from the state that is illustrated in Figure 3.6 on p.72.)</p>
+<p style="margin-left: 100px; margin-right: 100px"><b>2.&nbsp; </b>In a separate 
+.sql file (do not modify company.sql), write a script that contains the 
+following fourteen SQL queries (in this order):</p>
+<blockquote>
+	<p style="margin-left: 100px; margin-right: 100px">1. Retrieve the names of 
+	all employees in department 5 who work more than 15 hours per week on the ProductX 
+project.</p>
+	<p style="margin-left: 100px; margin-right: 100px">2. List the names of all 
+	employees who have a son with the same first name as themselves.</p>
+	<p style="margin-left: 100px; margin-right: 100px">3. Find the names of all 
+employees are are directly supervised by 'Franklin T Wong'.</p>
+	<p style="margin-left: 100px; margin-right: 100px">4. For each project, list the 
+project name, project number, and the total hours per week (by all employees) spent on that 
+project.</p>
+	<p style="margin-left: 100px; margin-right: 100px">5. Retrieve the names of all 
+employees who work on every project. (In other words, look at the list of 
+	projects given in the PROJECT table, and retrieve the names of all employees 
+	who work on every one of them.)&nbsp; (Note that it is not sufficient for an 
+	employee the work on just some of the projects -- he/she must work on <u>all</u> 
+	of the projects to be included in the result.)</p>
+	<p style="margin-left: 100px; margin-right: 100px">6. Retrieve the names of all 
+employees who do not work on any project.&nbsp; (In other words, look at the 
+	list of projects given in the PROJECT table, and retrieve the names of all 
+	employees who work on none of them.)</p>
+	<p style="margin-left: 100px; margin-right: 100px">7. For each department, 
+retrieve the department name and the average salary of all employees working in 
+that department.</p>
+	<p style="margin-left: 100px; margin-right: 100px">8. Retrieve the average 
+salary of all female employees.</p>
+	<p style="margin-left: 100px; margin-right: 100px">9. Find the names and 
+addresses of all employees who work on at least one project located in Houston 
+	(that is, who work on at least one project having a Plocation of Houston) 
+	but whose department has no location in Houston (that is, whose department 
+	does not have a Dlocation of Houston).&nbsp; (Note that the second condition 
+	is <u>not</u> equivalent to the department having a location that is not in 
+	Houston -- the department must not have a location Houston to be included in 
+	the result.)</p>
+	<p style="margin-left: 100px; margin-right: 100px">10. List the last names of 
+all department managers who have no dependents.</p>
+	<p style="margin-left: 100px; margin-right: 100px">11. For each department whose 
+average salary is greater than $40,000, retrieve the department name and the number 
+of employees in that department.</p>
+	<p style="margin-left: 100px; margin-right: 100px">12. Retrieve the names of all 
+employees who work in the department that has the employee with the lowest 
+salary among all employees.</p>
+	<p style="margin-left: 100px; margin-right: 100px">13. Retrieve the names of all 
+employees whose supervisor's supervisor has '888665555' for his/her Ssn.</p>
+	<p style="margin-left: 100px; margin-right: 100px">14. Retrieve the names of 
+	employees whose salary is within $20,000 of the salary of the employee who 
+	is paid the most in the company (e.g., if the highest salary in the company 
+	is $80,000, retrieve the names of all employees that make at least $60,000).</p>
+</blockquote>
+<!--
+<p style="margin-left: 100px; margin-right: 100px">(Some of these are similar to 
+the queries in Exercise 6.16 on pp. 187-188, Exercise 5.5 on p. 141, and 
+Exercise 5.7 on pp. 141-142.)</p>
+-->
+<p style="margin-left: 100px; margin-right: 100px">Add a comment before 
+each query in your script file to label the queries 1 through 14&nbsp; (e.g., 
+the comment '-- 1.' on a line before the first query, the comment '-- 2.' on a line before the second query, 
+et cetera).</p>
+<p style="margin-left: 100px; margin-right: 100px">Run the 
+script file containing your queries to verify that your results are correct.&nbsp; 
+</p>
+<p style="margin-left: 100px; margin-right: 100px"><b>3.&nbsp;
+</b>Include a comment at the top of your script file giving your name, the 
+course number and section, the assignment number, and the date of submission, 
+e.g.:</p>
+<p class="MsoNormal" style="margin-left: 100px; margin-right: 100px">/*<br>
+<i>YourName</i><br>
+CSC 453 Section <i>YourSectionNumber</i> <br>
+Assignment 2<br>
+April <i>SubmissionDate</i>, 2011<br>
+*/</p>
+<p class="MsoNormal" style="margin-left: 100px; margin-right: 100px"><b>4.&nbsp; </b>
+Submit the .sql file containing your queries under &quot;Assignment 2&quot;.&nbsp; You do 
+not have to submit the output generated by the script.&nbsp; Do not submit company.sql 
+or include code from it in your submission -- your submitted file should contain 
+only your queries and the requested comments.</p>
+
+<p style="margin-left: 100px; margin-right: 100px"><b>Remarks:</b></p>
+
+<p style="margin-left: 100px; margin-right: 100px">1.&nbsp; As is always the 
+case, it is your responsibility to make sure that any files you upload are readable and in 
+the correct locations.&nbsp; I recommend that you download them for yourself 
+after submitting them to be sure that they have been uploaded correctly.</p>
+<p style="margin-left: 100px; margin-right: 100px">2.&nbsp; Remember that this 
+assignment, like all others, must be completed individually -- no collaboration 
+among students is allowed.</p>
+
+<p style="margin-left: 100px; margin-right: 100px"><font size="2"><a href="mailto:eschwabe@cs.depaul.edu">Eric J. Schwabe</a> -
+04/04/11</font></p>
+
+</body>
+
+</html>

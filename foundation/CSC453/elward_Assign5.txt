@@ -1,0 +1,95 @@
+--Raymond Elward
+--Assignment 5
+--5/10/2011
+
+-------------------------------------
+--QUESTION 1:
+-------------------------------------
+
+declare
+
+  v_midPercent WEIGHTS.MIDPERCENT%TYPE;
+  v_finPercent WEIGHTS.FINPERCENT%TYPE;
+  v_hwPercent WEIGHTS.HWPERCENT%TYPE;
+  
+  v_student STUDENT%ROWTYPE;
+  
+  v_studentAvg NUMBER(5, 2);
+  v_studentGrade VARCHAR2(1);
+  
+  CURSOR student_cur
+  IS
+    SELECT ID, name, midterm, final, homework
+    FROM STUDENT;
+
+begin
+
+  select MIDPERCENT into v_midPercent from weights;
+  select FINPERCENT into v_finPercent from weights;
+  select HWPERCENT into v_hwPercent from weights;
+
+  DBMS_OUTPUT.PUT_LINE('Weights are ' ||v_midpercent ||', '||v_finpercent||', ' || v_hwpercent);
+  
+  OPEN student_cur;
+  
+  LOOP
+  
+    FETCH student_cur INTO v_student;
+    EXIT WHEN student_cur%NOTFOUND;
+    
+    v_studentAvg := ((v_midPercent * v_student.midterm)/ 100) + ((v_finPercent * v_student.final)/ 100) + ((v_hwPercent * v_student.homework)/ 100);
+  
+    if v_studentavg BETWEEN 90 AND 100
+      then v_studentGrade := 'A';
+    elsif v_studentavg BETWEEN 80 AND 89.99
+      then v_studentGrade := 'B';
+    elsif v_studentavg BETWEEN 65 AND 79.99
+      then v_studentGrade := 'C';
+    elsif v_studentavg BETWEEN 0 AND 64.99
+      then v_studentGrade := 'F';
+    END IF;
+    DBMS_OUTPUT.PUT_LINE(v_student.id || ' ' || v_student.name ||' '|| v_studentAvg || ' ' || v_studentGrade);
+  
+  
+  END LOOP;
+  CLOSE student_cur;
+
+
+end;
+/
+
+
+-------------------------------------
+--QUESTION 2:
+-------------------------------------
+
+create or replace
+TRIGGER UpdateProjects
+	AFTER UPDATE OR DELETE ON ASSIGNMENT
+  
+DECLARE
+
+
+	CURSOR v_assignProj_cur 
+	IS select code from project
+    	where code not in (select projcode
+		from assignment
+		group by projcode
+		having count(name) > 0);
+    
+
+BEGIN
+
+    
+    for v_proj in v_assignProj_cur
+    LOOP
+    
+      delete from project where code = v_proj.code;
+    END LOOP;
+END;
+/
+    
+    
+
+
+

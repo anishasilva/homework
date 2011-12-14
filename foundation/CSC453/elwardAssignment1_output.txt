@@ -1,0 +1,51 @@
+ DROP TABLE REQUEST succeeded.
+ DROP TABLE FULLORDER succeeded.
+ DROP TABLE CUSTOMER succeeded.
+ DROP TABLE PRODUCT succeeded.
+CREATE TABLE succeeded.
+1 rows inserted
+1 rows inserted
+CREATE TABLE succeeded.
+1 rows inserted
+1 rows inserted
+1 rows inserted
+CREATE TABLE succeeded.
+1 rows inserted
+1 rows inserted
+1 rows inserted
+1 rows inserted
+CREATE TABLE succeeded.
+1 rows inserted
+1 rows inserted
+1 rows inserted
+1 rows inserted
+1 rows inserted
+1 rows inserted
+CUSTOMERID             NAME                           ADDRESS              
+---------------------- ------------------------------ -------------------- 
+2                      CASUAL FURANATURE              IRVING, TX           
+6                      MOUNTIAN GALLERY               DENVER, CO           
+
+ORDERID                ORDERDATE                 CUSTOMERID             
+---------------------- ------------------------- ---------------------- 
+2106                   19-NOV-10                 2                      
+2107                   21-NOV-10                 6                      
+2108                   21-NOV-10                 6                      
+
+PRODUCTID              DESCRIPTION                    FINISH     PRICE                  
+---------------------- ------------------------------ ---------- ---------------------- 
+3                      DINING TABLE                   ASH        600                    
+8                      WRITING DESK                   OAK        425                    
+7                      ENTERTAINMENT CENTER           MAPLE      650                    
+11                     CHILDRENS DRESSER              PINE       300                    
+
+ORDERID                PRODUCTID              QUANTITY               
+---------------------- ---------------------- ---------------------- 
+2106                   3                      2                      
+2106                   8                      5                      
+2106                   7                      1                      
+2107                   11                     1                      
+2107                   7                      4                      
+2108                   11                     1                      
+
+6 rows selected
