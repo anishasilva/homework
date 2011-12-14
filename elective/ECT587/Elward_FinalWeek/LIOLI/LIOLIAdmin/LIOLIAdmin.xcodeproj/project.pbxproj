@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		641A52311383955B00A37667 /* SdbRequestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 641A52301383955B00A37667 /* SdbRequestDelegate.m */; };
+		645C874B1391ABB6008C1293 /* AWSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645C874A1391ABB6008C1293 /* AWSiOSSDK.framework */; };
+		64E0C5491363B4E80088156A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C5481363B4E80088156A /* UIKit.framework */; };
+		64E0C54B1363B4E80088156A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C54A1363B4E80088156A /* Foundation.framework */; };
+		64E0C54D1363B4E80088156A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C54C1363B4E80088156A /* CoreGraphics.framework */; };
+		64E0C5531363B4E80088156A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64E0C5511363B4E80088156A /* InfoPlist.strings */; };
+		64E0C5561363B4E80088156A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C5551363B4E80088156A /* main.m */; };
+		64E0C5591363B4E80088156A /* LIOLIAdminAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C5581363B4E80088156A /* LIOLIAdminAppDelegate.m */; };
+		64E0C55C1363B4E80088156A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64E0C55A1363B4E80088156A /* MainWindow.xib */; };
+		64E0C55F1363B4E80088156A /* LIOLIAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C55E1363B4E80088156A /* LIOLIAdminViewController.m */; };
+		64E0C5621363B4E90088156A /* LIOLIAdminViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64E0C5601363B4E90088156A /* LIOLIAdminViewController.xib */; };
+		64E0C5691363B4E90088156A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C5481363B4E80088156A /* UIKit.framework */; };
+		64E0C56A1363B4E90088156A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C54A1363B4E80088156A /* Foundation.framework */; };
+		64E0C56B1363B4E90088156A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E0C54C1363B4E80088156A /* CoreGraphics.framework */; };
+		64E0C5731363B4E90088156A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64E0C5711363B4E90088156A /* InfoPlist.strings */; };
+		64E0C5761363B4E90088156A /* LIOLIAdminTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 64E0C5751363B4E90088156A /* LIOLIAdminTests.h */; };
+		64E0C5781363B4E90088156A /* LIOLIAdminTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C5771363B4E90088156A /* LIOLIAdminTests.m */; };
+		64E0C58B1363DE290088156A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C5861363DE290088156A /* Constants.m */; };
+		64E0C58C1363DE290088156A /* StaticFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C5881363DE290088156A /* StaticFunctions.m */; };
+		64E0C58D1363DE290088156A /* Story.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0C58A1363DE290088156A /* Story.m */; };
+		64F8171D1394A95200C0434B /* LocalArrayStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F8171C1394A95200C0434B /* LocalArrayStore.m */; };
+		64F8171F1394A99400C0434B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F8171E1394A99400C0434B /* CoreData.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		64E0C56C1363B4E90088156A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64E0C53B1363B4E80088156A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64E0C5431363B4E80088156A;
+			remoteInfo = LIOLIAdmin;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		641A522F1383955B00A37667 /* SdbRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdbRequestDelegate.h; sourceTree = "<group>"; };
+		641A52301383955B00A37667 /* SdbRequestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SdbRequestDelegate.m; sourceTree = "<group>"; };
+		645C874A1391ABB6008C1293 /* AWSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSiOSSDK.framework; path = "../aws-ios-sdk-0.2.3/AWSiOSSDK.framework"; sourceTree = "<group>"; };
+		64E0C5441363B4E80088156A /* LIOLIAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIOLIAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64E0C5481363B4E80088156A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		64E0C54A1363B4E80088156A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		64E0C54C1363B4E80088156A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		64E0C5501363B4E80088156A /* LIOLIAdmin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LIOLIAdmin-Info.plist"; sourceTree = "<group>"; };
+		64E0C5521363B4E80088156A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		64E0C5541363B4E80088156A /* LIOLIAdmin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LIOLIAdmin-Prefix.pch"; sourceTree = "<group>"; };
+		64E0C5551363B4E80088156A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		64E0C5571363B4E80088156A /* LIOLIAdminAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIOLIAdminAppDelegate.h; sourceTree = "<group>"; };
+		64E0C5581363B4E80088156A /* LIOLIAdminAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIOLIAdminAppDelegate.m; sourceTree = "<group>"; };
+		64E0C55B1363B4E80088156A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		64E0C55D1363B4E80088156A /* LIOLIAdminViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIOLIAdminViewController.h; sourceTree = "<group>"; };
+		64E0C55E1363B4E80088156A /* LIOLIAdminViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIOLIAdminViewController.m; sourceTree = "<group>"; };
+		64E0C5611363B4E90088156A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LIOLIAdminViewController.xib; sourceTree = "<group>"; };
+		64E0C5681363B4E90088156A /* LIOLIAdminTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LIOLIAdminTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64E0C5701363B4E90088156A /* LIOLIAdminTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LIOLIAdminTests-Info.plist"; sourceTree = "<group>"; };
+		64E0C5721363B4E90088156A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		64E0C5741363B4E90088156A /* LIOLIAdminTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LIOLIAdminTests-Prefix.pch"; sourceTree = "<group>"; };
+		64E0C5751363B4E90088156A /* LIOLIAdminTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIOLIAdminTests.h; sourceTree = "<group>"; };
+		64E0C5771363B4E90088156A /* LIOLIAdminTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIOLIAdminTests.m; sourceTree = "<group>"; };
+		64E0C5851363DE290088156A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		64E0C5861363DE290088156A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		64E0C5871363DE290088156A /* StaticFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticFunctions.h; sourceTree = "<group>"; };
+		64E0C5881363DE290088156A /* StaticFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticFunctions.m; sourceTree = "<group>"; };
+		64E0C5891363DE290088156A /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
+		64E0C58A1363DE290088156A /* Story.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Story.m; sourceTree = "<group>"; };
+		64F8171B1394A95200C0434B /* LocalArrayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalArrayStore.h; sourceTree = "<group>"; };
+		64F8171C1394A95200C0434B /* LocalArrayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalArrayStore.m; sourceTree = "<group>"; };
+		64F8171E1394A99400C0434B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64E0C5411363B4E80088156A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64F8171F1394A99400C0434B /* CoreData.framework in Frameworks */,
+				645C874B1391ABB6008C1293 /* AWSiOSSDK.framework in Frameworks */,
+				64E0C5491363B4E80088156A /* UIKit.framework in Frameworks */,
+				64E0C54B1363B4E80088156A /* Foundation.framework in Frameworks */,
+				64E0C54D1363B4E80088156A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64E0C5641363B4E90088156A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64E0C5691363B4E90088156A /* UIKit.framework in Frameworks */,
+				64E0C56A1363B4E90088156A /* Foundation.framework in Frameworks */,
+				64E0C56B1363B4E90088156A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64E0C5391363B4E80088156A = {
+			isa = PBXGroup;
+			children = (
+				64E0C54E1363B4E80088156A /* LIOLIAdmin */,
+				64E0C56E1363B4E90088156A /* LIOLIAdminTests */,
+				64E0C5471363B4E80088156A /* Frameworks */,
+				64E0C5451363B4E80088156A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64E0C5451363B4E80088156A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5441363B4E80088156A /* LIOLIAdmin.app */,
+				64E0C5681363B4E90088156A /* LIOLIAdminTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		64E0C5471363B4E80088156A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64F8171E1394A99400C0434B /* CoreData.framework */,
+				645C874A1391ABB6008C1293 /* AWSiOSSDK.framework */,
+				64E0C5481363B4E80088156A /* UIKit.framework */,
+				64E0C54A1363B4E80088156A /* Foundation.framework */,
+				64E0C54C1363B4E80088156A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		64E0C54E1363B4E80088156A /* LIOLIAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5821363DDC40088156A /* UI */,
+				64E0C5811363DDC00088156A /* database */,
+				64E0C54F1363B4E80088156A /* Supporting Files */,
+			);
+			path = LIOLIAdmin;
+			sourceTree = "<group>";
+		};
+		64E0C54F1363B4E80088156A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5501363B4E80088156A /* LIOLIAdmin-Info.plist */,
+				64E0C5511363B4E80088156A /* InfoPlist.strings */,
+				64E0C5541363B4E80088156A /* LIOLIAdmin-Prefix.pch */,
+				64E0C5551363B4E80088156A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		64E0C56E1363B4E90088156A /* LIOLIAdminTests */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5751363B4E90088156A /* LIOLIAdminTests.h */,
+				64E0C5771363B4E90088156A /* LIOLIAdminTests.m */,
+				64E0C56F1363B4E90088156A /* Supporting Files */,
+			);
+			path = LIOLIAdminTests;
+			sourceTree = "<group>";
+		};
+		64E0C56F1363B4E90088156A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5701363B4E90088156A /* LIOLIAdminTests-Info.plist */,
+				64E0C5711363B4E90088156A /* InfoPlist.strings */,
+				64E0C5741363B4E90088156A /* LIOLIAdminTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		64E0C5811363DDC00088156A /* database */ = {
+			isa = PBXGroup;
+			children = (
+				64F8171B1394A95200C0434B /* LocalArrayStore.h */,
+				64F8171C1394A95200C0434B /* LocalArrayStore.m */,
+				641A522F1383955B00A37667 /* SdbRequestDelegate.h */,
+				641A52301383955B00A37667 /* SdbRequestDelegate.m */,
+				64E0C5851363DE290088156A /* Constants.h */,
+				64E0C5861363DE290088156A /* Constants.m */,
+				64E0C5871363DE290088156A /* StaticFunctions.h */,
+				64E0C5881363DE290088156A /* StaticFunctions.m */,
+				64E0C5891363DE290088156A /* Story.h */,
+				64E0C58A1363DE290088156A /* Story.m */,
+			);
+			name = database;
+			sourceTree = "<group>";
+		};
+		64E0C5821363DDC40088156A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				64E0C5571363B4E80088156A /* LIOLIAdminAppDelegate.h */,
+				64E0C5581363B4E80088156A /* LIOLIAdminAppDelegate.m */,
+				64E0C55A1363B4E80088156A /* MainWindow.xib */,
+				64E0C55D1363B4E80088156A /* LIOLIAdminViewController.h */,
+				64E0C55E1363B4E80088156A /* LIOLIAdminViewController.m */,
+				64E0C5601363B4E90088156A /* LIOLIAdminViewController.xib */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64E0C5431363B4E80088156A /* LIOLIAdmin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64E0C57B1363B4E90088156A /* Build configuration list for PBXNativeTarget "LIOLIAdmin" */;
+			buildPhases = (
+				64E0C5401363B4E80088156A /* Sources */,
+				64E0C5411363B4E80088156A /* Frameworks */,
+				64E0C5421363B4E80088156A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LIOLIAdmin;
+			productName = LIOLIAdmin;
+			productReference = 64E0C5441363B4E80088156A /* LIOLIAdmin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		64E0C5671363B4E90088156A /* LIOLIAdminTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64E0C57E1363B4E90088156A /* Build configuration list for PBXNativeTarget "LIOLIAdminTests" */;
+			buildPhases = (
+				64E0C5631363B4E90088156A /* Sources */,
+				64E0C5641363B4E90088156A /* Frameworks */,
+				64E0C5651363B4E90088156A /* Resources */,
+				64E0C5661363B4E90088156A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64E0C56D1363B4E90088156A /* PBXTargetDependency */,
+			);
+			name = LIOLIAdminTests;
+			productName = LIOLIAdminTests;
+			productReference = 64E0C5681363B4E90088156A /* LIOLIAdminTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64E0C53B1363B4E80088156A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Raymond Elward";
+			};
+			buildConfigurationList = 64E0C53E1363B4E80088156A /* Build configuration list for PBXProject "LIOLIAdmin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 64E0C5391363B4E80088156A;
+			productRefGroup = 64E0C5451363B4E80088156A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64E0C5431363B4E80088156A /* LIOLIAdmin */,
+				64E0C5671363B4E90088156A /* LIOLIAdminTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64E0C5421363B4E80088156A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64E0C5531363B4E80088156A /* InfoPlist.strings in Resources */,
+				64E0C55C1363B4E80088156A /* MainWindow.xib in Resources */,
+				64E0C5621363B4E90088156A /* LIOLIAdminViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64E0C5651363B4E90088156A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64E0C5731363B4E90088156A /* InfoPlist.strings in Resources */,
+				64E0C5761363B4E90088156A /* LIOLIAdminTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		64E0C5661363B4E90088156A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64E0C5401363B4E80088156A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64E0C5561363B4E80088156A /* main.m in Sources */,
+				64E0C5591363B4E80088156A /* LIOLIAdminAppDelegate.m in Sources */,
+				64E0C55F1363B4E80088156A /* LIOLIAdminViewController.m in Sources */,
+				64E0C58B1363DE290088156A /* Constants.m in Sources */,
+				64E0C58C1363DE290088156A /* StaticFunctions.m in Sources */,
+				64E0C58D1363DE290088156A /* Story.m in Sources */,
+				641A52311383955B00A37667 /* SdbRequestDelegate.m in Sources */,
+				64F8171D1394A95200C0434B /* LocalArrayStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64E0C5631363B4E90088156A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64E0C5781363B4E90088156A /* LIOLIAdminTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		64E0C56D1363B4E90088156A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64E0C5431363B4E80088156A /* LIOLIAdmin */;
+			targetProxy = 64E0C56C1363B4E90088156A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		64E0C5511363B4E80088156A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64E0C5521363B4E80088156A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		64E0C55A1363B4E80088156A /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64E0C55B1363B4E80088156A /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		64E0C5601363B4E90088156A /* LIOLIAdminViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64E0C5611363B4E90088156A /* en */,
+			);
+			name = LIOLIAdminViewController.xib;
+			sourceTree = "<group>";
+		};
+		64E0C5711363B4E90088156A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64E0C5721363B4E90088156A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		64E0C5791363B4E90088156A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		64E0C57A1363B4E90088156A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		64E0C57C1363B4E90088156A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../LIOLI\"",
+					"\"$(SRCROOT)/../aws-ios-sdk-0.2.3\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLIAdmin/LIOLIAdmin-Prefix.pch";
+				INFOPLIST_FILE = "LIOLIAdmin/LIOLIAdmin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		64E0C57D1363B4E90088156A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../LIOLI\"",
+					"\"$(SRCROOT)/../aws-ios-sdk-0.2.3\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLIAdmin/LIOLIAdmin-Prefix.pch";
+				INFOPLIST_FILE = "LIOLIAdmin/LIOLIAdmin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		64E0C57F1363B4E90088156A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LIOLIAdmin.app/LIOLIAdmin";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../LIOLI\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLIAdminTests/LIOLIAdminTests-Prefix.pch";
+				INFOPLIST_FILE = "LIOLIAdminTests/LIOLIAdminTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		64E0C5801363B4E90088156A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LIOLIAdmin.app/LIOLIAdmin";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../LIOLI\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LIOLIAdminTests/LIOLIAdminTests-Prefix.pch";
+				INFOPLIST_FILE = "LIOLIAdminTests/LIOLIAdminTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64E0C53E1363B4E80088156A /* Build configuration list for PBXProject "LIOLIAdmin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64E0C5791363B4E90088156A /* Debug */,
+				64E0C57A1363B4E90088156A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64E0C57B1363B4E90088156A /* Build configuration list for PBXNativeTarget "LIOLIAdmin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64E0C57C1363B4E90088156A /* Debug */,
+				64E0C57D1363B4E90088156A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64E0C57E1363B4E90088156A /* Build configuration list for PBXNativeTarget "LIOLIAdminTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64E0C57F1363B4E90088156A /* Debug */,
+				64E0C5801363B4E90088156A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 64E0C53B1363B4E80088156A /* Project object */;
+}
