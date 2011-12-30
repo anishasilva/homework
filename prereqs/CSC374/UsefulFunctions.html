@@ -1,0 +1,500 @@
+<html>
+
+ <head>
+  <title>Useful C/Linux Functions in CSC 374 Computer Systems 2</title>
+ </head>
+
+ <body>
+
+  <center>
+    <h2>Useful C/Linux Functions in CSC 374 Computer Systems 2</h2>
+    Last modified 2010 October 30
+  </center>
+
+  <table border=1>
+
+    <tr>
+      <td colspan=2>
+	<center>
+	  <h4>Process-related functions</h4>
+	</center>
+      </td>
+    </tr>
+
+	<tr>
+	  <td>Function</td>
+	  <td>Purpose</td>
+	</tr>
+
+	<tr>
+	  <td>
+<pre>
+int fork()
+</pre>
+	  </td>
+	  <td>Attempts to make a child process.
+	      Return value is either:
+	    <ul>
+	      <li>Negative: no child process made (process table full?)
+	      <li>0: The process that receives 0 <i>is</i> the child process
+	      <li>Positive: The process that receives a positive number is the parent process.  The actual number is the process id of the child.
+	    </ul>
+	  </td>
+	</tr>
+
+	<tr>
+	  <td>
+<pre>
+int kill (int pid, int signalNum)
+</pre>
+	  </td>
+	  <td>Sends signal <code>signalNum</code> to process <code>pid</code>.
+	    Don't worry about the return number.
+	  </td>
+	</tr>
+
+	<tr>
+	  <td>
+<pre>
+void* signal(int signalNum,fncName)
+</pre>
+	  </td>
+	  <td>Tells the OS that when this process receives signal <code>signalNum</code> it is to do function <code>fncName</code>.
+	    <code>fncName</code> should have form <code>void fncName (int sigNum)</code>.
+	    If <code>fncName</code> then tries to ignore signal <code>signalNum</code>.
+	    Useful signals include:
+	    <table border=1>
+
+	      <tr>
+		<td>Number</td>
+		<td>Name</td>
+		<td>Default Action</td>
+		<td>Description</td>
+	      </tr>
+
+	      <tr>
+		<td>15</td>
+		<td>SIGTERM</td>
+		<td>terminate process</td>
+		<td>software termination signal</td>
+	      </tr>
+
+	      <tr>
+		<td>30</td>
+		<td>SIGUSR1</td>
+		<td>terminate process</td>
+		<td>User defined signal 1</td>
+	      </tr>
+
+	      <tr>
+		<td>31</td>
+		<td>SIGUSR2</td>
+		<td>terminate process</td>
+		<td>User defined signal 2</td>
+	      </tr>
+
+	    </table>
+	    For a more comprehensive table see <a href="http://www.manpagez.com/man/3/Signal/">http://www.manpagez.com/man/3/Signal/</a>
+	</tr>
+
+	<tr>
+	  <td>
+<pre>
+int wait(int* ptr)
+</pre>
+	  </td>
+	  <td>If this process has at least one child process still running then waits for it to finish.
+	      When it finally does finish (or if one had already finished) then sets <code>*ptr</code> equal to the status returned by the child and returns the process id of the child.
+	      The portion of the status that was <code>return()</code>ed by child's <code>main()</code>, or which the child <code>exit()</code>ed, is obtained by <code>WEXITSTATUS(childStatus)</code>
+	    <p>If there are no children for which to wait() then return 0.</p>
+	  </td>
+	</tr>
+
+    <tr>
+      <td colspan=2>
+	<center>
+	  <h4>Threading-related functions</h4>
+	</center>
+	Be sure to:
+	<ol type="1">
+	  <li>#include &lt;pthread.h&gt;
+	  <li>Compile/link with <i>-lpthread</i> on the command line
+	</ol>
+      </td>
+    </tr>
+
+    <tr>
+      <td align=center>
+	<b>Function</b>
+      </td>
+      <td align=center>
+	<b>What it does</b>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_create
+(/* Pointer to a pthread_t object  */
+ pthread_t*	 restrict		threadPtr,
+
+ /* Pointer to optional object for properties of child */
+ const pthread_attr_t* restrict		attr,
+
+ /* Name of function to run: void* fncName(void* ptr) */ 
+ void *(*fncName)(void*),
+
+ /* Ptr to object that is parameter to fncName() */
+ void *restrict 			arg
+)
+</pre>
+      </td>
+      <td>
+	Makes a thread in the space pointed to by <code>threadPtr</code>
+	The thread run the function <code>void* fncName(void* )</code> and passes <code>arg</code> to it.
+	Just leave <code>attr</code> as <code>NULL</code> for a generic thread.	
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_join
+(/* Which thread to wait for */
+ pthread_t		thread,
+
+ /* Pointer to pointer to receive pointer
+    returned by exiting thread's function.
+  */
+ void**			valuePtrsPtr
+
+)</pre>
+      </td>
+      <td>
+	Waits for thread <code>thread</code> to finish.
+	When it does <code>valuePtr</code> (the thing that <code>valuePtrsPtr</code> points to) is set to the thread's function's returned pointer value <b>or</b> it is ignored if <code>valuePtr==NULL</code>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_init
+(/* Ptr to space for mutex */
+ pthread_mutex_t *restrict mutexPtr,
+
+ /* Type of mutex (just pass NULL) */
+ const pthread_mutexattr_t *restrict attr
+);
+</pre>
+      </td>
+      <td>
+	Initializes lock object pointed to by <code>mutexPtr</code>.
+	Just use NULL for 2nd parameter.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_destroy
+(/* Ptr to mutex to destroy *.
+ pthread_mutex_t *mutex
+);
+</pre>
+      </td>
+      <td>
+	Releases resources taken by mutex pointed to by <code>mutexPtr</code>.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_lock
+(/* Pointer to mutex to lock */
+ pthread_mutex_t *mutexPtr
+);
+</pre>
+      </td>
+      <td>
+	Either
+	<ol type=1>
+	  <li>Gains lock and proceeds, or
+	  <li>Waits for lock to become available
+	</ol>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_unlock
+(/* Pointer to mutex to unlock */
+ pthread_mutex_t *mutexPtr
+);
+</pre>
+      </td>
+      <td>
+	Releases lock.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_init
+(/* Pointer to space in which to make condition */
+ pthread_cond_t *restrict condPtr,
+
+ /* Type of condition (just pass NULL) */
+ const pthread_condattr_t *restrict attr
+);
+</pre>
+      </td>
+      <td>
+	Creates a condition.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_destroy
+(/* Pointer to condition to destroy */
+ pthread_cond_t *condPtr
+);
+</pre>
+      </td>
+      <td>
+	Destroys pointed to condition.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_wait
+(/* Pointer to condition on which to wait */
+ pthread_cond_t *restrict condPtr,
+
+ /* Pointer to mutex to surrender until receive signal */
+ pthread_mutex_t *restrict mutexPtr
+); 
+</pre>
+      </td>
+      <td>
+	Suspends thread until receives signal on <code>condPtr</code>.
+	While thread is suspended it surrenders lock on <code>mutexPtr</code>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_signal
+(/* Ptr to condition which is signaled */
+ pthread_cond_t *condPtr
+); 
+</pre>
+      </td>
+      <td>
+	Wakes up at least one thread waiting for signal on <code>condPtr</code>.
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan=2>
+	<center>
+	<h4>Socket and low-level file I/O-related functions</h4>
+	</center>
+	Be sure to:
+	<ol type="1">
+	  <li>#include &lt;unistd.h&gt; // For sleep()
+	  <li>#include &lt;sys/socket.h&gt; // For socket()
+	  <li>#include &lt;netinet/in.h&gt; // For sockaddr_in and htons()
+	  <li>#include &lt;netdb.h&gt; // For gethostbyname()
+	  <li>#include &lt;errno.h&gt; // For errno var
+	</ol>
+      </td>
+    </tr>
+
+     <tr>
+       <td align=center><b>How to:</b></td>
+       <td align=center><b>Usage:</b></td>
+     </tr>
+
+     <tr>
+       <td>Send bytes</td>
+       <td><code>int write(int fileDes,const void* bufferPtr, int numBytes)</code>
+	 <p>
+	   Writes <i>numBytes</i> bytes pointed to by <i>bufferPtr</i> to file descriptor <i>fileDes</i>.<br>
+	   Returns number of bytes written (0 means &quot;none&quot;), or -1 which means &quot;error&quot;.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Read bytes (I)</td>
+       <td><code>int read(int fileDes,void* bufferPtr, int bufferLen)</code>
+	 <p>
+	   Reads up to <i>bufferLen</i> bytes into the buffer pointed to by <i>bufferPtr</i> from file descriptor <i>fileDes</i>.
+	   Waits until something is available.<br>
+	   Returns number of bytes read, or returns -1 on error.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Read bytes (II)</td>
+       <td><code>int recv(int fileDes,void* bufferPtr, int bufferLen, int flags)</code>
+	 <p>
+	   Reads up to <i>bufferLen</i> bytes into the buffer pointed to by <i>bufferPtr</i> from file descriptor <i>fileDes</i>.
+           <i>flags</i> tells how to read, where <i>MSG_DONTWAIT</i> means &quot;non-blocking&quot;.<br>
+	   Returns number of bytes read, or returns -1 and sets <code>errno</code> to <code>EAGAIN</code> if the flag was <i>MSG_DONTWAIT</i> and there was nothing to read.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Convert a 32-bit integer from network's endian to host's endian</td>
+       <td><code>uint32_t ntohl(uint32_t networkInt)</code>
+	 <p>
+	   Returns 32-bit integer <i>networkInt</i> so that it is in the endian of the current computer instead of for the network.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Convert a 16-bit integer from network's endian to host's endian</td>
+       <td><code>uint16_t ntohs(uint16_t networkInt)</code>
+	 <p>
+	   Returns 16-bit integer <i>networkInt</i> so that it is in the endian of the current computer instead of for the network.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Convert a 32-bit integer from host's endian to network's endian</td>
+       <td><code>uint32_t htonl(uint32_t hostInt)</code>
+	 <p>
+	   Returns 32-bit integer <i>hostInt</i> so that it is in the endian of the network instead of for the current computer.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Convert a 16-bit integer from host's endian to network's endian</td>
+       <td><code>uint16_t htons(uint16_t hostInt)</code>
+	 <p>
+	   Returns 16-bit integer <i>hostInt</i> so that it is in the endian of the network instead of for the current computer.
+	 </p>
+       </td>
+     </tr>
+
+    <tr>
+      <td colspan=2>
+	<center>
+	<h4>ncurses package-related functions</h4>
+	</center>
+	Be sure to:
+	<ol type="1">
+	  <li>#include &lt;curses.h&gt;
+	  <li>Compile/link with <i>-lncurses</i> on the command line
+	</ol>
+      </td>
+    </tr>
+
+     <tr>
+       <td align=center><b>How to:</b></td>
+       <td align=center><b>Usage:</b></td>
+     </tr>
+
+     <tr>
+       <td>Start ncurses</td>
+       <td><code>initscr()</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Stop ncurses</td>
+       <td><code>endwin()</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Clear the screen</td>
+       <td><code>clear()</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Refresh the whole screen</td>
+       <td><code>refresh()</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Turn off echoing of typed chars</td>
+       <td><code>noecho()</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Allow non-blocking keyboard input</td>
+       <td><code>nodelay(stdscr,TRUE)</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Allow usage of keypad chars</td>
+       <td><code>keypad (stdscr,TRUE)</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Disallow scrolling</td>
+       <td><code>scrollok(windowPtr, FALSE)</code>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Move the cursor on the whole screen</td>
+       <td><code>move(int row, int col)</code>
+	 <p>
+	   Moves the cursor to row <i>row</i>, column <i>col</i> within the whole screen.
+	   0,0 is the upper left corner.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Write a char to the whole screen</td>
+       <td><code>addch(chtype character)</code>
+	 <p>
+	   Writes character <i>character</i> to the current cursor position.
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Write a string to the whole screen</td>
+       <td><code>addstr(const char* toPrintPtr)</code>
+	 <p>
+	   Writes the C-string pointed to by <i>toPrintPtr</i> to the current cursor position
+	 </p>
+       </td>
+     </tr>
+
+     <tr>
+       <td>Get a character from the keyboard</td>
+       <td><code>int getch()</code>
+       </td>
+     </tr>
+
+  </table>
+
+ </body>
+
+</html>

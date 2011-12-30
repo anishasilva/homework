@@ -1,0 +1,388 @@
+<html>
+
+ <head>
+  <title>CSC 374: Computer Systems II: Final Review</title>
+ </head>
+
+ <body>
+  <center>
+  <h2>CSC 374: Computer Systems II: Final Review</h2>
+  <p>
+  Last modified 2010 November 16
+  </p>
+  </center>
+
+  <ol type="1">
+  <li><h3>Compiler optimizations</h3>
+    <ol type="a">
+    <li><b>Code motion:</b> Move repeatedly done calculations out of loops.
+    <li><b>Reduction in strength:</b> Do shifts and adds instead of multiplies and divides
+    <li><b>Watch out for:</b>
+      <ul>
+      <li>Function calls (compilers generally do not optimize across fnc calls) <I>Why not?</i>
+      <li>Memory references (<i>How does using pointers make the compiler's job more difficult?</i>)
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Linking</h3>
+    <ol type="a">
+    <li>(In Linux) the purposes of these sections:
+      <ul>
+      <li>.text (code)
+      <li>.data (initialized global vars).<br>
+          Have to store the actual initialized value in the object files.
+      <li>.bss (un-initialized global vars).<br>
+          No initialized value, so no space is need in the object files.
+      <li>.rodata (Read-only Data)
+      <li>Heap (anything made with <code>malloc()</code>, <code>new</code>, etc)
+      <li>Shared libraries (executable code that the OS expects many programs to need, like <code>stdlib.a</code> for C programs)
+      <li>Stack (local vars of functions, return addresses of functions, etc)
+      </ul>
+    <li>How the linker combines object files into executables
+      <ul>
+      <li>Resolving symbols
+      </ul>
+    <li>Libraries
+      <ul>
+      <li>Static (<I>When are these linked and why?</i>)
+      <li>Dynamic (<I>When are these &quot;linked&quot; and why?</i>)
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Exceptional Flow Control</h3>
+    <ol type="a">
+    <li>You want the CPU to run your program alone, but the CPU is very busy
+    <li><b>Exceptions:</b> low-level way of stopping program to handle change in computer state (e.g. disk saying that it's finished)
+      <ul>
+      <li>What to do?
+	<ol type="1">
+	<li>Push all registers that could be used on stack
+	<li>Look up where to GO-TO in <i>vector table</i>
+	<li>Execute the code there
+	<li>Pop to restore state and return
+	</ol>
+      <li>Why to do it?
+	<ul>
+	<li><b>Interrupts:</b> &quot;asynchronous&quot; exception (external to processor)
+	  <ul>
+	  <li>Press a key
+	  <li>Network traffic
+	  <li>DMA-read finished (<I>What is this?</i>)
+	  </ul>
+	<li><b>Synchronous</b> to CPU:
+	  <ul>
+	  <li><b>Traps</b>: E.g. system calls (<code>write()</code>), debugger stepping
+	  <li><b>Faults</b>: Recoverable delays, page faults
+	  <li><b>Aborts</b>: Unrecoverable errors: parity errors, Hardware knows something is wrong
+	  </ul>
+	</ul>
+      </ul>
+    <li><b>Process:</b> one running of one program
+      <ul>
+      <li><code>fork()</code> to create (in Unix)
+      <li>share CPU
+      <li>Process lifecycle
+      <li><b>Zombie:</b> child process gone but record is still around.<br>
+	  <I>Why is this so, and why is this bad?</i>
+      <li><code>int wait(int* childStatusPtr)</code>
+      <li><code>int execl(char* path, char* arg0, char* arg1, . . .)</code>
+      <li>Writing your own shell
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Exception Flow Control II</h3>
+    <ol type="a">
+    <li><b>Signals:</B> Primitive interprocess communication that allows one process to force another process to do something
+      <ul>
+      <li>Examples:
+	<ul>
+	<li><i>&quot;Hey!  One of your children just finished.&quot;</i>
+	<li><i>&quot;You attempted to divide by 0, you ninny!&quot;</i>
+	<li><i>&quot;Die!&quot;</i>
+	</ul>
+      <li>The receiving process can:
+	<ul>
+	<li>Block signals
+	    (if they are ignorable:
+	     <code>Ctrl-C</code> is but <code>kill -9</code> isn't)
+	<li>Go to special code to handle a signal
+	<li>Stop until restarted by another signal
+	<li><i>Die!</i>
+	</ul>
+      <li>Signals are not queued (generally not an issue <I>Why not?</i>)
+      </ul>
+    <li><code>setjmp/longjmp</code>
+      <ul>
+      <li><b>Purpose:</b> when something BAD happens want to return to <i>a safe state</i>
+      <li><code>setjmp()</code> remembers
+	<ul>
+	<li>Where you are in stack
+	<li>Where you are in code
+	</ul>
+      <li><code>longjmp()</code>
+	<ul>
+	<li>Restores where were in stack (set by <code>setjmp()</code>)
+	<li>Restores where were in code (set by <code>setjmp()</code>)
+	</ul>
+      <li><i>Why can this be dangerous?</i> HINT: How can the stack and code be made out-of-synch between <code>setjmp()</code> and <code>longjmp()</code>?
+      <li><i>What modern programming construct is safer than <code>setjmp/longjmp</code>?</i>
+      </uL>
+    </ol>
+  </li>
+
+  <li><h3>Threads</h3>
+    <ol type="a">
+    <li><b>Purpose:</b> A &quot;little process&quot; that <i>cooperates</i> in the running of one program instead of <code>execl-ing</code> to another program
+    <li>Share the same:
+      <ul>
+      <li>code, heap, stack, data/bss
+      </ul>
+    <li>Have different:
+      <ul>
+      <li>registers, regions on same stack
+      </ul>
+    <li><code>int pthread_create(<i>addr of pthread</i>, NULL, <i>void* fncToRun(void*)</i>, <i>addr of param to fnc</i>)</code>
+    <li><code>int pthread_join(pthread_t, void** valuePtr)</code>
+    <li>Critical sections
+      <ul>
+      <li>regions where if two threads (or 2 processes) are at same time then could over-write each other's work
+      <li><b>semaphores:</b> classical solution
+	<ul>
+	<li><code>P()</code>: guard on the way in
+	<li><code>V()</code>: release on way out
+	</ul>
+      <li><b>Posix solution:</b>
+	<ul>
+	<li><code>pthread_mutex_init(<i>address of lock</i>)</code>
+	<li><code>pthread_mutex_destroy(<i>address of lock</i>)</code>
+	<li><code>pthread_mutex_lock(<i>address of lock</i>)</code>
+	<li><code>pthread_mutex_unlock(<i>address of lock</i>)</code>
+	<li><code>pthread_cond_init(<i>address of condition</i>,NULL)</code>
+	<li><code>pthread_cond_destroy(<i>address of condition</i>)</code>
+	<li><code>pthread_cond_wait(<i>address of condition</i>,<i>address of lock</i>)</code>
+	<li><code>pthread_cond_signal(<i>address of condition</i>)</code>
+	</ul>
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Virtual Memory</h3>
+    <ol type="a">
+    <li><b>Purposes:</b>
+      <uL>
+      <li>Want to fake having more physical memory (chips) than really do
+      <li>Want to make each process think it owns all of memory
+      <li>Want to ensure nobody messes with anyone else's memory
+      </ul>
+    <li>Faking main memory:
+      <uL>
+      <li>If miss cache not too expensive to go to main memory.<br>
+          However, page faults are <b>very</b> expensive.<br>
+	  <i>Why?</i>
+      <li>Use DMA (<i>What does this mean again?</i>  <i>How does it work?</i>)
+      </uL>
+    <li>Simplified memory management:
+      <ul>
+      <li>Memory organized as <b>pages</b> about 4kb each
+      <li>Each page is loaded in main memory as a whole, written to disk as whole
+      <li><b>Page table</b> table telling where in physical mem a virtual page is
+      <li>Processes can share pages (different page tables point to same page)
+      </uL>
+    <li>Protection
+      <ul>
+      <li>Page table entries tell:
+	<ul>
+	<li>What the corresponding physical page address is
+	<li>The read/write/execute permissions that this process has on this page
+	</ul>
+      <li>All the <i>work</i> that's got to be done to get a value into the CPU:
+	<ol type="1">
+	<li>CPU (running program) says <i>&quot;Gimme the byte at address 0x12345678&quot;</i> (this is a <i>virtual memory</i> address)
+	<li>TLB translates <i>virtual address</i> into <i>physical address</i><br>
+	    <I>Q: Why is there a TLB?</i><br>
+	    <B>A:</b> It's <i>faster</i> than consulting full page table, which itself could be in cache or main memory.
+	<li>(If TLB doesn't have this page has to go to (hopefully cached) page table.)<br>
+	    TLB also can check page availability (page on disk) and page permissions (process has no permission to access page)
+	<li>TLB gives physical address to cache<br>
+	    <i>Why cache by physical address instead of virtual?</i>
+	<li>If cache has value then returns it<br>
+	    else consults main memory
+	</ol>
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Dynamic Memory Alloation I</h3>
+    <ol type="a">
+    <li><b>Purpose:</b> Want to give memory and take memory back from <i>heap</i> as user program needs
+    <li>Main routines:
+      <ul>
+      <li><code>void* malloc(size_t size)</code>
+      <li><code>void free(void* ptr)</code>
+      <li><code>void* realloc(void* ptr, size_t new_size)</code>
+      </ul>
+    <li>Goals of memory management:
+      <ul>
+      <li>Fast!
+      <li>Shouldn't &quot;fragment&quot; heap (<I>What does this mean?</i>)<br>
+	  <i>What is internal fragmentation?</i><br>
+	  <i>What is external fragmentation?</i>
+      <li>Put similar objects close together addresses (<I>Why?</i>)
+      <li>Can check pointer-to-<code>free()</code> without freaking out
+      </ul>
+    <li>Do-it-yourself memory garbage collection:
+      <ul>
+      <li><b>Mark and sweep</b>
+	<ul>
+	<li>Assumes you know a block (an object) including its beginning address and size when you see one in memory/
+	<li>Unmark all blocks in memory
+	<li>Recursively follow <b>root node</b> pointers to all reachable blocks and mark them
+	<li>Sweep again, any unmark block unreachable and may be collected
+	</ul>
+      </ul>
+    <li>1000 ways to get memory problems in C (please see badCString_goodCStrings.html):
+    </ol>
+  </li>
+
+  <li><h3>System Level I/O</h3>
+    <ol type="a">
+    <li><b>Unix big idea:</b> lots of things can be accessed as if they were &quot;files&quot;, sources or receivers of bytes:
+      <ul>
+      <li>files on the disk (of course)
+      <li>input devices (keyboards)
+      <li>output devices (screens)
+      <li>communication with other processes (sockets)
+      <li>kernel info open to all (Linux: info on processes)
+      </ul>
+    <li>Unix I/O
+      <ul>
+      <li><code>int fileDesriptor = open(char* filename, int mode)</code>
+      <li><code>int status = close(int fileDescriptor)</code>
+      <li><code>int numBytesRead = read(int fileDescriptor, void* bufferPtr, size_t bufferSize)</code>
+      <li><code>int numBytesWritten = write(int fileDescriptor, void* bufferPtr, size_t bufferSize)</code>
+      </ul>
+    <li>Problems with Unix I/O (<I>What are some?</i>)
+    <li>Access of file metadata (info on the type of the &quot;file&quot;)
+    <li>Standard C I/O (these guys buffer I/O to make calls to Unix I/O routines efficient):
+      <ul>
+      <li><code>FILE* fopen(char* filename, char* modePtr)</code>
+      <li><code>int fclose(FILE* streamPtr)</code>
+      <li><code>int fgets(char* buffer, int bufferSize, FILE* stream)</code>
+      <li><code>int fprintf(FILE* stream, char* string, . . .);</code>
+      <li><code>int fputs(char* string, FILE* stream);</code>
+      </ul>
+    </ol>
+  </li>
+
+  <li><h3>Internetworking</h3>
+    <P>
+    <ul>
+    <li>Sockets == 2 way communication between processes on potentially
+        different machines (hosts).
+    <li>Each side is addressed by a unique <i>port</i> integer.
+    <li>TCP = reliable (OS and hardware check if packets arrive)
+    <li>UDP = unreliable (faster, appropriate for streaming audio/video/etc.)
+    </ul>
+    </p>
+
+    <p>Server-side
+    <ol type="a">
+    <li>// Make the socket:<br>
+        <code>int socketDescriptor = socket(AF_INET,SOCK_STREAM /* Reliable TCP */, 0);</code><br>
+	There's also <CODE>SOCK_DGRAM</code> for UDP.
+    <li>// Describe the socket:<br>
+        <code>sockaddr_in socketInfo; // Tells port and which clients to accept<br>
+              int status = bind(socketDescriptor,(sockaddr*)&amp;socketInfo,sizeof(socketInfo));</code><br>
+    <li>// Tell OS that we're ready to wait:<br>
+        <code>int status = listen(socketDescriptor,maxNumWaitingClients);</code>
+    <li>// Wait for client to connect:<br>
+        <code>int connectionDescriptor = accept(socketDescriptor,NULL,NULL);</code><br>
+        <code>socketDescriptor</code> is for socket,
+	<code>connectionDescriptor</code> is to talk with particular client.
+    </ol>
+    </p>
+
+    <p>Client-side
+    <ol type="a">
+    <li>// Get info on server:<br>
+        <code>hostent* serverPtr = gethostbyname(&quot;service://serverName.serverDomain&quot;);</code>
+    <li>// Make the socket for communication:<br>
+        <code>socket();</code> (See above)
+    <li>// Connect with server:<br>
+        <code>sockaddr_in server; // Tells port<br>
+              int status = connect(socketDescriptor,&server,sizeof(server));</code>
+    </ol>
+    </p>
+
+    <p>Both-side
+    <ol type="a">
+    <li><code>int read(int file_descriptor, void* bufferPtr, size_t bufferSize)</code> and<br>
+        <code>int recv(int file_descriptor, void* bufferPtr, size_t bufferSize, int flags)</code>
+    <li><code>int write(int file_descriptor, void* bufferPtr, size_t bufferSize)</code> and<br>
+        <code>int send(int file_descriptor, void* bufferPtr, size_t bufferSize, int flags)</code>
+    <li><code>int close(int file_descriptor)</code>
+    </ol>
+  </li>
+
+  <li><h3>ncurses</h3>
+    <ul>
+    <li>Text windowing on Unix(tm) computers
+    <li>Efficient! 
+      <ul>
+	<li>Updates occur on a &quot;virtual&quot; window.
+	<li>When call refresh() the (hopefully) minimal number of cursor
+	    commands are actually sent across network to terminal
+	</ul>
+    <li>&quot;ncurses&quot; is newer version of &quot;curses&quot; package
+<pre>
+initscr();  // Starts ncurses
+endwin();   // Stops ncurses
+
+// Returns pointer to new subwindow. (0,0) is upper left
+WINDOW* newwin(int numRows,int numCols,int beginRow,int beginCol);
+delwin(windowPtr);         // Delete subwindow
+
+refresh();                 // Refresh whole screen
+wrefresh(windowPtr);       // Refresh given window
+
+addstr(&quot;string&quot;);        // Write &quot;string&quot; to whole window stdscr
+waddstr(windowPtr,&quot;string&quot;);  // Write &quot;string&quot; to given window
+
+addch('c');              // Write char 'c' to whole window stdscr
+waddch(windowPtr,'c');   // Write char 'c' to given window
+
+clear();                 // Clears window
+
+int ch = getch();        // Get char from input
+
+nodelay(windowPtr,TRUE); // Makes getch() non-blocking, now if getch()
+                         // returns integer ERR then there was no input
+scrollok(windowPtr,TRUE);// Allows window to scroll
+
+getyx(windowPtr,row,col);// A macro that sets vars row and col
+wmove(windowPtr,row,col);// Moves cursor to row and col
+</pre>
+    </ul>
+  </li>
+
+  <li><h3>Web services:</h3>
+    <ul>
+    <li>Browser sends <i>request line</i> and zero or more <i>request headers</i>
+    <li>Web server replies with <i>response line</i> and zero or more <i>response headers</i>
+    <li>Static vs Dynamically created pages
+    <li>Proxy servers: stand inbetween true client and true server
+      <ul>
+      <li>PRO: Allows for (1) faster access by <i>caching</i> and
+          (2) <i>anonymization</i>
+      <li>CON: (1) <i>anonymization</i> can fail to distinguish you from other users, and (2) Not appropriate for <i>dynamic content</i>
+      </ul>
+      
+    </ul>
+
+  </ol>
+ </body>
+
+</html>

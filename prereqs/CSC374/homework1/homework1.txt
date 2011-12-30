@@ -1,0 +1,108 @@
+1)
+void sillyCompute (int* dest, int* source, int n)
+{
+    int i,j;
+
+    for  (i = n;  i > 0;  i = i / 2)
+    {
+
+        for  (j = 0;  j < n;  j++)
+            dest[ i*n + j ] = source[n*n - j/(i*2) - i] + fncCall(i);
+
+    }
+
+}
+
+OPTIMIZED:
+void sillyCompute (int* dest, int* source, int n)
+{
+	int i, j;
+	int n2 = n * n;
+	for (i = n; i > 0; i = i >> 1)
+	{
+		int in = i * n;
+		int *ptrDest = dest + in;
+		int n2minusi = n2 - i;
+		int iShift = i << 1;
+		for (j = 0; j < n; j++)
+		{
+			*ptrDest++ = source[n2minusi - j / iShift ] + fncCall(i);
+		}
+	}
+}
+
+2) A) part2.c will be attached!
+
+
+2) B)
+
+		part1.o	part2.o	whole
+charArray1	?	X	X
+SIZE		X	?	X
+printf		?	?	?	(it's called to in part1.o and whole, but it resides in the shared libraries)
+
+
+
+2) C) 1)
+
+
+part2.o:     file format elf32-i386
+
+Disassembly of section .text:
+
+00000000 <initializeArray>:
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 10             	sub    $0x10,%esp
+   6:	8b 45 08             	mov    0x8(%ebp),%eax
+   9:	89 45 fc             	mov    %eax,0xfffffffc(%ebp)
+   c:	c7 45 f8 00 00 00 00 	movl   $0x0,0xfffffff8(%ebp)
+  13:	eb 15                	jmp    2a <initializeArray+0x2a>
+  15:	8b 45 f8             	mov    0xfffffff8(%ebp),%eax
+  18:	83 c0 20             	add    $0x20,%eax
+  1b:	89 c2                	mov    %eax,%edx
+  1d:	8b 45 fc             	mov    0xfffffffc(%ebp),%eax
+  20:	88 10                	mov    %dl,(%eax)
+  22:	83 45 fc 01          	addl   $0x1,0xfffffffc(%ebp)
+  26:	83 45 f8 01          	addl   $0x1,0xfffffff8(%ebp)
+  2a:	a1 00 00 00 00       	mov    0x0,%eax
+  2f:	39 45 f8             	cmp    %eax,0xfffffff8(%ebp)
+  32:	7c e1                	jl     15 <initializeArray+0x15>
+  34:	8b 45 08             	mov    0x8(%ebp),%eax
+  37:	c9                   	leave  
+  38:	c3                   	ret    
+
+
+
+2) C) 2)
+
+.bss of part1.o:
+
+"objdump -d -j .bss part1.o"
+
+part1.o:     file format elf32-i386
+
+
+
+
+.bss of whole:
+
+"objdump -d -j .bss whole"
+
+whole:     file format elf32-i386
+
+Disassembly of section .bss:
+
+08049700 <dtor_idx.5793>:
+ 8049700:	00 00 00 00                                         ....
+
+08049704 <completed.5791>:
+ 8049704:	00 00 00 00                                         ....
+
+08049708 <charArray2>:
+ 8049708:	00 00 00 00                                         ....
+
+0804970c <charArray1>:
+ 804970c:	00 00 00 00     
+
+The biggest difference is that the .bss of part1.o is completely empty, and the .bss of whole holds lots of things, like both our charArrays and some other space set aside and labeled(dtor_idx.5793 and completed.5791) by the compiler for the applications needs.

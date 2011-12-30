@@ -1,0 +1,386 @@
+<html>
+
+ <head>
+  <title>CSC 374: Computer Systems II: Take-Home Midterm</title>
+ </head>
+
+ <body>
+  <center>
+  <H2>CSC 374: Computer Systems II: Take-Home Midterm</H2>
+  <p>Last Modified 2010 Oct 16</p>
+  </center>
+
+  <h4>Purpose:</h4>
+  To go over material from the first half of the quarter including:
+  <ul>
+    <li>Compiler optimization
+    <li>Linking and ELF format
+    <li>Creating, waiting and signaling processes
+  </ul>
+
+  <ol type="1">
+  <li><h4>Compiler optimization (20 Points)</h4>
+    <p>
+      Consider the following program below.
+      Re-write <code>int superSum ()</code> in C, but optimized.
+    </p>
+
+    <p>
+<pre>
+/**************************************************************************
+ ***									***
+ ***		optimizeAndInvestigate1.c				***
+ ***									***
+ ***	***	***	***	***	***	***	***	***	***
+ ***									***
+ ***	Version 1.0		Joseph Phillips		2010 Oct 12	***
+ ***									***
+ **************************************************************************/
+
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+
+/*
+ *      Constants, global vars, and global function declarations:
+ */
+
+#define TEXT_LEN 10
+
+extern int  limit;
+
+int sum (int sumLimit);
+
+
+
+/*
+ *      Functions that do main work of program:
+ */
+
+/* PURPOSE:  To compute and return a silly, useless sum based upon global
+ *      variable 'limit'.  Other than global var 'limit' no parameters.
+ */
+int superSum ()
+{
+
+  int i;
+  int j;
+  int total = 0;
+
+  for  (i = 1;  i &lt;= limit;  i = i * 2)
+    for  (j = 1;  j &lt;= i;  j++)
+      total += sum(i*i-j*j) + sum(i*i+j*j) + j;
+
+  return(total);
+}
+
+
+
+/* PURPOSE:  To ask the user which number they want the superSum() of, and
+ *      to compute and output the superSum() of that number.  No parameters.
+ *      Returns 'EXIT_SUCCESS' to OS.
+ */
+int main ()
+{
+  char text[TEXT_LEN];
+
+  do
+    {
+      printf(&quot;Please enter a positive integer less than or equal to 128: &quot;);
+      fgets(text,TEXT_LEN,stdin);
+      limit = atoi(text);
+    }
+  while ( (limit &lt; 1) || (limit &gt; 128) );
+
+  printf(&quot;Supersum(%d) == %d\n&quot;,limit,superSum(limit));
+  return(EXIT_SUCCESS);
+}
+</pre>
+    </p>
+
+  <li><h4>Linking, ELF and such (40 Points)</h4>
+    <ol type="a">
+      <li>Write a file <code>optimizeAndInvestigate2.c</code> that has <code>limit</code> and <code>int sum (int sumLimit)</code>.
+	The function <code>int sum (int sumLimit)</code> should just return the sum of the integers from 1 up to including <code>sumLimit</code> ([1 . . sumLimit]).
+	<p>
+	Next, create the whole program <code>optimizeAndInvestigate</code> by linking the object files from both C files.
+<pre>
+[jphillips@localhost Midterm]$ <i>gcc -c optimizeAndInvestigate1.c</i>
+[jphillips@localhost Midterm]$ <i>gcc -c optimizeAndInvestigate2.c</i>
+[jphillips@localhost Midterm]$ <i>gcc -o optimizeAndInvestigate optimizeAndInvestigate1.o optimizeAndInvestigate2.o</i>
+</pre>
+	</p>
+
+	<p>
+	  <b>Sample output:</b>
+<pre>
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 1
+Supersum(1) == 4
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 2
+Supersum(2) == 64
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 4
+Supersum(4) == 1516
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate</i>
+Please enter a positive integer less than or equal to 128: 5   
+Supersum(5) == 1516
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 16
+Supersum(16) == 1340260
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 32
+Supersum(32) == 42174084
+[jphillips@localhost Midterm]$ <i>optimizeAndInvestigate </i>
+Please enter a positive integer less than or equal to 128: 64
+Supersum(128) == 1339404484
+</pre>
+	</p>
+      <li>In which segment/part of memory does <code>int sum(int sumLimit)</code> live?<br>
+	<b>Prove it</b> with output from <code>objdump</code> of <code>optimizeAndInvestigate2.o</code> for that segment.
+	<p></p>
+
+      <li>In which segment/part of memory does <code>limit</code> live?<br>
+	<b>Prove it</b> with output from <code>objdump</code> of <code>optimizeAndInvestigate</code> for that segment.
+
+	<p></p>
+
+      <li>In which segment/part of memory does the string constant <code>&quot;Please enter a positive integer less than or equal to 128: &quot;</code> live?<br>
+	<b>Prove it</b> with output from <code>objdump</code> of <code>optimizeAndInvestigate</code> for that segment.
+    </ol>
+
+
+  <li><h4>Processes and such (40 Points)</h4>
+
+    <p>Write two programs: <code>mama.c</code> and <code>brat.c</code>.</p>
+    <p>
+      <code>mama.c</code> will make 4 baby processes.
+      Unfortunately all 4 are brats -- they will misbehave by randomly jumping on the bed.
+      Mama is long-suffering, but when she has had enough (that is, when the user presses &quot;enter&quot;) she will send the signal <code>SIGTERM</code> to them to tell them to go to sleep.
+      She will verify that all have finished by <code>wait()</code>ing for them and printing out the brat's process id and the number of times that it has jumped on the bed (which the brat returned with <code>exit(<i>numJumps</i>)</code>.
+      She will briefly <code>sleep()</code> to make sure she's heard from all the brats.
+      Then she will quit.
+<pre>
+/*
+ *    mama.c
+ */
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+
+
+#define NUM_BRATS 4
+#define TEXT_LEN  10
+
+<b>/* You may want to write a signal handler for SIGCHLD */</b>
+
+
+int main ()
+{
+  int index;
+  int pid[NUM_BRATS];
+  char text[TEXT_LEN];
+
+  <b>// You may want to listen to SIGCHLD</b>
+
+  for  (index = 0;  index &lt; NUM_BRATS;  index++)
+    {
+
+      <b>/*
+        (1) Try to make a baby and put its process id in <code>pid[index]</code>
+        (2) If no baby was made then do:
+
+            fprintf(stderr,&quot;fork() error--someone's making too many children!\n&quot;);
+            exit(-1);
+        (3) If this process is the baby then does:
+            snprintf(text,TEXT_LEN,&quot;%d&quot;,index);
+            execl(&quot;./brat&quot;,&quot;brat&quot;,text,NULL);
+            fprintf(stderr,&quot;execl() error--couldn't find brat!\n&quot;);
+            exit(-1);
+      */</b>
+    }
+
+  printf(&quot;Press enter to tell the brats \&quot;Stop jumping on the bed!\&quot;\n&quot;);
+  fgets(text,TEXT_LEN,stdin);
+  printf(&quot;Mama has had enough and shouts \&quot;GO TO BED!\&quot;\n\n&quot;);
+
+  <b>//  Send SIGTERM to all brats</b>
+
+  sleep(1);  // Makes mama wait for brats to finish
+  printf(&quot;Mama's finished!\n&quot;);
+  return(EXIT_SUCCESS);
+}
+</pre>
+    </p>
+
+    <p><code>brat.c</code> will get its number and start jumping on the bed at random intervals.
+      Before it jumps on the bed it will set up a listener for its mama.
+      After mama yells at it (send it <code>SIGTERM</code>) it will output that it is going to bed.
+      It will then <code>exit()</code> with the number of times it has jumped on the bed.
+<pre>
+/*
+ *    brat.c
+ */
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;unistd.h&gt;
+
+
+int number;
+int jumps = 0;
+
+
+<b>/* You may want to write a signal handler for SIGTERM */</b>
+
+
+int main (int argc, const char* argv[])
+{
+
+  if  (argc &lt; 2)
+    {
+      fprintf(stderr,&quot;Brat couldn't find it's number, quiting.\n&quot;);
+      exit(-1);
+    }
+
+  number = atoi(argv[1]);
+  srand(number+1);
+  <b>// You may want to tell this brat-process to listen for SIGTERM</b>
+
+  <b>/* Infinite loop to:
+    (1) increment jump,
+    (2) output brat number and number times jumped on bed,
+    (3) sleep() for <i>(rand() % 4) + 1</i>
+  */</b>
+
+  return(EXIT_SUCCESS);
+}
+</pre>
+    </p>
+
+    <p><b>Useful stuff</b>
+      <table border=1>
+	<tr>
+	  <td>Function</td>
+	  <td>Purpose</td>
+	</tr>
+
+	<tr>
+	  <td>int fork()</td>
+	  <td>Attempts to make a child process.
+	      Return value is either:
+	    <ul>
+	      <li>Negative: no child process made (process table full?)
+	      <li>0: The process that receives 0 <i>is</i> the child process
+	      <li>Positive: The process that receives a positive number is the parent process.  The actual number is the process id of the child.
+	    </ul>
+	  </td>
+	</tr>
+
+	<tr>
+	  <td>int kill (int pid, int signalNum)</td>
+	  <td>Sends signal <code>signalNum</code> to process <code>pid</code>.
+	    Don't worry about the return number.
+	  </td>
+	</tr>
+
+	<tr>
+	  <td>void* signal(int signalNum,fncName)</td>
+	  <td>Tells the OS that when this process receives signal <code>signalNum</code> it is to do function <code>fncName</code>.
+	    <code>fncName</code> should have form <code>void fncName (int sigNum)</code>.
+	    Ignore return value.
+	</tr>
+
+	<tr>
+	  <td>int wait(int* ptr)</td>
+	  <td>If this process has at least one child process still running then waits for it to finish.
+	      When it finally does finish (or if one had already finished) then sets <code>*ptr</code> equal to the status returned by the child and returns the process id of the child.
+	      The portion of the status that was <code>return()</code>ed by child's <code>main()</code>, or which the child <code>exit()</code>ed, is obtained by <code>WEXITSTATUS(childStatus)</code>
+	    <p>If there are no children for which to wait() then return 0.</p>
+	  </td>
+	</tr>
+      </table>
+    </p>
+
+    <p><b>Sample output</b>
+<pre>
+[jphillips@localhost Midterm]$ <i>mama</i>
+Brat 0 jumped on bed 1 times.
+Brat 1 jumped on bed 1 times.
+Press enter to tell the brats &quot;Stop jumping on the bed!&quot;
+Brat 2 jumped on bed 1 times.
+Brat 3 jumped on bed 1 times.
+Brat 3 jumped on bed 2 times.
+Brat 1 jumped on bed 2 times.
+Brat 2 jumped on bed 2 times.
+Brat 0 jumped on bed 2 times.
+Brat 2 jumped on bed 3 times.
+Brat 2 jumped on bed 4 times.
+Brat 3 jumped on bed 3 times.
+Brat 0 jumped on bed 3 times.
+Brat 1 jumped on bed 3 times.
+Brat 2 jumped on bed 5 times.
+Brat 1 jumped on bed 4 times.
+Brat 0 jumped on bed 4 times.
+Brat 2 jumped on bed 6 times.
+Brat 3 jumped on bed 4 times.
+Brat 2 jumped on bed 7 times.
+Brat 2 jumped on bed 8 times.
+Brat 1 jumped on bed 5 times.
+Brat 3 jumped on bed 5 times.
+Brat 2 jumped on bed 9 times.
+Brat 0 jumped on bed 5 times.
+Brat 1 jumped on bed 6 times.
+Brat 2 jumped on bed 10 times.
+Brat 0 jumped on bed 6 times.
+Brat 2 jumped on bed 11 times.
+Brat 3 jumped on bed 6 times.
+Brat 1 jumped on bed 7 times.
+Brat 1 jumped on bed 8 times.
+Brat 3 jumped on bed 7 times.
+Brat 2 jumped on bed 12 times.
+Brat 0 jumped on bed 7 times.
+Brat 2 jumped on bed 13 times.
+Brat 1 jumped on bed 9 times.
+Brat 3 jumped on bed 8 times.
+Brat 2 jumped on bed 14 times.
+Brat 0 jumped on bed 8 times.
+Brat 1 jumped on bed 10 times.
+Brat 0 jumped on bed 9 times.
+Brat 3 jumped on bed 9 times.
+Brat 0 jumped on bed 10 times.
+Brat 3 jumped on bed 10 times.
+Brat 2 jumped on bed 15 times.
+Brat 1 jumped on bed 11 times.
+Brat 0 jumped on bed 11 times.
+Brat 3 jumped on bed 11 times.
+Brat 3 jumped on bed 12 times.
+Brat 2 jumped on bed 16 times.
+Brat 1 jumped on bed 12 times.
+Brat 0 jumped on bed 12 times.
+Brat 2 jumped on bed 17 times.
+Brat 3 jumped on bed 13 times.
+Brat 2 jumped on bed 18 times.
+Brat 1 jumped on bed 13 times.
+<i>(user presses &quot;enter&quot;)</i>
+Mama has had enough and shouts &quot;GO TO BED!&quot;
+
+Brat 2 going to bed.
+Brat 1 going to bed.
+Brat 3 going to bed.
+Child 3864 ended after jumping on bed 13 times.
+Child 3865 ended after jumping on bed 18 times.
+Child 3866 ended after jumping on bed 13 times.
+Brat 0 going to bed.
+Child 3863 ended after jumping on bed 12 times.
+Mama's finished!
+</pre>
+    </p>
+  </ol>
+ </body>
+
+</html>

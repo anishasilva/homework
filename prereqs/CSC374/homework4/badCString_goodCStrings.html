@@ -1,0 +1,315 @@
+<html>
+
+ <head>
+  <title>Bad C/Good C Strings</title>
+ </head>
+
+ <body>
+  <center>
+    <h2>Bad C/Good C Strings</h2>
+    Last modified 2010 Oct 31
+  </center>
+
+  <p></p>
+
+  <center>
+    <table>
+      <tr>
+	<td>
+<pre>
+//  Assume the following has already been defined:
+
+#include &lt;cstring&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+const int	TINY_SIZE	= 3;
+const int	SMALL_SIZE	= 6;
+const int	LARGE_SIZE	= 12;
+
+char*           destPtr
+char            tinyCharArray[TINY_SIZE];
+char		smallCharArray[SMALL_SIZE];
+char		largeCharArray[LARGE_SIZE];
+string		destStrObj;
+string		sourceStrObj;
+int		intResult;
+bool		boolResult;
+
+tinyCharArray[0]	= 'B';
+tinyCharArray[1]	= 'A';
+tinyCharArray[2]	= 'D'; // <b>Extra</b> bad because no space for ending '\0'
+strcpy(smallCharArray,&quot;small&quot;);
+strcpy(largeCharArray,&quot;a bit long&quot;);
+destStrObj		= &quot;tiny&quot;;
+sourceStrObj		= &quot;longer&quot;;
+</pre>
+	</td>
+      </tr>
+    </table>
+  </center>
+
+  <p></p>
+
+  <table border=1>
+
+    <tr>
+      <td align=center>
+	Task
+      </td>
+      <td align=center>
+	Bad C! (<b>Don't</b> use!)
+      </td>
+      <td align=center>
+	Good C
+      </td>
+      <td align=center>
+	Equivalent C++
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	Entering<br>
+	strings
+      </td>
+      <td>
+<pre>
+<b>gets(char* dest)</b>
+
+//  A <i>time bomb</i>
+//  if one enters
+//  &quot;time bomb&quot;
+gets(smallCharArray);
+</pre>
+      </td>
+      <td>
+<pre>
+<b>fgets(char* dest,
+      int   destLen,
+      FILE* filePtr
+     )</b>
+
+// Ahh, safety!
+fgets(smallCharArray,
+      SMALL_SIZE,
+      stdin);
+</pre>
+      </td>
+      <td>
+<pre>
+//  Just as safe!
+<b>getline</b>(cin,destStrObj);
+</pre>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	Copying<br>
+	strings<br>
+        (into<br>
+         already<br>
+         allocated<br>
+	 space)
+      </td>
+      <td>
+<pre>
+<b>strcpy(char*       dest,
+       const char* source
+      )</b>
+
+//  This should crash!
+strcpy(smallCharArray,
+       largeCharArray);
+</pre>
+      </td>
+      <td>
+<pre>
+<b>strncpy(char*       dest,
+        const char* source,
+        int         destLen
+       )</b>
+
+//  No worries!
+strncpy(smallCharArray,
+        largeCharArray,
+        SMALL_SIZE);
+</pre>
+      </td>
+      <td>
+<pre>
+//  No problem!
+destStrObj <b>=</b> sourceStrObj;
+</pre>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	Copying<br>
+	strings<br>
+        (and<br>
+         allocating<br>
+	 space from</br>
+	 the heap)
+      </td>
+      <td>
+<pre>
+<b>strdup(const char* source)</b>
+
+//  I can't bare to watch!
+destPtr = strdup(tinyCharArray);
+free(destPtr);
+</pre>
+      </td>
+      <td>
+<pre>
+<b>strndup(const char* source,
+        int         sourceLen
+       )</b>
+
+//  Made in the shade!
+destPtr = strndup(tinyCharArray,
+                  TINY_SIZE);
+free(destPtr);
+</pre>
+      </td>
+      <td>
+<pre>
+//  (Same as above)
+destStrObj <b>=</b> sourceStrObj;
+</pre>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	Appending<br>
+	strings
+      </td>
+      <td>
+<pre>
+<b>strcat(char*       dest,
+       const char* source
+      )</b>
+
+//  Danger!
+strcat(smallCharArray,
+       largeCharArray);
+</pre>
+      </td>
+      <td>
+<pre>
+<b>strncat(char*       dest,
+        const char* source,
+        int         destLen
+       )</b>
+
+//  No problema!
+strncat(smallCharArray,
+        largeCharArray,
+        SMALL_SIZE);
+</pre>
+      </td>
+      <td>
+<pre>
+//  Kein Problem!
+destStrObj <b>+=</b> sourceStrObj;
+</pre>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+	Comparing<br>
+	strings
+      </td>
+      <td>
+<pre>
+<b>strcmp(const char* left,
+       const char* right
+      )</b>
+
+//  Yikes!
+intResult = strcmp(tinyCharArray,
+                   largeCharArray
+                  );
+</pre>
+      </td>
+      <td>
+<pre>
+<b>strncmp(const char* left,
+        const char* right,
+        int         len
+       )</b>
+
+//  Good Karma!
+intResult = strncmp(tinyCharArray,
+                    largeCharArray,
+                    TINY_SIZE
+                   );
+</pre>
+      </td>
+      <td>
+<pre>
+//  Karma, just as good
+//  (if not better)
+boolResult =(destStrObj<b>==</b>sourceStrObj);
+boolResult =(destStrObj<b>&lt;</b> sourceStrObj);
+boolResult =(destStrObj<b>&gt;</b> sourceStrObj);
+</pre>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+	Formatted<br>
+	printing<br>
+	to strings
+      </td>
+      <td>
+<pre>
+<b>sprintf(char*       dest,
+        const char* format,
+        &lt;args&gt;
+       )</b>
+
+//  Uhoh!
+sprintf(smallCharArray,
+        &quot;This won't fit %d!&quot;,
+        10000
+       );
+</pre>
+      </td>
+      <td>
+<pre>
+<b>snprintf(char*       dest,
+         int         destLen,
+         const char* format,
+         &lt;args&gt;
+        )</b>
+
+//  Ain't no thing
+snprintf(smallCharArray,
+         SMALL_SIZE,
+         &quot;Will be truncated %d!&quot;,
+         10000
+        );
+</pre>
+      </td>
+      <td>
+<pre>
+// (Don't know how to do)
+</pre>
+      </td>
+    </tr>
+
+
+  </table>
+ </body>
+
+</html>

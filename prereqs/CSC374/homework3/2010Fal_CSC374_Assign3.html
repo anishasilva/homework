@@ -1,0 +1,911 @@
+<html>
+
+ <head>
+  <title>CSC 374: Computer Systems 2, 2010 Fall, Assignment #3</title>
+ </head>
+
+
+ <body>
+  <center>
+   <h2>CSC 374: Computer Systems 2, 2010 Fall, Assignment #3</h2>
+    <p>
+      Last revised 2010 Oct 23
+    </p>
+  </center>
+
+  <H4>Purpose</H4>
+  <P>To practice working with POSIX threads, mutexes and conditions</P>
+
+  <h4>Overview</h4>
+  <p>
+    We are going to simulate the children's game of &quot;telephone&quot;.
+    In this game N (in our case, 10) children are in a circle.
+    The first one says something to the second.
+    The second one may or may not hear what the first one said accurately but he/she passes what he/she <i>thinks</i> was said to the third.
+    This continues until the message gets to the last child.
+  </p>
+
+  <p>
+    The program for our game has two classes.
+    The first one, <code>Sentence</code> holds the current state of a sentence.
+    It has been written for you, and all you have to do is use it.
+    The second one, <code>MessageSystem</code> holds mutexes, conditions and sentence pointer buffers between each child.
+    You'll have to finish this one.
+  </p>
+
+  <p>
+    <b>For this assignment you have to:</b>
+    <ul>
+      <li>You have to fill in the mutex and condition portions of <code>MessageSystem</code>.
+      <li>Write the function <code>void* child (void*)</code> that the child threads will run.
+      <li>Finish <code>main()</code> to invoke and wait for the child threads.
+    </ul>
+  </p>
+
+  <P>
+    Each child <code>i</code> will get the pointer to its sentence from <code>i-1</code> and will transmit it (imperfectly) to <code>i</code>.
+    Thus it needs to access two buffers: one at <code>i-1</code> and the other at <code>i</code>.
+    All buffers are protected by mutexes, so child <code>i-1</code> and child <code>i</code> don't step on each other's toes when trying to access the buffer at <code>i-1</code>.
+  </p>
+
+  <P>
+    Before child <code>i</code> can get the sentence pointer from the buffer at <code>i-1</code> the sentence has to be there.
+    If it is not it should temporarily surrender the lock (if it obtained it) and wait until the sentence becomes available.
+  </p>
+ 
+  <h4>Assignment</h4>
+  <ol type="1">
+    <li><h4>Cut and paste the following (10 points)</h4>
+<pre>
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----		telephoneGame						----*
+ *----									----*
+ *----	    This program simulates the children's game of &quot;telephone&quot;,	----*
+ *----	where an original message mutates as it is imperfectly 		----*
+ *----	transmited among children in a pairwise manner.			----*
+ *----									----*
+ *----	    It demonstrates Linux/Unix thread programming using		----*
+ *----	pthread_mutex_t and pthread_cond_t.				----*
+ *----									----*
+ *----	Compile with:							----*
+ *----		linux&gt; g++ -lpthread telephoneGame.cpp -o telephoneGame	----*
+ *----									----*
+ *----	----	----	----	----	----	----	----	----	----*
+ *----									----*
+ *----	Version 1.0		Joseph Phillips		2010 October 23	----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----			Includes and namespace designations:		----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;pthread.h&gt;
+
+using	 namespace	std;
+
+
+
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----			    Definitions of constants:			----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+/*  PURPOSE:  To tell the number of children among whom to pass the message.
+ */
+const	 int	NUM_CHILDREN			= 10;
+
+
+
+/*  PURPOSE:  To tell the number of terms in the sentence.
+ */
+const	 int	NUM_WORDS_IN_SENTENCE		= 9;
+
+
+
+/*  PURPOSE:  To tell the number of possible mutations for each term.
+ */
+const	 int	NUM_CHOICES_PER_POSITION	= 3;
+
+
+
+/*  PURPOSE:  To tell the possible terms for each position in the sentence.
+ */
+const string 	words[NUM_WORDS_IN_SENTENCE][NUM_CHOICES_PER_POSITION]
+		= { {&quot;The&quot;,&quot;He&quot;,&quot;Wee&quot;},
+		    {&quot;quick&quot;,&quot;slick&quot;,&quot;thick&quot;},
+		    {&quot;brown&quot;,&quot;round&quot;,&quot;found&quot;},
+		    {&quot;fox&quot;,&quot;box&quot;,&quot;locks&quot;},
+		    {&quot;jumped&quot;,&quot;thumped&quot;,&quot;pumped&quot;},
+		    {&quot;over&quot;,&quot;clover&quot;,&quot;white cliffs of Dover&quot;},
+		    {&quot;the&quot;,&quot;be&quot;,&quot;three&quot;},
+		    {&quot;lazy&quot;,&quot;hazy&quot;,&quot;A to Z&quot;},
+		    {&quot;dog&quot;,&quot;frog&quot;,&quot;hog&quot;}
+		  };	
+
+
+
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----	    Definitions of classes and their methods and functions:	----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+/*  PURPOSE:  To represent the current state of a Sentence.
+ */
+class	 Sentence
+{
+
+  int	wordChoices[NUM_WORDS_IN_SENTENCE];
+
+  //  Disallow copy-assignment
+  Sentence&amp;	operator=(const Sentence&amp;);
+
+public :
+
+  //  PURPOSE:  To initialize '*this' sentence to its default state.  No
+  //  	parameters.  No return value.
+  Sentence	()
+  {
+    for  (int index = 0;  index &lt; NUM_WORDS_IN_SENTENCE;  index++)
+      wordChoices[index] = 0;
+  }
+
+  //  PURPOSE:  To make '*this' a copy of 'source'.  No return value.
+  Sentence	(const Sentence&amp; source)
+  {
+    for  (int  index = 0;  index &lt; NUM_WORDS_IN_SENTENCE;  index++)
+      wordChoices[index] = source.wordChoices[index];
+  }
+
+  //  PURPOSE:  To release the resources of '*this'.  No parameters.  No
+  //	return value.
+  ~Sentence ()
+  {
+  }
+
+  //  PURPOSE:  To return the current word at position 'index'.
+  const string&amp;	getWord	(int index) const
+  {
+    return(words[index][wordChoices[index]]);
+  }
+
+  //  PURPOSE:  To (potentially) mutate one term of '*this' sentence.   No
+  //	parameters.  No return value.
+  void	imperfectlyTransmit	()
+  {
+    wordChoices[rand()%NUM_WORDS_IN_SENTENCE] = rand()%NUM_CHOICES_PER_POSITION;
+  }
+
+};
+
+
+
+/*  PURPOSE:  To print the text of Sentence 'sentence' to output stream 'os'
+ *	and to return 'os'.
+ */
+ostream&amp;	operator&lt;&lt;	(ostream&amp; os, const Sentence&amp; sentence)
+{
+  for  (int index = 0;  index &lt; NUM_WORDS_IN_SENTENCE;  index++)
+  {
+    os &lt;&lt; sentence.getWord(index);
+    os &lt;&lt; ((index == (NUM_WORDS_IN_SENTENCE-1)) ? '.' : ' ');
+  }
+
+  return(os);
+}
+
+
+
+/*  PURPOSE:  To hold the state of the messaging system, including the
+ *	mutexes, conditions and sentence buffers.
+ */
+class	MessageSystem
+{
+
+  //  YOUR CODE HERE FOR AN ARRAY OF NUM_CHILDREN+1 MUTEXES
+
+  //  YOUR CODE HERE FOR AN ARRAY OF NUM_CHILDREN+1 CONDITIONS
+
+  Sentence*		sentenceArray[NUM_CHILDREN+1];
+
+  //  Disallow copy-construction
+  MessageSystem		(const MessageSystem&amp;);
+
+  //  Disallow copy-assignment
+  MessageSystem&amp;	operator=(const MessageSystem&amp;);
+
+public :
+
+  //  PURPOSE:  To initialize the array of mutexes, the array of conditions
+  //  	and the array of sentence pointers to be NULL.
+  MessageSystem	()
+  {
+    for  (int index = 0;  index &lt;= NUM_CHILDREN;  index++)
+    {
+       // YOUR CODE HERE TO INITIALIZE MUTEX NUMBER index
+       // YOUR CODE HERE TO INITIALIZE CONDITION NUMBER index
+       sentenceArray[index] = NULL;
+    }
+  }
+
+
+  //  PURPOSE:  To destroy the mutexes in their array, to destroy the conditions
+  //	in their array, to delete() the sentence pointers in their array.  No
+  //	parameters.  No return value.
+  ~MessageSystem	()
+  {
+    for  (int index = 0;  index &lt;= NUM_CHILDREN;  index++)
+    {
+       // YOUR CODE HERE TO DESTROY MUTEX NUMBER index
+       // YOUR CODE HERE TO DESTROY CONDITION NUMBER index
+       delete(sentenceArray[index]);
+    }
+  }
+
+
+  //  PURPOSE:  To return a *pointer* to the lock at position 'index'.
+  pthread_mutex_t*	getLockPtr	(int	index)
+  {
+    return(/* YOUR CODE HERE TO RETURN A POINTER TO index-th MUTEX */ NULL);
+  }
+
+
+  //  PURPOSE:  To return a *pointer* to the condition at position 'index'.
+  pthread_cond_t*	getCondPtr	(int	index)
+  {
+    return(/* YOUR CODE HERE TO RETURN A POINTER TO index-th CONDITION */ NULL);
+  }
+
+
+  //  PURPOSE:  To &quot;give away&quot; (set equal to NULL) the pointer to the sentence
+  //	at position 'index'.
+  Sentence*	giveSentencePtr (int index)
+  {
+    Sentence*	ptr = sentenceArray[index];
+
+    sentenceArray[index]	= NULL;
+    return(ptr);
+  }
+
+
+  //  PURPOSE:  To set the sentence pointer at position 'index' equal to
+  //	'sentencePtr'.  No return value.
+  void		setSentencePtr	(int index, Sentence* sentencePtr)
+  {
+    sentenceArray[index]	= sentencePtr;
+  }
+
+
+
+  //  PURPOSE:  To return 'true' if the sentence at position 'index' is ready
+  //	to be transmitted.
+  bool		isReady		(int index) const
+  {
+    return(sentenceArray[index] != NULL);
+  }
+
+};
+
+
+
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----			Definitions of global variables:		----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+/*  PURPOSE:  To hold the global messaging system.
+ */
+MessageSystem	messageSystem;
+
+
+
+/*--------------------------------------------------------------------------*
+ *----									----*
+ *----			Definitions of global functions:		----*
+ *----									----*
+ *--------------------------------------------------------------------------*/
+
+/*  PURPOSE:  To get the necessary locks, get the sentence, print it,
+ *	transmit it (imperfectly), and unlock and signal the next child.
+ */
+void*	child	(void*	argPtr)
+{
+
+  //  I.  Applicability validity check:
+
+
+  //  II. Run for current child:
+
+  //  II.A.  Get 'index':
+
+  //  YOUR CODE HERE
+
+
+  //  II.B.  Announce that this child is ready:
+
+  //  YOUR CODE HERE
+
+
+  //  II.C.  Get both locks and wait until signaled (if need to):
+
+  if  ( (rand() % 2) == 1)
+  {
+    //  YOUR CODE HERE
+  }
+  else
+  {
+    //  YOUR CODE HERE
+  }
+
+  //  YOUR CODE HERE
+
+
+  //  II.D.  Get pointer to sentence, print it and transmit it:
+
+  //  YOUR CODE HERE
+
+
+  //  II.E.  Signal next child that message is ready and unlock their 
+
+  //  YOUR CODE HERE
+
+
+  //  III.  Finished:
+  
+}
+
+
+
+/*  PURPOSE:  To play the telephone game.  'argc' tells how many command line
+ *	arguments there are.  'argv[]' points to each.  Returns 'EXIT_SUCCESS'
+ *	to OS.
+ */
+int	main (int argc, const char* argv[])
+{
+
+  //  I.  Applicability validity check:
+
+
+  //  II.  Play game:
+
+  //  II.A.  Seed random number generator:
+
+  int 	   	randNumSeed;
+
+  if  (argc &gt;= 2)
+    randNumSeed = atoi(argv[1]);
+  else
+  {
+    string	entry;
+
+    cout &lt;&lt; &quot;Random number seed? &quot;;
+    getline(cin,entry);
+    randNumSeed = atoi(entry.c_str());
+  }
+
+  srand(randNumSeed);
+
+
+  //  II.B.  Play game:
+
+  Sentence	sentence;
+  int		childIndex;
+  int		indices[NUM_CHILDREN+1];
+  //  YOUR CODE HERE FOR AN ARRAY OF NUM_CHILDREN+1 THREADS
+
+  messageSystem.setSentencePtr(0,&amp;sentence);
+
+  for  (childIndex = NUM_CHILDREN;  childIndex &gt; 0;  childIndex--)
+  {
+    indices[childIndex] = childIndex;
+    //  YOUR CODE HERE TO INITIALIZE THREAD NUMBER childIndex
+  }
+
+  for  (childIndex = 1; childIndex &lt;= NUM_CHILDREN;  childIndex++)
+  {
+    //  YOUR CODE HERE TO WAIT FOR THREAD NUMBER childIndex
+  }
+
+  cout &lt;&lt; &quot;Finally we have: \&quot;&quot; &lt;&lt; *messageSystem.giveSentencePtr(10) &lt;&lt; &quot;\&quot;&quot;
+       &lt;&lt; endl;
+
+
+  //  III.  Finished:
+
+  return(EXIT_SUCCESS);
+}
+</pre>
+      <p>
+      </p>
+
+    <li><h4>Finish <code>class MessageSystem</code> (25 points)</h4>
+      <p>
+	The class needs two more arrays: one of NUM_CHILDREN+1 pthread-mutexes and another of NUM_CHILDREN+1 pthread-conditions.
+	All the objects in both arrays should be initialized in the constructor, destroyed in the destructor, and should have pointers returned in <code>getLockPtr()</code> and <code>getCondPtr()</code>.
+      </p>
+
+    <li><h4>Write <code>void* child (void* argPtr)</code> (40 points)</h4>
+      <p>
+      </p>
+	<ol type="A">
+	  <li>It might be useful to define an integer variable <code>index</code> corresponding to the integer pointed to by <code>argPtr</code>.
+	      Please note that <code>argPtr</code> has type <code>void*</code> and therefore does not know it points to an integer.
+	    <p></p>
+
+	  <li>A simple <code>cout</code> statement should suffice here.
+	    <p></p>
+
+	  <li>Time for mutexes!
+	    See that if statement?
+	    In the &quot;then&quot; part of it lock <code>messageSystem.getLockPtr(index)</code> first and <code>messageSystem.getLockPtr(index-1)</code> second.
+	    In the &quot;else&quot; part of it lock <code>messageSystem.getLockPtr(index-1)</code> first and <code>messageSystem.getLockPtr(index)</code> second.
+	    (We do this to try to convince ourselves that our program is robust over the vagaries of timing.)
+	    Then we <code>cout</code>.
+	    Finally we <i>loop</i> while our incoming message is not yet ready (method <code>isReady(index-1)</code>).
+	    In this loop we should wait to be signaled.
+	    <p></p>
+
+	  <li>Here we've got to get a <code>Sentence*</code> (method <code>giveSentencePtr(index-1)</code>).
+	    We print out what we got and call method <code>imperfectlyTransmit()</code> on it (how do you run a method on an object given a pointer to it?).
+	    Finally we set the updated sentence with <code>setSentencePtr(index,<i>yourSentencePtrVar</i>)</code>
+	    <p></p>
+
+	  <li>We got both locks <code>index-1</code> and <code>index</code>, and here we unlock them.
+	    Further, we should signal that there's a <code>Sentence</code> pointer in the buffer at index for child index+1.
+	    <p></p>
+
+	</ol>
+
+    <li><h4>Finish <code>int main ()</code> (25 points)</h4>
+  <p>
+    We need an array of NUM_CHILDREN+1 pthreads.
+    This array will be initialized in the first loop, where all child threads are to run your function <code>child()</code> and all are passed the <i>address</i> of <code>indices[childIndex]</code>.
+    The child threads are initialized in <i>reverse</i> order to show how robust our solution is; our children are <i>well-behaved</i> and will not <b>throw a tantrum</b> if made to wait.
+  </p>
+
+  <p>
+    In the second loop we wait for each thread to finish.
+  </p>
+  </ol>
+
+  <h4>Sample output:</h4>
+<pre>
+[jphillips@localhost Assign3]$ <b>telephoneGame 1</b>
+Child 9 ready to start
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+Child 8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+Child 7 ready to start
+Child 7 got all his/her locks
+Child 7 surrendering lock waiting for signal
+Child Child 106 ready to start
+ ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 3 ready to start
+Child 3 got all his/her locks
+Child 3 surrendering lock waiting for signal
+Child 2 ready to start
+Child 2 got all his/her locks
+Child 2 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 2 says &quot;The quick brown fox jumped clover the lazy dog.&quot;
+Child 3 says &quot;The quick brown fox jumped clover the lazy dog.&quot;
+Child 4 says &quot;The quick brown fox jumped clover the lazy dog.&quot;
+Child 5 says &quot;The quick brown fox jumped clover the lazy dog.&quot;
+Child 6 says &quot;The quick brown fox jumped clover the hazy dog.&quot;
+Child 7 says &quot;The quick brown fox jumped clover the hazy hog.&quot;
+Child 8 says &quot;The quick brown fox jumped clover the hazy hog.&quot;
+Child 9 says &quot;The quick brown fox jumped clover the hazy hog.&quot;
+Child 10 got all his/her locks
+Child 10 says &quot;The quick brown fox jumped clover the hazy frog.&quot;
+Finally we have: &quot;The slick brown fox jumped clover the hazy frog.&quot;
+[jphillips@localhost Assign3]$ <b>telephoneGame 2</b>
+Child Child 10 ready to start9 ready to start
+Child 10 got all his/her locks
+Child 10 surrendering lock waiting for signal
+
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+Child 8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+Child 6 ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 7 ready to start
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 3 ready to start
+Child 3 got all his/her locks
+Child 3 surrendering lock waiting for signal
+Child 2 ready to start
+Child 2 got all his/her locks
+Child 2 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 2 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 3 says &quot;Wee quick brown fox jumped over the lazy dog.&quot;
+Child 4 says &quot;Wee quick brown fox jumped over the lazy dog.&quot;
+Child 5 says &quot;Wee quick brown fox jumped over the lazy dog.&quot;
+Child 6 says &quot;Wee quick brown locks jumped over the lazy dog.&quot;
+Child 7 got all his/her locks
+Child 7 says &quot;Wee quick brown locks jumped over the lazy hog.&quot;
+Child 8 says &quot;Wee quick brown locks jumped over the lazy hog.&quot;
+Child 9 says &quot;Wee slick brown locks jumped over the lazy hog.&quot;
+Child 10 says &quot;Wee slick brown locks jumped over the lazy hog.&quot;
+Finally we have: &quot;The slick brown locks jumped over the lazy hog.&quot;
+[jphillips@localhost Assign3]$ <b>telephoneGame 3</b>
+Child 10 ready to start
+Child 10 got all his/her locks
+Child 10 surrendering lock waiting for signal
+Child 9 ready to start
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+Child 8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+Child 7 ready to start
+Child 7 got all his/her locks
+Child 7 surrendering lock waiting for signal
+Child 6 ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 3 ready to start
+Child 3 got all his/her locks
+Child 3 surrendering lock waiting for signal
+Child 2 ready to start
+Child 2 got all his/her locks
+Child 2 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 2 says &quot;The quick brown fox thumped over the lazy dog.&quot;
+Child 3 says &quot;He quick brown fox thumped over the lazy dog.&quot;
+Child 4 says &quot;He quick brown fox jumped over the lazy dog.&quot;
+Child 5 says &quot;He quick brown fox jumped over be lazy dog.&quot;
+Child 6 says &quot;He quick brown fox jumped over be lazy dog.&quot;
+Child 7 says &quot;He quick brown fox jumped over be lazy dog.&quot;
+Child 8 says &quot;He quick brown fox jumped over be lazy dog.&quot;
+Child 9 says &quot;He quick brown fox pumped over be lazy dog.&quot;
+Child 10 says &quot;He quick found fox pumped over be lazy dog.&quot;
+Finally we have: &quot;He slick found fox pumped over be lazy dog.&quot;
+[jphillips@localhost Assign3]$ <b>telephoneGame 4</b>
+Child Child Child 109 ready to start ready to start
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+
+Child 7 ready to start
+Child 7 got all his/her locks
+Child 7 surrendering lock waiting for signal
+Child 6 ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 3 ready to start
+Child 3 got all his/her locksChild 
+Child 3 surrendering lock waiting for signal
+2 ready to start
+Child 2 got all his/her locks
+Child 2 says &quot;The quick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Child 3 says &quot;The quick brown fox pumped white cliffs of Dover the lazy dog.&quot;
+Child 4 says &quot;The quick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Child 5 says &quot;The slick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Child 6 says &quot;The slick brown fox jumped white cliffs of Dover three lazy dog.&quot;
+Child 7 says &quot;The slick brown fox jumped white cliffs of Dover three lazy dog.&quot;
+Child 8 says &quot;The slick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Child 9 says &quot;He slick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Child 10 got all his/her locks
+Child 10 says &quot;He slick brown fox jumped white cliffs of Dover the lazy dog.&quot;
+Finally we have: &quot;He slick brown box jumped white cliffs of Dover the lazy dog.&quot;
+[jphillips@localhost Assign3]$ <b>telephoneGame 5</b>
+Child Child 9 ready to start10 ready to start
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+
+Child 8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+Child 6 ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 7 ready to start
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 3 ready to start
+Child 3 got all his/her locks
+Child 3 surrendering lock waiting for signal
+Child 2 ready to start
+Child 2 got all his/her locks
+Child 2 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 2 says &quot;Wee quick brown fox jumped over the lazy dog.&quot;
+Child 3 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 4 says &quot;The thick brown fox jumped over the lazy dog.&quot;
+Child 5 says &quot;The thick brown fox jumped over the lazy dog.&quot;
+Child 6 says &quot;The thick brown fox pumped over the lazy dog.&quot;
+Child 7 got all his/her locks
+Child 7 says &quot;The thick brown fox pumped over the lazy frog.&quot;
+Child 8 says &quot;The thick brown fox pumped over the lazy frog.&quot;
+Child 9 says &quot;The thick brown locks pumped over the lazy frog.&quot;
+Child 10 got all his/her locks
+Child 10 says &quot;The thick brown locks thumped over the lazy frog.&quot;
+Finally we have: &quot;The thick brown locks thumped clover the lazy frog.&quot;
+[jphillips@localhost Assign3]$ <b>telephoneGame 6</b>
+Child 9 ready to start
+Child 9 got all his/her locks
+Child 9 surrendering lock waiting for signal
+Child 8 ready to start
+Child 8 got all his/her locks
+Child 8 surrendering lock waiting for signal
+Child 7 ready to start
+Child 7 got all his/her locks
+Child 7 surrendering lock waiting for signal
+Child 6 ready to start
+Child 6 got all his/her locks
+Child 6 surrendering lock waiting for signal
+Child 5 ready to start
+Child 5 got all his/her locks
+Child 5 surrendering lock waiting for signal
+Child 4 ready to start
+Child 4 got all his/her locks
+Child 4 surrendering lock waiting for signal
+Child 3 ready to start
+Child 3 got all his/her locks
+Child 3 surrendering lock waiting for signal
+Child 2 ready to start
+Child 2 got all his/her locks
+Child 2 surrendering lock waiting for signal
+Child 1 ready to start
+Child 1 got all his/her locks
+Child 1 says &quot;The quick brown fox jumped over the lazy dog.&quot;
+Child 2 says &quot;The quick brown fox pumped over the lazy dog.&quot;
+Child 3 says &quot;The quick brown fox pumped over the lazy dog.&quot;
+Child 4 says &quot;The quick brown fox pumped over the lazy frog.&quot;
+Child 5 says &quot;The quick brown fox pumped over the lazy frog.&quot;
+Child 6 says &quot;The quick brown fox pumped over the lazy frog.&quot;
+Child 7 says &quot;The quick brown fox pumped over the lazy frog.&quot;
+Child 8 says &quot;The quick brown fox pumped clover the lazy frog.&quot;
+Child 9 says &quot;The quick brown locks pumped clover the lazy frog.&quot;
+Child 10 ready to start
+Child 10 got all his/her locks
+Child 10 says &quot;The quick brown locks pumped clover the lazy dog.&quot;
+Finally we have: &quot;The quick brown locks pumped over the lazy dog.&quot;
+[jphillips@localhost Assign3]$ 
+</pre>
+
+  <h4>Useful knowledge:</h4>
+  <table border=1>
+    <tr>
+      <td align=center>
+	<b>Function</b>
+      </td>
+      <td align=center>
+	<b>What it does</b>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_create
+(/* Pointer to a pthread_t object  */
+ pthread_t*	 restrict		threadPtr,
+
+ /* Pointer to optional object for properties of child */
+ const pthread_attr_t* restrict		attr,
+
+ /* Name of function to run: void* fncName(void* ptr) */ 
+ void *(*fncName)(void*),
+
+ /* Ptr to object that is parameter to fncName() */
+ void *restrict 			arg
+)
+</pre>
+      </td>
+      <td>
+	Makes a thread in the space pointed to by <code>threadPtr</code>
+	The thread run the function <code>void* fncName(void* )</code> and passes <code>arg</code> to it.
+	Just leave <code>attr</code> as <code>NULL</code> for a generic thread.	
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_join
+(/* Which thread to wait for */
+ pthread_t		thread,
+
+ /* Pointer to pointer to receive pointer
+    returned by exiting thread's function.
+  */
+ void**			valuePtrsPtr
+
+)</pre>
+      </td>
+      <td>
+	Waits for thread <code>thread</code> to finish.
+	When it does <code>valuePtr</code> (the thing that <code>valuePtrsPtr</code> points to) is set to the thread's function's returned pointer value <b>or</b> it is ignored if <code>valuePtr==NULL</code>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_init
+(/* Ptr to space for mutex */
+ pthread_mutex_t *restrict mutexPtr,
+
+ /* Type of mutex (just pass NULL) */
+ const pthread_mutexattr_t *restrict attr
+);
+</pre>
+      </td>
+      <td>
+	Initializes lock object pointed to by <code>mutexPtr</code>.
+	Just use NULL for 2nd parameter.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_destroy
+(/* Ptr to mutex to destroy *.
+ pthread_mutex_t *mutex
+);
+</pre>
+      </td>
+      <td>
+	Releases resources taken by mutex pointed to by <code>mutexPtr</code>.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_lock
+(/* Pointer to mutex to lock */
+ pthread_mutex_t *mutexPtr
+);
+</pre>
+      </td>
+      <td>
+	Either
+	<ol type=1>
+	  <li>Gains lock and proceeds, or
+	  <li>Waits for lock to become available
+	</ol>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_mutex_unlock
+(/* Pointer to mutex to unlock */
+ pthread_mutex_t *mutexPtr
+);
+</pre>
+      </td>
+      <td>
+	Releases lock.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_init
+(/* Pointer to space in which to make condition */
+ pthread_cond_t *restrict condPtr,
+
+ /* Type of condition (just pass NULL) */
+ const pthread_condattr_t *restrict attr
+);
+</pre>
+      </td>
+      <td>
+	Creates a condition.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_destroy
+(/* Pointer to condition to destroy */
+ pthread_cond_t *condPtr
+);
+</pre>
+      </td>
+      <td>
+	Destroys pointed to condition.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_wait
+(/* Pointer to condition on which to wait */
+ pthread_cond_t *restrict condPtr,
+
+ /* Pointer to mutex to surrender until receive signal */
+ pthread_mutex_t *restrict mutexPtr
+); 
+</pre>
+      </td>
+      <td>
+	Suspends thread until receives signal on <code>condPtr</code>.
+	While thread is suspended it surrenders lock on <code>mutexPtr</code>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+<pre>
+int pthread_cond_signal
+(/* Ptr to condition which is signaled */
+ pthread_cond_t *condPtr
+); 
+</pre>
+      </td>
+      <td>
+	Wakes up at least one thread waiting for signal on <code>condPtr</code>.
+      </td>
+    </tr>
+
+  </table>
+
+ </body>
+</html>

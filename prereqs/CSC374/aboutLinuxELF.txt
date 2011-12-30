@@ -1,0 +1,422 @@
+(1) For compiling:
+
+	Preprocess only:
+	linux> gcc -E hello.c 
+
+	Compile only (to assembly code):
+	linux> gcc -S hello.c
+
+	Compile only (to object code):
+	linux> gcc -c hello.c
+
+	Compile and link to executable:
+	linux> gcc hello.o -o hello
+
+	When linking, do NOT rely on load-time linker.  Do all linking now:
+	linux> gcc -static hello.c -o hello
+
+
+(2) To examine archive:
+
+	linux> ar t /usr/lib/libc.a
+
+	t option means "table"
+
+(3) To examine elf:
+
+	Can find out the types of files:
+
+	linux> readelf -h hello | grep Type
+	linux> readelf -h hello.o | grep Type
+	linux> readelf -h /lib/ld-2.7.so  | grep Type
+
+
+	Can find out Endianess, Architecture, # sections:
+
+	linux> readelf -h hello
+	
+
+	Can find out info on each section:
+
+	linux> readelf -S hello
+
+
+	Can examine particular sections:
+
+	linux> objdump -d -j .text hello
+	linux> objdump -d -j .data hello
+
+
+	Can examine the symbol table:
+
+	linux> readelf -s hello
+	 
+
+	linux> readelf -h hello
+
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x4003e0
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          2776 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         8
+  Size of section headers:           64 (bytes)
+  Number of section headers:         30
+  Section header string table index: 27
+
+
+	linux> readelf -S hello
+There are 30 section headers, starting at offset 0xad8:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .interp           PROGBITS         0000000000400200  00000200
+       000000000000001c  0000000000000000   A       0     0     1
+  [ 2] .note.ABI-tag     NOTE             000000000040021c  0000021c
+       0000000000000020  0000000000000000   A       0     0     4
+  [ 3] .note.gnu.build-i NOTE             000000000040023c  0000023c
+       0000000000000024  0000000000000000   A       0     0     4
+  [ 4] .gnu.hash         GNU_HASH         0000000000400260  00000260
+       000000000000001c  0000000000000000   A       5     0     8
+  [ 5] .dynsym           DYNSYM           0000000000400280  00000280
+       0000000000000060  0000000000000018   A       6     1     8
+  [ 6] .dynstr           STRTAB           00000000004002e0  000002e0
+       000000000000003d  0000000000000000   A       0     0     1
+  [ 7] .gnu.version      VERSYM           000000000040031e  0000031e
+       0000000000000008  0000000000000002   A       5     0     2
+  [ 8] .gnu.version_r    VERNEED          0000000000400328  00000328
+       0000000000000020  0000000000000000   A       6     1     8
+  [ 9] .rela.dyn         RELA             0000000000400348  00000348
+       0000000000000018  0000000000000018   A       5     0     8
+  [10] .rela.plt         RELA             0000000000400360  00000360
+       0000000000000030  0000000000000018   A       5    12     8
+  [11] .init             PROGBITS         0000000000400390  00000390
+       0000000000000018  0000000000000000  AX       0     0     4
+  [12] .plt              PROGBITS         00000000004003a8  000003a8
+       0000000000000030  0000000000000010  AX       0     0     4
+  [13] .text             PROGBITS         00000000004003e0  000003e0
+       00000000000001d8  0000000000000000  AX       0     0     16
+  [14] .fini             PROGBITS         00000000004005b8  000005b8
+       000000000000000e  0000000000000000  AX       0     0     4
+  [15] .rodata           PROGBITS         00000000004005c8  000005c8
+       000000000000001d  0000000000000000   A       0     0     8
+  [16] .eh_frame_hdr     PROGBITS         00000000004005e8  000005e8
+       000000000000002c  0000000000000000   A       0     0     4
+  [17] .eh_frame         PROGBITS         0000000000400618  00000618
+       00000000000000b4  0000000000000000   A       0     0     8
+  [18] .ctors            PROGBITS         00000000006006d0  000006d0
+       0000000000000010  0000000000000000  WA       0     0     8
+  [19] .dtors            PROGBITS         00000000006006e0  000006e0
+       0000000000000010  0000000000000000  WA       0     0     8
+  [20] .jcr              PROGBITS         00000000006006f0  000006f0
+       0000000000000008  0000000000000000  WA       0     0     8
+  [21] .dynamic          DYNAMIC          00000000006006f8  000006f8
+       0000000000000190  0000000000000010  WA       6     0     8
+  [22] .got              PROGBITS         0000000000600888  00000888
+       0000000000000008  0000000000000008  WA       0     0     8
+  [23] .got.plt          PROGBITS         0000000000600890  00000890
+       0000000000000028  0000000000000008  WA       0     0     8
+  [24] .data             PROGBITS         00000000006008b8  000008b8
+       0000000000000008  0000000000000000  WA       0     0     4
+  [25] .bss              NOBITS           00000000006008c0  000008c0
+       0000000000000010  0000000000000000  WA       0     0     8
+  [26] .comment          PROGBITS         0000000000000000  000008c0
+       0000000000000114  0000000000000000           0     0     1
+  [27] .shstrtab         STRTAB           0000000000000000  000009d4
+       00000000000000fe  0000000000000000           0     0     1
+  [28] .symtab           SYMTAB           0000000000000000  00001258
+       0000000000000630  0000000000000018          29    46     8
+  [29] .strtab           STRTAB           0000000000000000  00001888
+       0000000000000210  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+	linux> objdump -d -j .text hello
+
+hello:     file format elf64-x86-64
+
+Disassembly of section .text:
+
+00000000004003e0 <_start>:
+  4003e0:       31 ed                   xor    %ebp,%ebp
+  4003e2:       49 89 d1                mov    %rdx,%r9
+  4003e5:       5e                      pop    %rsi
+  4003e6:       48 89 e2                mov    %rsp,%rdx
+  4003e9:       48 83 e4 f0             and    $0xfffffffffffffff0,%rsp
+  4003ed:       50                      push   %rax
+  4003ee:       54                      push   %rsp
+  4003ef:       49 c7 c0 e0 04 40 00    mov    $0x4004e0,%r8
+  4003f6:       48 c7 c1 f0 04 40 00    mov    $0x4004f0,%rcx
+  4003fd:       48 c7 c7 c8 04 40 00    mov    $0x4004c8,%rdi
+  400404:       e8 bf ff ff ff          callq  4003c8 <__libc_start_main@plt>
+  400409:       f4                      hlt    
+  40040a:       90                      nop    
+  40040b:       90                      nop    
+
+000000000040040c <call_gmon_start>:
+  40040c:       48 83 ec 08             sub    $0x8,%rsp
+  400410:       48 8b 05 71 04 20 00    mov    0x200471(%rip),%rax        # 600888 <_DYNAMIC+0x190>
+  400417:       48 85 c0                test   %rax,%rax
+  40041a:       74 02                   je     40041e <call_gmon_start+0x12>
+  40041c:       ff d0                   callq  *%rax
+  40041e:       48 83 c4 08             add    $0x8,%rsp
+  400422:       c3                      retq   
+  400423:       90                      nop    
+  400424:       90                      nop    
+  400425:       90                      nop    
+  400426:       90                      nop    
+  400427:       90                      nop    
+  400428:       90                      nop    
+  400429:       90                      nop    
+  40042a:       90                      nop    
+  40042b:       90                      nop    
+  40042c:       90                      nop    
+  40042d:       90                      nop    
+  40042e:       90                      nop    
+  40042f:       90                      nop    
+
+0000000000400430 <__do_global_dtors_aux>:
+  400430:       55                      push   %rbp
+  400431:       48 89 e5                mov    %rsp,%rbp
+  400434:       53                      push   %rbx
+  400435:       48 83 ec 08             sub    $0x8,%rsp
+  400439:       80 3d 88 04 20 00 00    cmpb   $0x0,0x200488(%rip)        # 6008c8 <completed.5999>
+  400440:       75 44                   jne    400486 <__do_global_dtors_aux+0x56>
+  400442:       b8 e8 06 60 00          mov    $0x6006e8,%eax
+  400447:       48 2d e0 06 60 00       sub    $0x6006e0,%rax
+  40044d:       48 c1 f8 03             sar    $0x3,%rax
+  400451:       48 8d 58 ff             lea    -0x1(%rax),%rbx
+  400455:       48 8b 05 64 04 20 00    mov    0x200464(%rip),%rax        # 6008c0 <__bss_start>
+  40045c:       48 39 c3                cmp    %rax,%rbx
+  40045f:       76 1e                   jbe    40047f <__do_global_dtors_aux+0x4f>
+  400461:       48 83 c0 01             add    $0x1,%rax
+  400465:       48 89 05 54 04 20 00    mov    %rax,0x200454(%rip)        # 6008c0 <__bss_start>
+  40046c:       ff 14 c5 e0 06 60 00    callq  *0x6006e0(,%rax,8)
+  400473:       48 8b 05 46 04 20 00    mov    0x200446(%rip),%rax        # 6008c0 <__bss_start>
+  40047a:       48 39 c3                cmp    %rax,%rbx
+  40047d:       77 e2                   ja     400461 <__do_global_dtors_aux+0x31>
+  40047f:       c6 05 42 04 20 00 01    movb   $0x1,0x200442(%rip)        # 6008c8 <completed.5999>
+  400486:       48 83 c4 08             add    $0x8,%rsp
+  40048a:       5b                      pop    %rbx
+  40048b:       c9                      leaveq 
+  40048c:       c3                      retq   
+  40048d:       0f 1f 00                nopl   (%rax)
+
+0000000000400490 <frame_dummy>:
+  400490:       55                      push   %rbp
+  400491:       48 83 3d 57 02 20 00    cmpq   $0x0,0x200257(%rip)        # 6006f0 <__JCR_END__>
+  400498:       00 
+  400499:       48 89 e5                mov    %rsp,%rbp
+  40049c:       74 16                   je     4004b4 <frame_dummy+0x24>
+  40049e:       b8 00 00 00 00          mov    $0x0,%eax
+  4004a3:       48 85 c0                test   %rax,%rax
+  4004a6:       74 0c                   je     4004b4 <frame_dummy+0x24>
+  4004a8:       bf f0 06 60 00          mov    $0x6006f0,%edi
+  4004ad:       49 89 c3                mov    %rax,%r11
+  4004b0:       c9                      leaveq 
+  4004b1:       41 ff e3                jmpq   *%r11
+  4004b4:       c9                      leaveq 
+  4004b5:       c3                      retq   
+  4004b6:       90                      nop    
+  4004b7:       90                      nop    
+
+00000000004004b8 <hello_world>:
+  4004b8:       55                      push   %rbp
+  4004b9:       48 89 e5                mov    %rsp,%rbp
+  4004bc:       bf d8 05 40 00          mov    $0x4005d8,%edi
+  4004c1:       e8 f2 fe ff ff          callq  4003b8 <puts@plt>
+  4004c6:       c9                      leaveq 
+  4004c7:       c3                      retq   
+
+00000000004004c8 <main>:
+  4004c8:       55                      push   %rbp
+  4004c9:       48 89 e5                mov    %rsp,%rbp
+  4004cc:       b8 00 00 00 00          mov    $0x0,%eax
+  4004d1:       e8 e2 ff ff ff          callq  4004b8 <hello_world>
+  4004d6:       8b 05 e0 03 20 00       mov    0x2003e0(%rip),%eax        # 6008bc <OS_EVERYTHING_OKAY>
+  4004dc:       c9                      leaveq 
+  4004dd:       c3                      retq   
+  4004de:       90                      nop    
+  4004df:       90                      nop    
+
+00000000004004e0 <__libc_csu_fini>:
+  4004e0:       f3 c3                   repz retq 
+  4004e2:       66 66 66 66 66 2e 0f    nopw   %cs:0x0(%rax,%rax,1)
+  4004e9:       1f 84 00 00 00 00 00 
+
+00000000004004f0 <__libc_csu_init>:
+  4004f0:       4c 89 64 24 e0          mov    %r12,-0x20(%rsp)
+  4004f5:       4c 89 6c 24 e8          mov    %r13,-0x18(%rsp)
+  4004fa:       4c 8d 25 cb 01 20 00    lea    0x2001cb(%rip),%r12        # 6006cc <__init_array_end>
+  400501:       4c 89 74 24 f0          mov    %r14,-0x10(%rsp)
+  400506:       4c 89 7c 24 f8          mov    %r15,-0x8(%rsp)
+  40050b:       49 89 f6                mov    %rsi,%r14
+  40050e:       48 89 5c 24 d0          mov    %rbx,-0x30(%rsp)
+  400513:       48 89 6c 24 d8          mov    %rbp,-0x28(%rsp)
+  400518:       48 83 ec 38             sub    $0x38,%rsp
+  40051c:       41 89 ff                mov    %edi,%r15d
+  40051f:       49 89 d5                mov    %rdx,%r13
+  400522:       e8 69 fe ff ff          callq  400390 <_init>
+  400527:       48 8d 05 9e 01 20 00    lea    0x20019e(%rip),%rax        # 6006cc <__init_array_end>
+  40052e:       49 29 c4                sub    %rax,%r12
+  400531:       49 c1 fc 03             sar    $0x3,%r12
+  400535:       4d 85 e4                test   %r12,%r12
+  400538:       74 1e                   je     400558 <__libc_csu_init+0x68>
+  40053a:       31 ed                   xor    %ebp,%ebp
+  40053c:       48 89 c3                mov    %rax,%rbx
+  40053f:       90                      nop    
+  400540:       48 83 c5 01             add    $0x1,%rbp
+  400544:       4c 89 ea                mov    %r13,%rdx
+  400547:       4c 89 f6                mov    %r14,%rsi
+  40054a:       44 89 ff                mov    %r15d,%edi
+  40054d:       ff 13                   callq  *(%rbx)
+  40054f:       48 83 c3 08             add    $0x8,%rbx
+  400553:       49 39 ec                cmp    %rbp,%r12
+  400556:       75 e8                   jne    400540 <__libc_csu_init+0x50>
+  400558:       48 8b 5c 24 08          mov    0x8(%rsp),%rbx
+  40055d:       48 8b 6c 24 10          mov    0x10(%rsp),%rbp
+  400562:       4c 8b 64 24 18          mov    0x18(%rsp),%r12
+  400567:       4c 8b 6c 24 20          mov    0x20(%rsp),%r13
+  40056c:       4c 8b 74 24 28          mov    0x28(%rsp),%r14
+  400571:       4c 8b 7c 24 30          mov    0x30(%rsp),%r15
+  400576:       48 83 c4 38             add    $0x38,%rsp
+  40057a:       c3                      retq   
+  40057b:       90                      nop    
+  40057c:       90                      nop    
+  40057d:       90                      nop    
+  40057e:       90                      nop    
+  40057f:       90                      nop    
+
+0000000000400580 <__do_global_ctors_aux>:
+  400580:       55                      push   %rbp
+  400581:       48 89 e5                mov    %rsp,%rbp
+  400584:       53                      push   %rbx
+  400585:       bb d0 06 60 00          mov    $0x6006d0,%ebx
+  40058a:       48 83 ec 08             sub    $0x8,%rsp
+  40058e:       48 8b 05 3b 01 20 00    mov    0x20013b(%rip),%rax        # 6006d0 <__CTOR_LIST__>
+  400595:       48 83 f8 ff             cmp    $0xffffffffffffffff,%rax
+  400599:       74 14                   je     4005af <__do_global_ctors_aux+0x2f>
+  40059b:       0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)
+  4005a0:       48 83 eb 08             sub    $0x8,%rbx
+  4005a4:       ff d0                   callq  *%rax
+  4005a6:       48 8b 03                mov    (%rbx),%rax
+  4005a9:       48 83 f8 ff             cmp    $0xffffffffffffffff,%rax
+  4005ad:       75 f1                   jne    4005a0 <__do_global_ctors_aux+0x20>
+  4005af:       48 83 c4 08             add    $0x8,%rsp
+  4005b3:       5b                      pop    %rbx
+  4005b4:       c9                      leaveq 
+  4005b5:       c3                      retq   
+  4005b6:       90                      nop    
+  4005b7:       90                      nop    
+
+
+
+	linux> objdump -d -j .data hello
+
+hello:     file format elf64-x86-64
+
+Disassembly of section .data:
+
+00000000006008b8 <__data_start>:
+  6008b8:       00 00                   add    %al,(%rax)
+        ...
+
+00000000006008bc <OS_EVERYTHING_OKAY>:
+  6008bc:       08 00 00 00                                         ....
+
+
+
+	linux> readelf -s hello
+
+Symbol table '.dynsym' contains 4 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+     2: 0000000000000000   396 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5 (2)
+     3: 0000000000000000   450 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.2.5 (2)
+
+Symbol table '.symtab' contains 66 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000400200     0 SECTION LOCAL  DEFAULT    1 
+     2: 000000000040021c     0 SECTION LOCAL  DEFAULT    2 
+     3: 000000000040023c     0 SECTION LOCAL  DEFAULT    3 
+     4: 0000000000400260     0 SECTION LOCAL  DEFAULT    4 
+     5: 0000000000400280     0 SECTION LOCAL  DEFAULT    5 
+     6: 00000000004002e0     0 SECTION LOCAL  DEFAULT    6 
+     7: 000000000040031e     0 SECTION LOCAL  DEFAULT    7 
+     8: 0000000000400328     0 SECTION LOCAL  DEFAULT    8 
+     9: 0000000000400348     0 SECTION LOCAL  DEFAULT    9 
+    10: 0000000000400360     0 SECTION LOCAL  DEFAULT   10 
+    11: 0000000000400390     0 SECTION LOCAL  DEFAULT   11 
+    12: 00000000004003a8     0 SECTION LOCAL  DEFAULT   12 
+    13: 00000000004003e0     0 SECTION LOCAL  DEFAULT   13 
+    14: 00000000004005b8     0 SECTION LOCAL  DEFAULT   14 
+    15: 00000000004005c8     0 SECTION LOCAL  DEFAULT   15 
+    16: 00000000004005e8     0 SECTION LOCAL  DEFAULT   16 
+    17: 0000000000400618     0 SECTION LOCAL  DEFAULT   17 
+    18: 00000000006006d0     0 SECTION LOCAL  DEFAULT   18 
+    19: 00000000006006e0     0 SECTION LOCAL  DEFAULT   19 
+    20: 00000000006006f0     0 SECTION LOCAL  DEFAULT   20 
+    21: 00000000006006f8     0 SECTION LOCAL  DEFAULT   21 
+    22: 0000000000600888     0 SECTION LOCAL  DEFAULT   22 
+    23: 0000000000600890     0 SECTION LOCAL  DEFAULT   23 
+    24: 00000000006008b8     0 SECTION LOCAL  DEFAULT   24 
+    25: 00000000006008c0     0 SECTION LOCAL  DEFAULT   25 
+    26: 0000000000000000     0 SECTION LOCAL  DEFAULT   26 
+    27: 000000000040040c     0 FUNC    LOCAL  DEFAULT   13 call_gmon_start
+    28: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    29: 00000000006006d0     0 OBJECT  LOCAL  DEFAULT   18 __CTOR_LIST__
+    30: 00000000006006e0     0 OBJECT  LOCAL  DEFAULT   19 __DTOR_LIST__
+    31: 00000000006006f0     0 OBJECT  LOCAL  DEFAULT   20 __JCR_LIST__
+    32: 00000000006008c0     8 OBJECT  LOCAL  DEFAULT   25 dtor_idx.6001
+    33: 00000000006008c8     1 OBJECT  LOCAL  DEFAULT   25 completed.5999
+    34: 0000000000400430     0 FUNC    LOCAL  DEFAULT   13 __do_global_dtors_aux
+    35: 0000000000400490     0 FUNC    LOCAL  DEFAULT   13 frame_dummy
+    36: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    37: 00000000006006d8     0 OBJECT  LOCAL  DEFAULT   18 __CTOR_END__
+    38: 00000000004006c8     0 OBJECT  LOCAL  DEFAULT   17 __FRAME_END__
+    39: 00000000006006f0     0 OBJECT  LOCAL  DEFAULT   20 __JCR_END__
+    40: 0000000000400580     0 FUNC    LOCAL  DEFAULT   13 __do_global_ctors_aux
+    41: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS hello.c
+    42: 0000000000600890     0 OBJECT  LOCAL  HIDDEN   23 _GLOBAL_OFFSET_TABLE_
+    43: 00000000006006cc     0 NOTYPE  LOCAL  HIDDEN   18 __init_array_end
+    44: 00000000006006cc     0 NOTYPE  LOCAL  HIDDEN   18 __init_array_start
+    45: 00000000006006f8     0 OBJECT  LOCAL  HIDDEN   21 _DYNAMIC
+    46: 00000000006008b8     0 NOTYPE  WEAK   DEFAULT   24 data_start
+    47: 00000000004004e0     2 FUNC    GLOBAL DEFAULT   13 __libc_csu_fini
+    48: 00000000004003e0     0 FUNC    GLOBAL DEFAULT   13 _start
+    49: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+    50: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    51: 0000000000000000   396 FUNC    GLOBAL DEFAULT  UND puts@@GLIBC_2.2.5
+    52: 00000000004005b8     0 FUNC    GLOBAL DEFAULT   14 _fini
+    53: 00000000004004b8    16 FUNC    GLOBAL DEFAULT   13 hello_world
+    54: 0000000000000000   450 FUNC    GLOBAL DEFAULT  UND __libc_start_main@@GLIBC_
+    55: 00000000004005c8     4 OBJECT  GLOBAL DEFAULT   15 _IO_stdin_used
+    56: 00000000006008b8     0 NOTYPE  GLOBAL DEFAULT   24 __data_start
+    57: 00000000004005d0     0 OBJECT  GLOBAL HIDDEN   15 __dso_handle
+    58: 00000000006006e8     0 OBJECT  GLOBAL HIDDEN   19 __DTOR_END__
+    59: 00000000004004f0   139 FUNC    GLOBAL DEFAULT   13 __libc_csu_init
+    60: 00000000006008c0     0 NOTYPE  GLOBAL DEFAULT  ABS __bss_start
+    61: 00000000006008bc     4 OBJECT  GLOBAL DEFAULT   24 OS_EVERYTHING_OKAY
+    62: 00000000006008d0     0 NOTYPE  GLOBAL DEFAULT  ABS _end
+    63: 00000000006008c0     0 NOTYPE  GLOBAL DEFAULT  ABS _edata
+    64: 00000000004004c8    22 FUNC    GLOBAL DEFAULT   13 main
+    65: 0000000000400390     0 FUNC    GLOBAL DEFAULT   11 _init
+

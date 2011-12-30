@@ -1,0 +1,160 @@
+<html>
+
+ <head>
+  <title>CSC 374: Computer Systems II: Assignment #1</title>
+ </head>
+
+ <body>
+  <center>
+  <H2>CSC 374: Computer Systems II: Assignment #1</H2>
+  <p>Last Modified 2010 Sept 21</p>
+  </center>
+
+  <h4>Purpose:</h4>
+  To go over issues related to how the <i>compiler</i> and the <i>linker</i>
+  serve <b>you,</b> the programmer.
+
+  <ol type="1">
+  <li><h4>Compiler optimization (40 Points)</h4>
+      Please rewrite the following C code to optimize it with non-architecture
+      specific optimizations (as done in class).<br>
+      Please leave your answer in <b>C</b>
+      <p>
+<pre>
+void sillyCompute (int* dest, int* source, int n)
+{
+    int i,j;
+
+    for  (i = n;  i &gt; 0;  i = i / 2)
+    {
+
+        for  (j = 0;  j &lt; n;  j++)
+            dest[ i*n + j ] = source[n*n - j/(i*2) - i] + fncCall(i);
+
+    }
+
+}
+</pre>
+      </p>
+
+  <li><h4>Linker operation (60 Points total)</h4>
+      The program file <code>part1.c</code> below compiles under Linux to create an object file <code>part1.o</code>.
+      It is to be linked with another file <code>part2.o</code> to create a running program, <code>whole</code>.
+      It's output is just:
+
+<i>
+<pre>
+The ASCII table in reverse is:
+zyxwvutsrqponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?&lt;=<;:9876543210/.-,+*)('&%$#&quot;! 
+</pre>
+</i>
+
+<h4>part1.c</h4>
+
+<pre>
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+
+/* Declarations go here: */
+
+extern char* charArray1;
+extern char* charArray2;
+char* initializeArray (char* array);
+	/* This function is given a C array (that is, a pointer to the 1st
+	   element in an array)
+
+	   It sets:
+		array[0] = ' ' + 0,
+		array[1] = ' ' + 1,
+		array[2] = ' ' + 2,
+                . . .
+                array[SIZE-1] = ' ' + (SIZE-1)
+	   etc. where ' ' is the space char.   It then returns the array.
+	 */
+
+
+/* Defined global variables go here: */
+
+int SIZE = 'z' - ' ' + 1;
+
+
+
+int main ()
+{
+  int i;
+
+  charArray1 = initializeArray((char*)calloc(SIZE+1,sizeof(char)));
+  charArray2 = (char*)calloc(SIZE+1,sizeof(char));
+
+
+  for  (i = 0;  i &lt; SIZE;  i++)
+    charArray2[SIZE-1-i] = charArray1[i];
+
+  charArray2[SIZE] = '\0';
+  printf(&quot;The ASCII table in reverse is:\n%s\n&quot;,charArray2);
+  free(charArray2);
+  free(charArray1);
+  return(0);
+}
+</pre>
+
+    <ol type="A">
+    <li>(30 Points) Write a program file <code>part2.c</code> that would compile to <code>part2.o</code>, and would link with <code>part1.o</code> to create a legal running program <code>whole</code>.
+
+      <p>
+	<b>Useful info:</b>
+<pre>
+     Don't freak out at:
+
+     	(char*)calloc(SIZE+1,sizeof(char))
+
+     It just defines a C array of chars of size SIZE+1.
+     It is the C equivalent of the C++:
+
+	new char[SIZE+1]
+</pre>
+      </p>
+
+      <p>
+	<B>HINTS</B>:
+	<ul>
+	  <li>What does <code>part1.c</code> need that it does not define?
+	  <li>Create the individual object files and the complete executable with:
+<pre>
+linux&gt; <i>gcc -c part1.c</i>                # creates <b>part1.o</b>
+linux&gt; <i>gcc -c part2.c</i>                # creates <b>part2.o</b>
+linux&gt; <i>gcc part1.o part2.o -o whole</i>  # creates <b>whole</b>
+linux&gt; <i>./whole</i>                       # runs <b>whole</b>
+</pre>
+	</ul>
+      </p>
+
+
+    <li>(15 Points) What is in the following segments?
+        (Don't give the values or code, just the names of the variables or functions.)
+
+      <p>
+	<table border=1>
+	  <tr><td></td> <td>part1.o</td> <td>part2.o</td> <td>whole</td></tr>
+	  <tr><td>charArray1</td> <td align=center>?</td> <td align=center>?</td> <td align=center>?</td></tr>
+	  <tr><td>SIZE</td>     <td align=center>?</td> <td align=center>?</td> <td align=center>?</td></tr>
+	  <tr><td>printf</td>   <td align=center>?</td> <td align=center>?</td> <td align=center>?</td></tr>
+	</table>
+      </p>
+
+    <li>(15 Points) Use:
+<pre>
+objdump -d -j <i>segment</i> <i>file</i>
+</pre>
+      <ol type="1">
+      <li>Give the <i>.text</i> of <code>part2.o</code>
+      <li>Compare the <i>.bss</i> of <code>part1.o</code> and <code>whole</code>.
+          What is the difference?
+      </ol>
+
+    </ol>
+  </ol>
+ </body>
+
+</html>

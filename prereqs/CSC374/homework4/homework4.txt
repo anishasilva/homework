@@ -1,0 +1,26 @@
+Raymond Elward
+Prof Joe
+CSC 374
+10/31/2010
+
+1)
+Virtual page number:	0x0b
+Physical page number:	0x23
+Page offset:		0x39
+Cache Tag:		0x23
+Cache Index:		0x0e
+Cache offset:		0x01
+Byte at that position:	0x77
+
+2)
+a)What was the reason we needed more small page tables? Why not still have two, but just make them larger?
+
+If you didn't make more small tables and just had big tables then the big tables would be kept on the hard disk.  The hard disk would take a long time to read big files, but for the small tables it will load much faster from the hard disk.  The large page tables with large load times wouldn't be worth it.
+
+b) if 4 is good, why not even more? Why not use 6 or 8 small tables that reference each other?
+
+Each step into a page table is an opportunity to mess up and have missed memory.  This would be bad and slow down your processes runtime.  Its a compromise to be made between finding the small enough page tables so that the memory load isn't a burden and having few enough page tables to step through that a memory miss doesn't create another process of stepping though 6 or 8 pages.
+
+3)
+a)see attached goodString.c
+b)see attached cppString.cpp
