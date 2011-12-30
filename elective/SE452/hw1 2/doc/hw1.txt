@@ -1,0 +1,6 @@
+Uploaded code in HW section and you will make the code work to pass the unit tests
+JDBC only and max you get 80%
+JPA only and max you get 90%
+JDBC and JPA and max you get 100%
+
+
