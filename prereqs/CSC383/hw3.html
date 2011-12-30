@@ -1,0 +1,64 @@
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<HEAD>
+<TITLE>CSC 383 Section 401 Fall 2010 Homework Assignment 3
+</TITLE>
+</HEAD>
+<body>
+<center>
+<h2><b>CSC 383 Section 401 Fall 2010<BR>
+Homework Assignment 3</B></h2>
+Due:  <B>Monday</B>, October 11 (note special due date)
+</center>
+<BR><BR><BR>
+In this assignment, you will be modifying the
+<code>ArrayList383&lt;E&gt;</code> and <code>LinkedList383&lt;E&gt;</code> classes presented during Lectures 3 and 4 (lectures given
+on 9/22/2010 and 9/29/2010), which you can find in
+<A HREF="http://condor.depaul.edu/~slytinen/383f10/hw3/hw3.zip">
+this zip file</a>.
+<p>
+You must complete this assignment by modifying my code, rather than
+any other implementation of <code>ArrayList</code> or <code>LinkedList</code> that you might
+find on the Web, or in the Goodrich and Tamassia text or any other
+textbook.  Use of any other implementation of
+<code>LinkedList</code> will be regarded as an Academic Integrity
+violation, since other implementations may include some or all of the
+code which I am asking you to write.
+<p>
+<Ol><li>(50 points) Write <code>equals</code>, <code>indexOf</code>,
+and <code>subList</code> methods for the <code>ArrayList383</code> class.  Please refer to the <A HREF="http://java.sun.com/javase/6/docs/api/">Java SE 6 API
+Specification</A> for a desription of the <code>equals</code> and
+<code>indexOf</code> methods for <code>ArrayList</code> to see what
+your <code>equals</code> and <code>indexOf</code> methods should do.
+Below is a description of the
+<code>subList</code> method that I would like you to implement:
+<blockquote>
+<PRE>
+ArrayList383&lt;E&gt; <B>subList</B>(int&nbsp;fromIndex, int&nbsp;toIndex)</PRE>
+<p>
+The method returns a copy of the portion of this list between the specified
+ <tt>fromIndex</tt>, inclusive, and <tt>toIndex</tt>, exclusive.  (If
+ <tt>fromIndex</tt> and <tt>toIndex</tt> are equal, the returned list is
+ empty.)
+<p><B>Parameters:</B><DD><CODE>fromIndex</CODE> -
+low endpoint (inclusive) of the subList
+<DD><CODE>toIndex</CODE> - high endpoint (exclusive)
+of the subList
+<p>
+<DT><B>Returns:</B><dd>a copy of the specified range within this
+list
+</DL>
+</DD>
+</DL>
+</blockquote>
+For full credit, these threee methods should not call any other methods of
+the <code>ArrayList383</code> class, with the exception of the constructor.
+<p><li>(50 points)  Write <code>equals</code>,
+<code>indexOf</code>, and <code>subList</code> methods for the
+<code>LinkedList383</code> class.
+For full credit, these threee methods should not call any other methods of
+the <code>LinkedList383</code> class, with the exception of the constructor.
+</OL>
+
+<p>Please turn in modified versions of my .java files (ArrayList383.java, LinkedList383.java, and LLNode383.java), zipped
+together into a single .zip file.</BODY>
+</HTML>

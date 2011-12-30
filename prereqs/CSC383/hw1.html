@@ -1,0 +1,123 @@
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<HEAD>
+<TITLE>CSC 383 Sections 401, 410 Fall 2010 Homework Assignment 1
+</TITLE>
+</HEAD>
+<body>
+<center>
+<h2><b>CSC 383 Sections 401, 410 Fall 2010<BR>
+Homework Assignment 1</B></h2>
+Due:  Wednesday, September 22</FONT>
+</center>
+<BR><BR><BR>
+In this assignment, you will write a program to keep
+track of items in a shopping cart.
+Please call your main class <B>HW1</B>, and
+<B>do not use packages</B>.
+<P>First, you should write an Item class; an Item has a name (String),
+a unique ID (String), a price (double), and a quantity (int).
+Plus, the class will need a constructor,
+a toString method, and possibly getters and setters.
+<P>Your program should allow a user to do the following:
+<P><OL><LI>Add an item to the cart.  The user should type
+the item's name, ID, and price.  Your program should create
+an Item object (with quantity set to 1), and add it to the cart.
+If the user tyes an ID which corresponds to an
+Item object which already exists in the cart, the
+existing Item's quantity should be incremented by 1, rather
+than creating a new Item object.
+<P><LI>Delete an item.  The user should type the item's ID,
+and the Item object should be removed from the cart.
+If no such item exists, then
+an error message should be displayed.
+<P><LI>Retrieve an item.  The user should type the item's ID,
+and the system should display the name, ID, price, and quantity of the
+corresponding Item object.  If no such item exists, then an error
+message should be
+displayed.
+<P><LI>Print out all items in the cart.  The items should be printed in
+alphabetical order by name.
+<!--Finally, if 2 items have the same last and first
+names, then the ID's (which are unique) will determine the
+ordering in the printout.-->
+</OL>
+
+<P>Your program should utilize a class called <b>ShoppingCart</b> (which you will write),
+which stores the
+group of items that your program maintains.  </b>ShoppingCart</b>
+must implement an interface called <code>Group</code>, which
+is specified as follows:
+
+<xmp>
+// the Group interface has a template variable to specify what type of
+// data is stored in the Group.
+public interface Group<E> {
+  public void addItem(E item);
+  public void removeItem(E item);
+  public void retrieveItem(E item);
+  public String toString( ); // used in printing out the items in the group
+}
+</xmp>
+
+In order to be able to efficiently execute each of the 4 possible actions
+that your program must support, your ShoppingCart class should use
+two different kinds of Collections:
+a HashMap<String, Item>, and a TreeSet<Item>.  The HashMap is used to
+efficiently retrieve an Item by its ID, and the TreeSet is used to efficiently print
+out all Items in alphabetical order by name.  Each item is stored
+in both data structures (the Map and the Set).
+<P>
+Here, then, is the start of the ShoppingCart and HW1 classes:
+
+<XMP>
+// in ShoppingCart.java
+import java.util.*;
+
+public class ShoppingCart implements Group<Item> {
+  // the items, stored in a Map.  In this Collection, the items are
+  // keyed by their ID's (which are Strings)
+  private HashMap<String, Item> keyedItems = new HashMap<String, Item>( );
+  private TreeSet<Item> sortedItems = new TreeSet<Item>( );
+
+  // you might need a default constructor
+
+  // you'll also need at least the methods that are required by the Group<E> interface
+}
+
+// in HW1.java
+public class HW1 {
+  public static void main(String[ ] args) {
+    ShoppingCart cart = new ShoppingCart( );
+
+    // then code to interact with the user, in which the user first enters which
+    // action is to be performed, then additional information an item name,
+    // ID, and price
+
+  }
+}
+</XMP>
+
+<font color=red>
+Please see <A HREF="http://condor.depaul.edu/~slytinen/383f10/hw1/hw1help.txt">this file</a>
+for guidance as to how to write each of these classes.</font>
+<p>
+The <code>main</code> method in the </code>HW1</code> class, which
+will determine the user interface, is up to you.
+One approach would be to have the user type
+a number (1-5) to indicate what operation they wish to perform (5 = exit the program).
+Then your main method would have a loop which repeatedly prompts the user to
+type 1-5 and executes the appropriate action.
+<P>
+Keep in mind that TreeSets require that their data
+implement the Comparable&lt;E&gt; interface (in this case, Comparable&lt;Item&gt;),
+which requires the class to have a compareTo method.  (HashMaps also require their Keys
+to implement certain methods, but since the Keys in your HashMap will be item ID's, which
+are instances of the built-in
+String Java class, you will not have to worry about this.)
+<!--<p><font color=red>
+Please see <A HREF="http://condor.depaul.edu/~slytinen/383s10/hw1/hw1_more.html">
+these notes</font></a> for more details about Collections and methods that are
+required for the data that are stored in them.
+-->
+</BODY>
+</HTML>
