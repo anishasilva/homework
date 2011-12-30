@@ -1,0 +1,21 @@
+ID:		29348
+Name:		Elward, Raymond
+Midterm Grade: 90
+Final Grade	90
+Letter Grade:	A
+
+
+ID:		39840298
+Name:		Gaffer, Jim
+Midterm Grade: 99
+Final Grade	99
+Letter Grade:	A
+
+
+ID:		3947938
+Name:		Lowe, Mia
+Midterm Grade: 80
+Final Grade	80
+Letter Grade:	B
+
+

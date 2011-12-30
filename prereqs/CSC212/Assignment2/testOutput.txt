@@ -1,0 +1,3 @@
+testing the write buffer
+Another line testing the buffer
+Call me Ishmael
