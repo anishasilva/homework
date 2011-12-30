@@ -1,7 +1,7 @@
 CSC 438 - Framework for Web Application Development
 ===================================================
 
-This course was based soley around learning a web framework through web2py.  The project and homework are in w2p format that can be opened in current versions of web2py.  The final project is online at http://lioli.net and is the server backend for the lioli iOS application.
+This course was based soley around learning a web framework through web2py.  The project and homework are in w2p format that can be opened in current versions of web2py.  The final project is online at http://lioli.net and is the server backend for the lioli iOS application. You can see the direct source files of those projects at "https://github.com/rayelward/lioli" and "https://github.com/rayelward/LIOLI_iOS"
 
 
 	This course introduces concepts, techniques, technologies and APIs for web 
