@@ -1,0 +1,148 @@
+/*
+  Raymond Elward
+  CSC 452
+  7/27/2011
+*/
+
+--1:
+DECLARE
+  CURSOR c_1 IS SELECT department_name, department_id FROM department order by department_name ;
+  v_total_salary employee.salary%type;
+  v_company_total employee.salary%type;
+  v_percent number;
+  
+BEGIN
+
+  DBMS_OUTPUT.PUT_LINE('DEPT_NAME    DEPT_TOTAL_SALARY     COMPANY_TOTAL_SALARY');
+  
+  select sum(salary)
+    into v_company_total
+    from employee;
+    
+  v_percent := v_company_total * .18;
+    
+  FOR idx IN c_1 LOOP
+
+    select NVL(sum(salary ), 0)
+      into v_total_salary
+      from employee 
+      where department_id  = idx.department_id;
+  
+    IF (v_total_salary > v_percent) THEN
+      DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 22, ' ')  || lpad(v_total_salary, 8, ' ')  || lpad(v_company_total, 25, ' '));
+    END IF;
+    
+  END LOOP;
+
+END;
+/
+
+--2:
+
+DECLARE
+  CURSOR c_1 IS SELECT department_name, department_id FROM department order by department_name ;
+  v_num_employees number;
+  v_highest_salary VARCHAR2(20);
+  
+BEGIN
+
+  DBMS_OUTPUT.PUT_LINE('DEPTARTMENT NAME     NUMBER OF EMPLOYEES     HIGHEST SALARY');
+  DBMS_OUTPUT.PUT_LINE('-----------------------------------------------------------');
+  
+  FOR idx IN c_1 LOOP
+
+    select NVL(count(*), 0)
+      into v_num_employees
+      from employee
+      where department_id = idx.department_id;
+      
+    select NVL(to_char(max(salary)), 'N/A')
+      into v_highest_salary
+      from employee
+      where department_id = idx.department_id;
+    
+    DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 32, ' ')  || lpad(v_num_employees, 8, ' ')  || lpad(v_highest_salary, 19, ' '));
+
+    
+  END LOOP;
+
+END;
+/
+
+
+--3:
+
+DECLARE
+  CURSOR c_1 IS SELECT department_name, department_id FROM department order by department_name ;
+  CURSOR c_2 (dept_id NUMBER)is select employee_name, salary from employee where department_id = dept_id order by employee_name;
+  v_num_employees number;
+  
+BEGIN
+
+  DBMS_OUTPUT.PUT_LINE('DEPTARTMENT NAME          EMPLOYEE NAME              SALARY');
+  
+  FOR idx IN c_1 LOOP
+
+    select NVL(count(*), 0)
+      into v_num_employees
+      from employee
+      where department_id = idx.department_id;
+      
+    if (v_num_employees = 0) THEN
+      DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 26, ' ')  || rpad('N/A', 8, ' ')  || lpad('N/A', 25, ' '));
+    ELSE
+      FOR idx_two IN c_2(idx.department_id) LOOP
+        DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 26, ' ')  || rpad(idx_two.employee_name, 8, ' ')  || lpad(idx_two.salary, 25, ' '));
+      END LOOP;
+    END IF;
+    
+  END LOOP;
+
+END;
+/
+
+
+--4b) (I'm 452):
+
+
+DECLARE
+  CURSOR c_1 IS SELECT department_name, department_id FROM department order by department_name ;
+  CURSOR c_2 (dept_id NUMBER)is select employee_name, salary from employee where department_id = dept_id order by employee_name;
+  v_num_employees number;
+  v_avg_salary varchar2(20);
+  v_previous_dname department.department_name%type;
+  
+BEGIN
+
+  DBMS_OUTPUT.PUT_LINE('DEPTARTMENT NAME          EMPLOYEE NAME              SALARY      AVERAGE SALARY');
+  v_previous_dname := '?';
+  FOR idx IN c_1 LOOP
+
+    select NVL(count(*), 0)
+      into v_num_employees
+      from employee
+      where department_id = idx.department_id;
+      
+    select to_char(NVL(AVG(salary), 0), '9990.00')
+      into v_avg_salary
+      from employee
+      where department_id = idx.department_id;
+      
+    if (v_num_employees = 0) THEN
+      DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 26, ' ')  || rpad('N/A', 8, ' ')  || lpad('N/A', 25, ' ') || lpad('N/A',20, ' '));
+    ELSE
+      FOR idx_two IN c_2(idx.department_id) LOOP
+      
+        IF v_previous_dname != idx.department_name THEN
+          DBMS_OUTPUT.PUT_LINE(rpad(idx.department_name, 26, ' ')  || rpad(idx_two.employee_name, 8, ' ')  || lpad(idx_two.salary, 25, ' ') || lpad(v_avg_salary,20, ' '));
+          v_previous_dname := idx.department_name;
+        ELSE
+          DBMS_OUTPUT.PUT_LINE(rpad(' ', 26, ' ')  || rpad(idx_two.employee_name, 8, ' ')  || lpad(idx_two.salary, 25, ' ') || lpad(' ',20, ' '));
+        END IF;
+      END LOOP;
+    END IF;
+    
+  END LOOP;
+
+END;
+/

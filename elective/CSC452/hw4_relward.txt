@@ -1,0 +1,203 @@
+/*
+  Raymond Elward
+  CSC 452
+  7/29/2011
+*/
+
+--1:
+
+declare
+
+  v_company_avg number;
+  v_dept_avg number;
+  
+  cursor cur_dept is select department_name, department_id from department order by department_name;
+  cursor cur_emp(dept_id department.department_id%type) is select employee_name, salary from employee where department_id = dept_id order by employee_name;
+  
+  
+begin
+  
+  select round(avg(salary), 2)
+    into v_company_avg
+    from employee;
+    
+    dbms_output.put_line('D_NAME       E_NAME      E_SALARY    D_AVG_SALARY   C_AVG_SALARY');
+    dbms_output.put_line('----------------------------------------------------------------');
+    
+    FOR dept_idx in cur_dept LOOP
+      select round(avg(salary), 2)
+        into v_dept_avg
+        from employee
+        where department_id = dept_idx.department_id;
+      
+      for emp_idx in cur_emp(dept_idx.department_id) loop
+        
+        if emp_idx.salary > v_dept_avg AND emp_idx.salary > v_company_avg THEN
+          dbms_output.put_line(rpad(dept_idx.department_name, 13, ' ') || 
+            rpad(emp_idx.employee_name, 11, ' ') || 
+            rpad(to_char(emp_idx.salary, '9990.00'), 12, ' ') || 
+            rpad(to_char(v_dept_avg, '9990.00'), 12, ' ')  || 
+            lpad(to_char(v_company_avg, '9990.00'), 12, ' '));
+        end if;
+        
+      end loop;
+      
+      
+    END LOOP ;
+    
+    
+
+end;
+/
+
+--2:
+
+
+
+
+ACCEPT p_1 PROMPT 'Please enter the region name:';
+
+declare
+  v_user_region regions.child_name%TYPE := UPPER('&p_1'); 
+  
+  v_valid number;
+  v_has_parent number;
+  v_count number := 0;
+  
+  CURSOR find_parent(child_in regions.child_name%type) is SELECT UPPER(parent_name) as par from regions where child_in = UPPER(child_name);
+  
+begin
+  
+  --checking if the region entered is in the region table
+  select count(*)
+    into v_valid
+    from regions
+    where upper(child_name) = v_user_region OR upper(parent_name) = v_user_region;
+    
+  IF (v_valid > 0) THEN
+    --checking if the region entered has a parent.
+    select count(*)
+      into v_has_parent
+      from regions
+      where v_user_region = upper(child_name) AND parent_name is not null;
+    IF (v_has_parent > 0) THEN
+    
+      LOOP
+        EXIT WHEN v_user_region is null;
+        v_count := v_count + 1;
+        FOR idx IN find_parent(v_user_region) LOOP
+          if (idx.par is null) then v_user_region := null; exit; end if;
+          dbms_output.put_line(v_count || 
+            ')  ' || 
+            rpad(v_user_region, 20, ' ') || 
+            rpad('<<<<<<<<<', 15, ' ') ||
+            idx.par);
+            
+          v_user_region := idx.par;
+        END LOOP;
+      END LOOP ;
+      
+    ELSE
+      dbms_output.put_line('1)  ' || v_user_region);
+    END IF;
+  ELSE
+    dbms_output.put_line(v_user_region || ' is not in the table.');
+  END IF;
+end;
+/
+
+
+
+--3:
+
+
+
+
+
+ACCEPT p_1 PROMPT 'Please enter the region name:';
+
+declare
+  v_user_region regions.child_name%TYPE := UPPER('&p_1'); 
+  v_current_region regions.child_name%TYPE;
+  
+  v_current_child regions.child_name%TYPE;
+  v_current_parent regions.parent_name%type;
+  
+  v_temp_region regions.parent_name%type;
+  
+  v_valid number;
+  v_has_parent number;
+  v_count number := 0;
+  v_parent_count number := 0;
+  
+  CURSOR find_parent(child_in regions.child_name%type) is SELECT UPPER(parent_name) as par from regions where child_in = UPPER(child_name);
+  
+  CURSOR parents is select upper(parent_name) as parent_name, upper(child_name) as child_name from regions where v_user_region = upper(child_name) AND parent_name is not null;
+  
+begin
+  
+  --checking if the region entered is in the region table
+  select count(*)
+    into v_valid
+    from regions
+    where upper(child_name) = v_user_region OR upper(parent_name) = v_user_region;
+    
+  IF (v_valid > 0) THEN
+    --checking if the region entered has a parent.
+    select count(*)
+      into v_has_parent
+      from regions
+      where v_user_region = upper(child_name) AND parent_name is not null;
+    IF (v_has_parent = 1) THEN
+    
+      LOOP
+        EXIT WHEN v_user_region is null;
+        v_count := v_count + 1;
+        FOR idx IN find_parent(v_user_region) LOOP
+          if (idx.par is null) then v_user_region := null; exit; end if;
+          dbms_output.put_line(v_count || 
+            ')  ' || 
+            rpad(v_user_region, 20, ' ') || 
+            rpad('<<<<<<<<<', 15, ' ') ||
+            idx.par);
+            
+          v_user_region := idx.par;
+        END LOOP;
+      END LOOP ;
+      
+    ELSIF (v_has_parent > 1) THEN
+      
+      FOR par_idx IN parents LOOP
+        v_parent_count := v_parent_count + 1;
+        v_current_region := par_idx.child_name;
+        v_current_parent := par_idx.parent_name;
+        v_current_child := par_idx.child_name;
+        v_count := 0;
+        LOOP
+          EXIT WHEN v_current_parent is null;
+          v_count := v_count + 1;
+          dbms_output.put_line(v_parent_count || 
+            '-' ||
+            v_count || 
+            ')  ' || 
+            rpad(v_current_child, 20, ' ') || 
+            rpad('<<<<<<<<<', 15, ' ') ||
+            v_current_parent);
+            
+          v_temp_region := v_current_parent;
+          select upper(parent_name) into v_current_parent from regions where UPPER(child_name) = v_current_parent;
+          v_current_child := v_temp_region;
+        END LOOP;
+        dbms_output.put_line('');
+      END LOOP;
+      
+    ELSE
+      dbms_output.put_line('1)  ' || v_user_region);
+    END IF;
+  ELSE
+    dbms_output.put_line(v_user_region || ' is not in the table.');
+  END IF;
+end;
+/
+
+

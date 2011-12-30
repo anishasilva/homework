@@ -1,0 +1,69 @@
+/*
+  Raymond Elward
+  CSC 452
+  8/9/2011
+*/
+
+--2:
+
+create or replace
+FUNCTION is_member(
+    p_username VARCHAR2)
+    RETURN CHAR
+AS
+  v_status char;
+  v_count number;
+BEGIN
+  select count(*)
+    into v_count
+    from members
+    where username = p_username;
+    
+  if v_count = 0 then
+    return 'N';
+  END IF;
+  
+  select status
+    into v_status
+    from members
+    where username = p_username;
+    
+  if v_status = 'N' THEN
+    return 'N';
+  elsif v_status = 'A' THEN
+    return 'A';
+  elsif v_status = 'C' THEN
+    return 'C';
+  END IF;
+  
+exception when others then
+  return 'E';
+
+END;
+
+
+
+--3:
+
+create or replace
+PROCEDURE membership_cancellation (p_username VARCHAR2)
+AS
+v_member_status char;
+begin
+  v_member_status := is_member(p_username);
+  IF v_member_status = 'N' THEN
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'is not a member.');
+  ELSIF v_member_status = 'A' THEN
+    UPDATE members 
+      SET status = 'C' 
+      WHERE username = p_username;
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'account has been cancelled.');
+  ELSIF v_member_status = 'C' THEN
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'account has already been cancelled.');
+  END IF;
+  
+EXCEPTION 
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('error.');
+end;
+

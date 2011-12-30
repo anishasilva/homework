@@ -1,0 +1,507 @@
+/*
+  Raymond Elward
+  CSC 452
+  8/10/2011
+*/
+---------------------------------------------------------------
+--PART 2.9: includes everything but part 3 at the end.
+---------------------------------------------------------------
+CREATE OR REPLACE PACKAGE video_rental_store_pkg
+IS
+  FUNCTION is_member(p_username VARCHAR2)RETURN CHAR;
+  PROCEDURE membership_cancellation (p_username VARCHAR2);
+  PROCEDURE new_member_sign_up(p_username	VARCHAR2,p_name 	VARCHAR2,p_phone 	VARCHAR2,p_join_date 	DATE);
+  PROCEDURE print_rental_summary (p_username VARCHAR2);
+  PROCEDURE print_unreturned_video(p_username VARCHAR2);
+  PROCEDURE search_title (p_title VARCHAR2);
+  PROCEDURE video_checkout(	p_username		VARCHAR2, p_copy_id 		NUMBER, p_rental_date 	DATE, p_due_date 		DATE);
+  PROCEDURE video_return(p_copy_id NUMBER, p_return_date DATE);
+END video_rental_store_pkg;
+
+---------------------------------------------------------------
+--Please compile the above specification before moving on to the body.
+---------------------------------------------------------------
+
+
+create or replace
+PACKAGE BODY video_rental_store_pkg
+IS
+
+---------------------------------------------------------------
+--PART 2.1:
+---------------------------------------------------------------
+
+
+FUNCTION is_member(
+    p_username VARCHAR2)
+    RETURN CHAR
+AS
+  v_status char;
+  v_count number;
+BEGIN
+  select count(*)
+    into v_count
+    from members
+    where username = p_username;
+    
+  if v_count = 0 then
+    return 'N';
+  END IF;
+  
+  select status
+    into v_status
+    from members
+    where username = p_username;
+    
+  if v_status = 'N' THEN
+    return 'N';
+  elsif v_status = 'A' THEN
+    return 'A';
+  elsif v_status = 'C' THEN
+    return 'C';
+  END IF;
+  
+exception when others then
+  return 'E';
+
+END;
+
+
+---------------------------------------------------------------
+--PART 2.2:
+---------------------------------------------------------------
+
+PROCEDURE new_member_sign_up
+(	p_username	VARCHAR2,
+	p_name 	VARCHAR2,
+	p_phone 	VARCHAR2,
+	p_join_date 	DATE
+)
+IS
+	v_ret	 		CHAR;
+	v_error_code		NUMBER;
+    	v_error_message 	VARCHAR2(255);
+BEGIN
+   	
+	v_ret := is_member(p_username);
+
+	CASE UPPER(v_ret)	
+		WHEN 'A' THEN
+			DBMS_OUTPUT.PUT_LINE
+				(p_username || ' is already the member!');
+			RETURN;
+	
+		WHEN 'C' THEN
+			UPDATE members 
+			SET  	phone = p_phone, 
+				status = 'A'
+			WHERE  UPPER(username) = UPPER(p_username);
+			COMMIT;
+
+			DBMS_OUTPUT.PUT_LINE
+			(p_username || '''s status has been updated (A).');
+
+			RETURN;
+		WHEN 'N' THEN
+			IF p_join_date > sysdate THEN
+				DBMS_OUTPUT.PUT_LINE('Invalid join_date!');
+				RETURN;
+			END IF;
+
+			INSERT INTO members 
+			VALUES(p_username, p_name, p_phone, p_join_date, 'A');
+			
+			DBMS_OUTPUT.PUT_LINE
+				(p_username || ' has been added into the table.');
+			COMMIT;
+			RETURN;
+		ELSE
+			DBMS_OUTPUT.PUT_LINE('Return value = ' || v_ret);
+			RETURN;
+	END CASE;
+EXCEPTION
+	WHEN OTHERS THEN
+		v_error_code := SQLCODE;
+        	v_error_message := SQLERRM;
+        	DBMS_OUTPUT.PUT_LINE('My exception: ' || 
+			TO_CHAR(v_error_code) || '   ' || v_error_message);
+END;
+	
+---------------------------------------------------------------
+--PART 2.3:
+---------------------------------------------------------------
+
+
+PROCEDURE membership_cancellation (p_username VARCHAR2)
+AS
+v_member_status char;
+begin
+  v_member_status := is_member(p_username);
+  IF v_member_status = 'N' THEN
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'is not a member.');
+  ELSIF v_member_status = 'A' THEN
+    UPDATE members 
+      SET status = 'C' 
+      WHERE username = p_username;
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'account has been cancelled.');
+  ELSIF v_member_status = 'C' THEN
+    DBMS_OUTPUT.PUT_LINE(p_username || ' ' || 'account has already been cancelled.');
+  END IF;
+  
+EXCEPTION 
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('error.');
+end;
+
+
+---------------------------------------------------------------
+--PART 2.4:
+---------------------------------------------------------------
+
+
+PROCEDURE search_title (p_title VARCHAR2)
+AS
+  CURSOR c_movies IS (SELECT video_titles.title, video_copies.copy_id, video_copies.status
+                      FROM video_copies, video_titles 
+                      WHERE video_copies.title_id = video_titles.title_id
+                      AND UPPER(title) like '%' || UPPER(p_title) ||  '%');
+  v_status varchar2(30);
+  v_count NUMBER;
+BEGIN
+  SELECT count(*)
+    into v_count
+    FROM video_copies, video_titles 
+    WHERE video_copies.title_id = video_titles.title_id
+    AND UPPER(title) like '%' || UPPER(p_title) || '%';
+  
+  IF v_count = 0 THEN
+    dbms_output.put_line('Your search "' || p_title || '" did not match any titles.');
+    return;
+  END IF;
+  
+  dbms_output.put_line(rpad('TITLE', 18, ' ') || rpad('COPY_ID', 10, ' ') || 'STATUS');
+  FOR idx IN c_movies LOOP
+      
+    IF (idx.status = 'R') THEN
+      v_status := 'Rented';
+    ELSIF (idx.status = 'A') THEN
+      v_status := 'Avaliable';
+    END IF;
+      
+    dbms_output.put_line(rpad(idx.title, 18, ' ') || rpad(idx.copy_id, 10, ' ') || v_status);
+    
+  END LOOP;
+    
+  
+  
+END;
+
+---------------------------------------------------------------
+--PART 2.5:
+---------------------------------------------------------------
+
+PROCEDURE video_checkout
+(	p_username		VARCHAR2, 
+	p_copy_id 		NUMBER, 
+	p_rental_date 	DATE, 
+	p_due_date 		DATE)
+AS
+  v_status video_copies.status%type;
+  v_user_count number;
+  
+  v_title video_titles.title%type;
+  
+  v_current_title video_titles.title%type;
+
+  
+  cursor c_checked_out_titles is select copy_id
+                                  from rentals
+                                  where username = p_username 
+                                  and return_date is null;
+BEGIN
+
+  IF (is_member(p_username) != 'A') THEN
+    dbms_output.put_line(p_username || ' is not an active member, so s/he can not rent.');
+    return;
+  end if;
+  
+  select status
+    into v_status
+    from video_copies
+    where p_copy_id = copy_id;
+    
+  if (v_status = 'R') THEN
+    dbms_output.put_line(p_copy_id || ' is already rented.');
+    return;
+  END IF;
+  
+  if (p_rental_date > p_due_date) then
+    dbms_output.put_line('The rental date is greater than the due date.');
+    return;
+  end if;
+  
+  if (p_rental_date > sysdate) then
+    dbms_output.put_line('The rental date is greater than todays date');
+    return;
+  end if;
+  
+  select count(*)
+    into v_user_count
+    from rentals
+    where username = p_username
+    AND return_date is null;
+
+  if (v_user_count > 3) then
+    dbms_output.put_line('The user has too many rentals checked out.');
+    return;
+  end if;
+  
+  
+  select title 
+    into v_title
+    from video_titles, video_copies 
+    where video_titles.title_id = video_copies.title_id 
+    and copy_id = p_copy_id;
+  
+  FOR idx IN c_checked_out_titles LOOP
+      select title 
+        into v_current_title
+        from video_titles, video_copies 
+        where video_titles.title_id = video_copies.title_id 
+        and copy_id = idx.copy_id;
+        
+      if (v_current_title = v_title) then
+        dbms_output.put_line('The user already has this title checked out.');
+        return;
+      end if;
+  
+  
+    
+  END LOOP;
+  
+  insert into rentals(username, copy_id, rental_date, due_date, return_date) 
+          values (p_username, p_copy_id, p_rental_date, p_due_date, null);
+          
+  update video_copies
+    SET status = 'R'
+    where copy_id = p_copy_id;
+    
+  
+  
+END;
+
+
+---------------------------------------------------------------
+--PART 2.6:
+---------------------------------------------------------------
+
+PROCEDURE 
+	video_return(p_copy_id NUMBER, p_return_date DATE)
+AS
+  v_copy_status video_copies.status%type;
+  v_count number;
+BEGIN
+
+  select count(*)
+    into v_count
+    from video_copies
+    where copy_id = p_copy_id;
+    
+  if (v_count != 1) then
+    dbms_output.put_line('error:There is no record of that copy id.');
+    return;
+  end if;
+
+  select status
+    into v_copy_status
+    from video_copies
+    where copy_id = p_copy_id;
+  
+  if (v_copy_status != 'R') then
+    dbms_output.put_line('error:The copy status is incorrect.');
+    return;
+  end if;   
+  
+  if (p_return_date > sysdate) then
+    dbms_output.put_line('error:The return date is greater than todays date.');
+    return;
+  end if;        
+  
+  update rentals
+    SET return_date = p_return_date
+    where p_copy_id = copy_id
+    AND return_date is null;
+  
+  update video_copies
+    SET status = 'A'
+    where copy_id = p_copy_id;
+    
+END;
+
+
+---------------------------------------------------------------
+--PART 2.7:
+---------------------------------------------------------------
+
+
+PROCEDURE print_unreturned_video(p_username VARCHAR2)
+AS
+  v_name members.name%type;
+  cursor c_videos is SELECT copy_id, due_date 
+                        from rentals
+                        where username = p_username
+                        and return_date is null;
+  v_title video_titles.title%type;
+  v_title_id video_titles.title_id%type;
+  
+  v_count number;
+BEGIN
+
+  if (is_member(p_username) != 'A') then
+    dbms_output.put_line('error: ' || p_username ||' not an active member.');
+    return;
+  end if;
+
+  select count(*)
+    into v_count
+    from rentals
+    where username = p_username
+    and return_date is null;
+    
+  if (v_count < 1) then
+    dbms_output.put_line('error: '|| p_username ||' has no rentals out.');
+    return;
+  end if;
+
+  select name
+    into v_name
+    from members
+    where username = p_username;
+  dbms_output.put_line('----------------------------------------------');
+  dbms_output.put_line(RPAD('USERNAME:', 15, ' ') || p_username);
+  dbms_output.put_line(RPAD('NAME:', 15, ' ') || v_name);
+  dbms_output.put_line('----------------------------------------------');
+  for idx in c_videos loop
+    select title_id
+      into v_title_id
+      from video_copies
+      where copy_id = idx.copy_id;
+      
+    select title
+      into v_title
+      from video_titles
+      where title_id = v_title_id;
+    
+    
+    dbms_output.put_line(RPAD('COPY ID:', 15, ' ') || idx.copy_id);
+    dbms_output.put_line(RPAD('Title:', 15, ' ') || v_title);
+    dbms_output.put_line(RPAD('Due Date:', 15, ' ') || to_char(idx.due_date, 'DD-MON-YY'));
+    dbms_output.put_line('----------------------------------------------');
+  end loop;
+    
+END;
+
+
+---------------------------------------------------------------
+--PART 2.8:
+---------------------------------------------------------------
+
+
+PROCEDURE print_rental_summary (p_username VARCHAR2)
+AS
+  v_name members.name%type;
+  cursor c_videos is SELECT copy_id, rental_date 
+                        from rentals
+                        where username = p_username
+                        order by rental_date;
+                        
+  v_title video_titles.title%type;
+  v_title_id video_titles.title_id%type;
+  
+  v_count number;
+BEGIN
+
+  if (is_member(p_username) != 'A') then
+    dbms_output.put_line('error: ' || p_username ||' not an active member.');
+    return;
+  end if;
+
+  select count(*)
+    into v_count
+    from rentals
+    where username = p_username;
+    
+  if (v_count < 1) then
+    dbms_output.put_line('error: '|| p_username ||' has no rentals.');
+    return;
+  end if;
+
+  select name
+    into v_name
+    from members
+    where username = p_username;
+  dbms_output.put_line('----------------------------------------------');
+  dbms_output.put_line(RPAD('USERNAME:', 15, ' ') || p_username);
+  dbms_output.put_line(RPAD('NAME:', 15, ' ') || v_name);
+  dbms_output.put_line('----------------------------------------------');
+  for idx in c_videos loop
+    select title_id
+      into v_title_id
+      from video_copies
+      where copy_id = idx.copy_id;
+      
+    select title
+      into v_title
+      from video_titles
+      where title_id = v_title_id;
+    
+    
+    dbms_output.put_line(RPAD('Title:', 15, ' ') || v_title);
+    dbms_output.put_line(RPAD('Due Date:', 15, ' ') || to_char(idx.rental_date, 'DD-MON-YY'));
+    dbms_output.put_line('----------------------------------------------');
+  end loop;
+    
+END;
+
+
+END video_rental_store_pkg;
+
+
+
+---------------------------------------------------------------
+--PART 3:
+---------------------------------------------------------------
+
+
+
+CREATE OR REPLACE TYPE top_rental_type AS OBJECT (
+  	USERNAME  		VARCHAR2(50),
+    TOTAL			NUMBER);
+
+
+CREATE OR REPLACE TYPE top_rental_table AS TABLE OF top_rental_type;
+
+create or replace
+FUNCTION top_rental 
+	(p_start_date DATE,
+	 p_end_date	DATE) RETURN top_rental_table
+AS
+  v_ret top_rental_table;
+BEGIN
+  select top_rental_type(
+            username, count(*)
+            )
+    BULK COLLECT INTO v_ret from rentals
+    where rental_date > p_start_date
+    AND rental_date < p_end_date
+    group by username
+    having count(*) = (select max(count(*))
+      from rentals
+      where rental_date > p_start_date
+      AND rental_date < p_end_date
+      group by username);
+  
+  
+  return v_ret;
+END;
+

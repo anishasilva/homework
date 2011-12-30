@@ -1,0 +1,74 @@
+/*
+  Raymond Elward
+  CSC 452
+  8/11/2011
+*/
+
+
+--1)
+
+create or replace
+TRIGGER emp_dept_trg
+	AFTER UPDATE OF department_id ON employee
+	FOR EACH ROW
+DECLARE
+	v_old_dept_name department.department_name%type;
+	v_new_dept_name department.department_name%type;
+	
+BEGIN
+	IF (:OLD.department_id != :NEW.department_id) THEN
+		select department_name
+			into v_old_dept_name
+      			from department
+			where department_id = :OLD.department_id;
+		select department_name
+			into v_new_dept_name
+     			from department
+			where department_id = :NEW.department_id;
+		INSERT INTO emp_dept_hist 
+		VALUES (:NEW.employee_id, :NEW.employee_name, v_old_dept_name, v_new_dept_name, sysdate);
+	END IF;
+END;
+
+
+
+--2)
+
+
+create or replace
+TRIGGER parts_trg
+	AFTER INSERT ON parts
+	FOR EACH ROW
+DECLARE
+	PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+	INSERT INTO parts_log VALUES (:NEW.pid, :NEW.pname);
+	COMMIT;
+END;
+
+
+--3)
+
+CREATE OR REPLACE TRIGGER emp_sal_trg
+	BEFORE INSERT OR UPDATE ON employee
+	FOR EACH ROW
+DECLARE
+	v_min_sal min_sal.min_sal%type;
+BEGIN
+	SELECT min_sal
+		into v_min_sal
+		from min_sal
+		where job = :NEW.job;
+	IF (v_min_sal > :NEW.min_sal) THEN
+		:NEW.min_sal := v_min_sal;
+	END IF;
+END;
+
+
+
+
+
+
+
+
+

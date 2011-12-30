@@ -1,0 +1,65 @@
+/*
+Raymond Elward
+7/20/2011
+CSC 452
+Prof. Chen
+
+*/
+
+
+--part II)
+--1)
+
+select TO_CHAR( sum(estimated_price_in_2025) - sum(price_in_2000), '$99,999.99' ) as PAY
+from grocery_prices;
+
+--2)
+
+
+select grocery_item, ROUND(t1.percent_inc, 2) || '%' AS percentage_increase
+from (select grocery_item, max(((estimated_price_in_2025 - price_in_2000) / price_in_2000) * 100) AS percent_inc 
+      from grocery_prices 
+      group by grocery_item) t1
+where t1.percent_inc = (select max(t2.percent_inc)
+                        from (select grocery_item, max(((estimated_price_in_2025 - price_in_2000) / price_in_2000) * 100) AS percent_inc 
+                              from grocery_prices 
+                              group by grocery_item) t2
+                        );
+
+
+--part III)
+--1)
+
+select worker.employee_name employee, worker.hire_date EMPLOYEE_HIRE_DATE, 
+       manager.employee_name manager, manager.hire_date MANAGER_HIRE_DATE
+from employee worker, employee manager
+where worker.manager_id = manager.employee_id(+)
+order by worker.employee_name;
+
+--2)
+
+select e.employee_name, e.salary, dept_salary.dept_name, dept_salary.DEPT_AVG_SAL
+from employee e, (select employee.department_id as dept_id, department.department_name as dept_name, ROUND(avg(salary), 2) AS DEPT_AVG_SAL 
+                  from employee, department where department.department_id = employee.department_id 
+                  group by employee.department_id, department.department_name) dept_salary
+where e.department_id = dept_salary.dept_id
+  AND e.salary > dept_salary.DEPT_AVG_SAL
+order by e.employee_name;
+
+--3)
+
+
+select department_name, count(e.employee_id)
+from department d, employee e
+where d.department_id = e.department_id
+group by department_name
+having count(e.employee_id) = (select max(num_emp)
+                                from (select count(employee_id) AS num_emp
+                                      from employee 
+                                      group by department_id )); 
+
+
+
+
+
+

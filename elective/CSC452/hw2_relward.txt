@@ -1,0 +1,106 @@
+/*
+Raymond Elward
+7/21/2011
+CSC 452
+Prof. Chen
+
+*/
+
+
+--1)
+
+ACCEPT p_1 PROMPT 'Please enter the employee_id:'
+
+DECLARE
+	v_eid		employee.employee_id%TYPE := '&p_1';
+	v_count	NUMBER;
+BEGIN
+	SELECT 	COUNT(*)
+    	INTO 		v_count
+    	FROM 		employee
+	WHERE		employee_id = v_eid;
+
+	IF v_count = 0 THEN
+    		DBMS_OUTPUT.PUT_LINE(v_eid || ' is not in the employee table.');
+	ELSE
+		DBMS_OUTPUT.PUT_LINE(v_eid || ' is in the employee table.');
+	END IF;
+END;
+
+
+--2)
+
+ACCEPT p_1 PROMPT 'Please enter the employee_id:'
+
+DECLARE
+	v_eid		employee.employee_id%TYPE := '&p_1';
+  v_count	NUMBER;
+  v_employee_name employee.employee_name%TYPE;
+  v_employee_salary employee.salary%TYPE;
+  v_dept_id employee.department_id%TYPE;
+  v_dept_name department.department_name%TYPE;
+  v_manager_id employee.employee_id%TYPE;
+  v_manager_name employee.employee_name%TYPE;
+  v_manager_salary employee.salary%TYPE;
+BEGIN
+	SELECT 	COUNT(*)
+    	INTO 		v_count
+    	FROM 		employee
+	WHERE		employee_id = v_eid;
+
+	IF v_count = 0 THEN
+    		DBMS_OUTPUT.PUT_LINE(v_eid || ' is not in the employee table.');
+	ELSE
+		select employee_name, SALARY, DEPARTMENT_ID, NVL(MANAGER_ID, -1)
+    into v_employee_name, v_employee_salary, v_dept_id, v_manager_id
+    from employee
+    where employee_id = v_eid;
+    
+    select department_name
+    into v_dept_name
+    from department
+    where department_id = v_dept_id;
+    
+    DBMS_OUTPUT.PUT_LINE(RPAD('NAME:', 18) || v_employee_name);
+    DBMS_OUTPUT.PUT_LINE(RPAD('DEPARTMENT NAME:', 18) || v_dept_name);
+    DBMS_OUTPUT.PUT_LINE(RPAD('SALARY:', 17) || to_char(v_employee_salary, '$9,999.99'));
+    
+    if v_manager_id = -1 THEN
+      DBMS_OUTPUT.PUT_LINE(RPAD('MANAGER NAME:', 18) || 'N/A');
+      DBMS_OUTPUT.PUT_LINE(RPAD('MANAGER SALARY:', 18) || 'N/A');
+    ELSE 
+      select employee_name, salary
+      into v_manager_name, v_manager_salary
+      from employee
+      where employee_id = v_manager_id;
+      DBMS_OUTPUT.PUT_LINE(RPAD('MANAGER NAME:', 18) || v_manager_name);
+      DBMS_OUTPUT.PUT_LINE(RPAD('MANAGER SALARY:', 17) || to_char(v_manager_salary, '$9,999.99'));
+    END IF;
+    
+	END IF;
+END;
+
+
+--3b) (i'm a 452 student)
+
+DECLARE 
+  	v_date date := '01-MAY-09';
+  	v_end_date date := '31-MAY-09';
+    v_count NUMBER := 0;
+    
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('  DATE      Number of open bugs'); 
+  	WHILE v_date <= v_end_date LOOP
+      select count(*)
+      into v_count
+      from bugs
+      where bugs.reported_date <= v_date
+        AND (bugs.closed_date >= v_date OR bugs.closed_date IS NULL);
+      
+      DBMS_OUTPUT.PUT_LINE(v_date || LPAD(v_count, 12));
+      
+      v_date := v_date + 1;
+  	END LOOP;
+END;
+
+

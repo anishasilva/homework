@@ -1,0 +1,221 @@
+/*
+  Raymond Elward
+  CSC 452
+  8/4/2011
+*/
+
+/*
+PART 1:
+1) B
+2) C
+3) E
+4) B
+5) B
+6) B
+7) A
+8) A
+9) D
+10) B
+11) A
+12) E
+*/
+
+
+--PART 2)
+--1.1)
+
+CREATE TABLE PERSON 
+(EMP_ID       NUMBER PRIMARY KEY,
+ LAST_NAME    VARCHAR2(30),
+ FIRST_NAME   VARCHAR2(20),
+ EMP_TYPE     CHAR(1) );
+ 
+CREATE TABLE PILOT 
+(EMP_ID       NUMBER PRIMARY KEY REFERENCES PERSON(EMP_ID),
+ LICENSE_EXPIRATION DATE);
+ 
+insert into person values (100, 'Smith', 'John', 'R');
+insert into person values (117, 'Brown', 'Dean', 'C');
+insert into person values (201, 'Fisher', 'Jane', 'R');
+insert into person values (208, 'Brewster', 'Andre', 'R');
+insert into person values (319, 'Clark', 'Dan', 'C');
+insert into person values (410, 'Jackson', 'Peter', 'C');
+commit;
+
+insert into PILOT values (117, '31-DEC-2012');
+insert into PILOT values (201, '31-DEC-2013');
+commit;
+
+--1.2)
+
+ACCEPT p_1 PROMPT 'Please enter the Employee ID:';
+
+DECLARE
+  v_emp_id person.emp_id%TYPE := '&p_1'; 
+  
+  cursor v_cursor(input number) is (select person.emp_id as id, person.last_name as last, person.first_name as first, person.emp_type as type, pilot.license_expiration as exp 
+    from person, pilot 
+    where person.emp_id = input AND person.emp_id = pilot.emp_id(+));
+  
+  v_valid boolean := false;
+    
+BEGIN
+
+  for idx in v_cursor(v_emp_id) loop
+    v_valid := true;
+
+    DBMS_OUTPUT.PUT_LINE(idx.first || ' ' || idx.last);
+
+    if idx.type = 'R' then
+      DBMS_OUTPUT.PUT_LINE('Regular Employee');
+    elsif idx.type = 'C' then
+      DBMS_OUTPUT.PUT_LINE('Contract Employee');
+    END IF;
+    
+    if idx.exp is not null then
+      DBMS_OUTPUT.PUT_LINE(idx.exp);
+    end if;
+    
+  end loop;
+  
+  if (v_valid = false) THEN
+    DBMS_OUTPUT.PUT_LINE('Invalid');
+  END IF;
+END;
+/
+
+
+--2)
+
+ACCEPT p_1 PROMPT 'Please enter the Employee Name:';
+
+DECLARE
+  v_emp_name employee.employee_name%TYPE := UPPER('&p_1'); 
+  
+  v_dept_info department%rowtype;
+  
+  v_hire_date employee.hire_date%type;
+  
+  cursor c_emps(hire_after employee.hire_date%type) is 
+            select UPPER(employee_name) as employee_name
+            from employee 
+            where (hire_date > hire_after 
+              AND department_id = v_dept_info.department_id);
+  
+  v_count number;
+  
+    
+BEGIN
+    select NVL(department.department_id, -1) as department_id, NVL(department.department_name, '?') as department_name
+      INTO v_dept_info.department_id, v_dept_info.department_name
+      from employee, department 
+      where department.department_id = employee.department_id 
+      AND UPPER(employee.employee_name) = v_emp_name;
+    
+    
+    select hire_date
+      into v_hire_date
+      from employee
+      where employee_name = v_emp_name;
+    
+    select count(*)
+      into v_count
+      from employee 
+      where (hire_date > v_hire_date 
+        AND department_id = v_dept_info.department_id);
+      
+      
+      
+    if (v_count = 0) then
+      DBMS_OUTPUT.PUT_LINE('No output');
+    else
+      DBMS_OUTPUT.PUT_LINE(rpad('Department Name', 20, ' ') || 'Employee Name' );
+    end if;
+    
+    FOR idx in c_emps(v_hire_date) LOOP
+        DBMS_OUTPUT.PUT_LINE(rpad(upper(v_dept_info.department_name), 20, ' ') || idx.employee_name);
+    end loop;
+    
+EXCEPTION
+  when others then
+    DBMS_OUTPUT.PUT_LINE(v_emp_name || ' is not in the table');
+END;
+/
+
+--3)
+
+
+
+DECLARE
+
+  cursor c_depts is select department_id, department_name, address 
+                      from department order by department_name;
+                      
+  v_num_emps number;
+  v_avg_sal varchar2(10);
+  v_avg_sal_num number;
+  v_num_above_avg_emp number;
+BEGIN
+  
+  FOR dept IN c_depts LOOP
+  
+    select count(*)
+      into v_num_emps
+      from employee
+      where department_id = dept.department_id;
+    
+    select NVL(to_char(avg(salary), '$9,990.00'), ' N/A'), NVL(avg(salary), 0)
+      into v_avg_sal, v_avg_sal_num
+      from employee
+      where department_id = dept.department_id;
+      
+    select count(*)
+      into v_num_above_avg_emp
+      from employee
+      where department_id = dept.department_id
+      AND salary > v_avg_sal_num;
+  
+    DBMS_OUTPUT.PUT_LINE('===============================================================');
+    DBMS_OUTPUT.PUT_LINE(rpad('DEPT_NAME:', 40, ' ') || dept.department_name);
+    DBMS_OUTPUT.PUT_LINE(rpad('ADDRESS:', 40, ' ') || dept.address);
+    DBMS_OUTPUT.PUT_LINE(rpad('NUM_OF_EMP:', 40, ' ')|| v_num_emps);
+    DBMS_OUTPUT.PUT_LINE(rpad('DEPT_AVG_SAL:', 39, ' ') || v_avg_sal);
+    DBMS_OUTPUT.PUT_LINE(rpad('NUM_OF_EMP_SAL_ABOVE_DEPT_AVG_SAL:', 40, ' ') || v_num_above_avg_emp);
+    
+  END LOOP;
+
+
+END;
+/
+
+
+--4)
+
+DECLARE
+
+  cursor c_days is select trim(TO_CHAR(hire_date, 'Day')) as week_day
+                      from employee
+                      group by TO_CHAR(hire_date, 'Day')
+                      having count(*) = (select max(count(*))
+                        from employee
+                        group by upper(TO_CHAR(hire_date, 'Day')))
+                      order by week_day;
+                      
+  cursor c_emps(p_date varchar2) is select employee_name, to_char(hire_date,'DD/MM/YYYY') as h_date
+                                from employee
+                                where trim(TO_CHAR(hire_date, 'Day')) = p_date
+                                order by employee_name;
+BEGIN
+  for idx_day in c_days loop
+    dbms_output.put_line('--------------------------------');
+    dbms_output.put_line(idx_day.week_day);
+    
+    for idx_emp in c_emps(idx_day.week_day) loop
+        dbms_output.put_line(rpad(idx_emp.employee_name, 20, ' ') || idx_emp.h_date);
+    end loop;
+  
+  
+  end loop;
+
+END;
+/
