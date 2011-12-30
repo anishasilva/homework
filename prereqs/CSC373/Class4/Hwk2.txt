@@ -1,0 +1,465 @@
+     1	                            CSC 373: Computer Systems 1
+     2	                                 Homework #2
+     3	
+     4	Points: 100
+     5	Due: Before midnight: Thursday, July 1st
+     6	
+     7	Problem 1: Here's a program: the question is given as part of the 
+     8	           documentation.
+     9	
+    10	#include <stdio.h>
+    11	#include <string.h>
+    12	#include <stdlib.h>
+    13	
+    14	#define MaxName (60)
+    15	#define BuffSize (256)
+    16	
+    17	typedef unsigned int bool;
+    18	enum truth_values { false = 0, true }; 
+    19	
+    20	typedef struct Emp {
+    21	  unsigned char lname[MaxName + 1]; /* + 1 for '\0' */
+    22	  unsigned char fname[MaxName + 1];
+    23	  unsigned int  id;
+    24	  unsigned char dept;
+    25	  bool          married;
+    26	} Emp;
+    27	
+    28	void set_name(char* target, char* source) {
+    29	  if (strlen(source) > MaxName) return;
+    30	  strcpy(target, source);
+    31	}
+    32	
+    33	void set_id(unsigned int* id_ptr) {
+    34	  *id_ptr = rand();
+    35	}
+    36	
+    37	void set_dept(unsigned char* dept_ptr, unsigned char code) {
+    38	  *dept_ptr = code;
+    39	}
+    40	
+    41	void set_married(unsigned int* married, unsigned int status) {
+    42	  *married = status;
+    43	}
+    44	
+    45	void to_string(Emp* this, char* buffer) {
+    46	  unsigned char temp[32];
+    47	
+    48	  printf("\n** Employee information **");
+    49	  
+    50	  strcpy(buffer, "");
+    51	
+    52	  strcat(buffer, "\nLast name:   "); 
+    53	  strcat(buffer, this->lname);
+    54	  strcat(buffer, "\nFirst name:  ");
+    55	  strcat(buffer, this->fname);  
+    56	
+    57	  sprintf(temp, "%i", this->id);
+    58	  strcat(buffer, "\nEmployee id: ");
+    59	  strcat(buffer, temp);
+    60	
+    61	
+    62	  sprintf(temp, "%c", this->dept);
+    63	  strcat(buffer, "\nDepartment:  ");
+    64	  strcat(buffer, temp);
+    65	
+    66	  strcat(buffer, "\nMarried?:    ");
+    67	  if (this->married) 
+    68	    strcat(buffer, "yes");
+    69	  else
+    70	    strcat(buffer, "no");
+    71	}
+    72	
+    73	/** Homework: documentation assignment starts here 
+    74	    Specific issues:
+    75	
+    76	    (1) Why are there two dump_emps functions rather than
+    77	        just one? How do they differ?
+    78	
+    79	    (2) Same for the comp1 and comp2 functions, the callbacks
+    80	        for qsort.
+    81	
+    82	    (3) I do two qsorts. In each case, as the output shows,
+    83	        the Employees are printed in (the same) sorted order.
+    84	        Which approach (the first qsort or the second) is better 
+    85	        and why? Explain, in particular, how the two qsorts
+    86	        differ.
+    87	
+    88	    You can ignore the const business. What 
+    89	
+    90	        const Emp* ptr;
+    91	
+    92	    means, in short, is that the object to which ptr points
+    93	    cannot be changed. (I'm using "object" here in a generic
+    94	    sense to mean "thing," not in the object-oriented sense.)
+    95	*/
+    96	
+    97	void dump_emps1(Emp a[ ], unsigned n) {
+    98	  int i;
+    99	  char buffer[BuffSize];
+   100	  for (i = 0; i < n; i++) {
+   101	    to_string(&a[i], buffer);
+   102	    printf("%s\n", buffer);
+   103	  }  
+   104	}
+   105	
+   106	void dump_emps2(Emp* a[ ], unsigned n) {
+   107	  int i;
+   108	  char buffer[BuffSize];
+   109	  for (i = 0; i < n; i++) {
+   110	    to_string(a[i], buffer);
+   111	    printf("%s\n", buffer);
+   112	  }
+   113	}
+   114	
+   115	/* void* is the generic pointer type; that is, any
+   116	   pointer type (such as Emp*) can be cast to or
+   117	   from void*. In object-oriented languages such as
+   118	   Java and C#, the Object type is the counterpart 
+   119	   of C's void* type.
+   120	
+   121	
+   122	   The fourth argument to qsort must be a pointer to
+   123	   a function that (1) returns an int and (2) takes
+   124	   two arguments of type const void*.
+   125	
+   126	   The returned int has the following "qsort semantics,"
+   127	   which are used by virtually every sort routine in
+   128	   every modern programming language. Here are the
+   129	   semantics, explained with reference to the pointers
+   130	   item1 and item2:
+   131	
+   132	      return 0 if item1->object and item2->object are
+   133	      equal with respect to sorted order
+   134	
+   135	      return a negative integer if item1->object precedes
+   136	      item2->object in sorted order
+   137	
+   138	      return a positive integer if item1->object succeeds
+   139	      item2->object in sorted order
+   140	*/
+   141	int comp1(const void* item1, const void* item2) {
+   142	  const Emp* emp1 = (const Emp*) item1;
+   143	  const Emp* emp2 = (const Emp*) item2;
+   144	  
+   145	  unsigned char buff1[BuffSize];
+   146	  unsigned char buff2[BuffSize];
+   147	
+   148	  strcpy(buff1, emp1->lname);
+   149	  strcat(buff1, emp1->fname);
+   150	  strcpy(buff2, emp2->lname);
+   151	  strcat(buff2, emp2->fname);
+   152	
+   153	  return strcmp(buff1, buff2);
+   154	}
+   155	
+   156	int comp2(const void* item1, const void* item2) {
+   157	  const Emp** emp1 = (const Emp**) item1;
+   158	  const Emp** emp2 = (const Emp**) item2;
+   159	
+   160	  unsigned char buff1[BuffSize];
+   161	  unsigned char buff2[BuffSize];
+   162	
+   163	  strcpy(buff1, (*emp1)->lname);
+   164	  strcat(buff1, (*emp1)->fname);
+   165	  strcpy(buff2, (*emp2)->lname);
+   166	  strcat(buff2, (*emp2)->fname);
+   167	
+   168	  return strcmp(buff1, buff2);
+   169	}
+   170	
+   171	int main() {
+   172	  /* Seed the pseudo-random number generator with the current time. 
+   173	     An Emp's id is set to a pseudo-random number. */
+   174	  srand(time(0)); 
+   175	
+   176	  const int n = 6;
+   177	  Emp emps[n];
+   178	  Emp orig_emps[n];
+   179	
+   180	
+   181	
+   182	  /* populate the array: don't bother to document this */
+   183	  set_name(emps[0].lname, "Ruble");
+   184	  set_name(emps[0].fname, "Barney");
+   185	  set_id(&emps[0].id);
+   186	  set_dept(&emps[0].dept, 'Q');
+   187	  set_married(&emps[0].married, true);
+   188	
+   189	  set_name(emps[1].lname, "Ruble");
+   190	  set_name(emps[1].fname, "Betty");
+   191	  set_id(&emps[1].id);
+   192	  set_dept(&emps[1].dept, 'R');
+   193	  set_married(&emps[1].married, true);
+   194	
+   195	  set_name(emps[2].lname, "Flintstone");
+   196	  set_name(emps[2].fname, "Pebbles");
+   197	  set_id(&emps[2].id);
+   198	  set_dept(&emps[2].dept, 'C');
+   199	  set_married(&emps[2].married, false);
+   200	
+   201	  set_name(emps[3].lname, "Flintstone");
+   202	  set_name(emps[3].fname, "Wilma");
+   203	  set_id(&emps[3].id);
+   204	  set_dept(&emps[3].dept, 'A');
+   205	  set_married(&emps[3].married, true);
+   206	
+   207	  set_name(emps[4].lname, "Flintstone");
+   208	  set_name(emps[4].fname, "Baby Puss");
+   209	  set_id(&emps[4].id);
+   210	  set_dept(&emps[4].dept, 'C');
+   211	  set_married(&emps[4].married, false);
+   212	
+   213	  set_name(emps[5].lname, "Flintstone");
+   214	  set_name(emps[5].fname, "Fred");
+   215	  set_id(&emps[5].id);
+   216	  set_dept(&emps[5].dept, 'Z');
+   217	  set_married(&emps[5].married, true);
+   218	  /* make a copy of the original array: I've documented it */
+   219	  memcpy(orig_emps, emps, sizeof(emps));
+   220	
+   221	  /* original emps */
+   222	  printf("**** Before sorting:\n");
+   223	  dump_emps1(emps, n);
+   224	
+   225	  /* 1st qsort: better or worse approach than 2nd? why? */
+   226	  qsort(emps, n, sizeof(Emp), comp1);
+   227	  printf("\n**** After 1st sort:\n");
+   228	  dump_emps1(emps, n);
+   229	
+   230	  int i;
+   231	  Emp* emps_a[n];
+   232	  for (i = 0; i < n; i++)
+   233	    emps_a[i] = orig_emps + i;
+   234	  printf("\n**** After 2nd sort:\n");
+   235	
+   236	  /* 2nd qsort: better or worse approach than 1st? why? */
+   237	  qsort(emps_a, n, sizeof(Emp*), comp2);
+   238	  dump_emps2(emps_a, n);
+   239	  return 0;
+   240	}
+   241	
+   242	Problem 2:
+   243	
+   244	IA32 uses certain conventions with respect to registers. The registers
+   245	
+   246	             %eax %edx %ecx
+   247	
+   248	are "caller save" registers, whereas the registers
+   249	
+   250	             %ebx %edi %esi
+   251	
+   252	are "callee save" registers.
+   253	
+   254	Example to illustrate:
+   255	
+   256	        /* assume callee needs three registers */
+   257	        int callee(int n1, int n2) {
+   258	           int temp = n1 * n2;
+   259	           return temp - (n1 + n2);
+   260	        }
+   261	
+   262	        void caller() {
+   263	           int a = 4;
+   264	           int b = 8;
+   265	           int c = callee(a, b);
+   266	           /*...*/
+   267	        }
+   268	
+   269	When caller calls callee, callee does not need to worry about overwriting
+   270	the "caller save" registers (for instance, %eax). The system ensures that
+   271	any data that caller required and that happened to be stored in these
+   272	"caller save" registers would be saved and restored for caller. However,
+   273	if callee were to overwrite any of the "callee save" registers (for instance,
+   274	%ebx), then callee first must save the current contents of any such 
+   275	register and then restore the contents before returning. Assume, in the
+   276	above example, that caller and callee each requires registers for its local
+   277	int variables, parameters, and return value.
+   278	
+   279	First, generate the compiler's assembler to see how it assigns the registers
+   280	Then, using the "caller save" and "callee save" information at your disposal,
+   281	indicate whether the compiler could do a better job.
+   282	
+   283	To get the assembler from a C file such as mystery1.c, the command is
+   284	
+   285	   gcc -S mystery1.c
+   286	
+   287	The assembler is now in the file named 
+   288	
+   289	   mystery1.s
+   290	
+   291	/******************************************************************************/
+   292	
+   293	
+   294	
+   295	
+   296	
+   297	
+   298	
+   299	
+   300	
+   301	
+   302	Problem 3: Document the assembler below. A detailed explanation follows.
+   303	/* This function is called no_op ("no operation" or NOP in assembler) 
+   304	   because it does no useful work, as the return of void indicates.
+   305	   Anyway, below the C function is the label
+   306	
+   307	             _no_op:
+   308	
+   309	   that begins the non-optimized assembler, which implements the C
+   310	   code. The problem here is to document each line of the assembler.
+   311	   I've started by doing the first two and the last two.
+   312	   
+   313	   The early sections in Chapter 3 go over the assembler in detail. 
+   314	   P. 144 has a table of the instructions. The book's index is also
+   315	   helpful. For example, the instruction leal (Load Effective Address Long),
+   316	   which we'll go over in class, is explained on p. 143.
+   317	
+   318	   My comments are a bit wordy. The idea is to document to the stardard
+   319	   expectation: someone can understand what the code does merely by reading
+   320	   the documentation and without studying the code itself. There's no need
+   321	   to document the C code, only the assembler.
+   322	
+   323	   Quick review of asm:
+   324	
+   325	      -- $8 signifies immediate addressing so $8 means "the value 8"
+   326	      
+   327	      -- 12(%ebp) is an example of displacement addressing with
+   328	         %ebp as the base address and +12 as the offset (note that
+   329	         some displacements are negative)
+   330	
+   331	      -- keep in mind that the IA32 stack grows "downwards," that is,
+   332	         from high addresses to low addresses. So a negative displacement
+   333	         takes you to a higher address and a negative displacement takes
+   334	         you to a lower addresses:
+   335	                                       High Addresses
+   336	
+   337	            P + n, n >= 1               ---->
+   338	
+   339	            P, some point on the stack  ----> 
+   340	
+   341	            P - n, n >= 1               ---->
+   342	
+   343	                                       Low Addresses
+   344	
+   345	*/
+   346	
+   347	
+   348	
+   349	
+   350	
+   351	
+   352	
+   353	
+   354	
+   355	
+   356	
+   357	
+   358	
+   359	
+   360	
+   361	
+   362	void no_op(int a, int b) {
+   363	    int y = 5;
+   364	    int z = 9; 
+   365	    y += b;
+   366	    z += a;
+   367	    return;
+   368	}
+   369	
+   370	_no_op:
+   371	 pushl %ebp                ;; save the base pointer (call frame pointer) from
+   372	                           ;; the caller, that is, the function that calls no_op
+   373	                      
+   374	 movl %esp, %ebp           ;; create a new call frame by setting %ebp to TOP
+   375	
+   376	 subl $8, %esp     
+   377	 movl $5, -4(%ebp) 
+   378	 movl $9, -8(%ebp)     
+   379	 movl 12(%ebp), %edx   
+   380	 leal -4(%ebp), %eax   
+   381	 addl %edx, (%eax)
+   382	 movl 8(%ebp), %edx
+   383	 leal -8(%ebp), %eax
+   384	 addl %edx, (%eax)
+   385	
+   386	 leave           ;; restore the call frame pointer (%ebp) and the
+   387	                 ;; stack pointer (%esp) to their values before the
+   388	                 ;; call to no_op. In effect, leave is equivalent to
+   389	                 ;;
+   390	                 ;;  movl %ebp, %esp  ;; set TOP to start of this call frame
+   391	                 ;;  popl %ebp        ;; restore the saved %ebp, thereby setting
+   392	                                      ;; TOP to the end of the caller's 
+   393	                                      ;; current call frame. Now new items
+   394	                                      ;; can be added to the caller's stack frame
+   395	
+   396	 ret             ;; return control to the caller of no_op
+   397	                 ;; when the caller invoked 
+   398	                 ;;
+   399	                 ;;     call no_op
+   400	                 ;;     <next instruction in caller>
+   401	                 ;;
+   402	                 ;; the call instruction pushed the address of the next 
+   403	                 ;; caller instruction onto the stack. The ret instruction
+   404	                 ;; pops this address off the stack so that the caller
+   405	                 ;; now can resume execution.  
+   406	
+   407	
+   408	
+   409	
+   410	
+   411	
+   412	
+   413	
+   414	
+   415	
+   416	
+   417	
+   418	
+   419	
+   420	
+   421	
+   422	Problem 4: Compile and run the code below (included in the ZIP file).
+   423	The code's main calls push_test and pop_test, which conduct a short
+   424	experiment on the stack pointer, %esp in IA32. What do these
+   425	two experiments demonstrate about how pushl and popl work in IA32?
+   426	Explain, in other words, what I'm testing and how the results of the test
+   427	should be interpreted.
+   428	
+   429	#include <stdio.h>
+   430	
+   431	int push_test() {
+   432	  int ret_val;
+   433	  /* movl %esp, %eax    ;; save stack pointer
+   434	     pushl %esp         ;; push stack pointer onto stack
+   435	     popl %edx          ;; pop the top value back into %edx
+   436	     subl %edx, %eax    ;; subtract the two values
+   437	     movl %eax, ret_val ;; set up the return value
+   438	  */
+   439	  asm("movl %%esp, %%eax; pushl %%esp; popl %%edx; subl %%edx, %%eax; movl %%eax, %0"
+   440	      : "=r" (ret_val)
+   441	      : /* not input */
+   442	      : "%edx", "%eax");
+   443	  return ret_val;
+   444	}
+   445	
+   446	int pop_test() {
+   447	  int ret_val = 0xffffffff;  /* -1 in decimal */
+   448	  /* pushl ret_val       ;; save ret_val on the stack
+   449	     movl %esp, %edx     ;; save the stack pointer
+   450	     popl %esp           ;; pop stack to the stack pointer
+   451	     movl %esp, ret_val  ;; set the popped value as the return value
+   452	     movl %edx, %esp     ;; restore original stack pointer
+   453	  */
+   454	  asm("pushl %1; movl %%esp, %%edx; popl %%esp; movl %%esp, %0; movl %%edx, %%esp"
+   455	      : "=r" (ret_val)
+   456	      : "r" (ret_val)
+   457	      : "%edx");
+   458	  return ret_val;
+   459	}
+   460	
+   461	int main() {
+   462	  printf("push test: %d\n", push_test()); 
+   463	  printf("pop test: %d\n", pop_test()); 
+   464	}
+   465	

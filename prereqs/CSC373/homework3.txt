@@ -1,0 +1,145 @@
+Raymond ElwardCSC 3738 July 2010Homework 3
+
+ANSWER 1)
+
+Cache C:: 1 line(block) per set, 1 word per line(block), 16 sets.  (direct map)
+
+
+Word address    :	1	4	8	5	20	17	19	56
+Set number(S[n]):	S[1]	S[4]	S[8]	S[5]	S[4]	S[1]	S[3]	S[8]
+Hit or miss     :	miss	miss	miss	miss	miss	miss	miss	miss
+
+
+	9	11	4	43	5	6	9	17	9	56	9
+	S[9]	S[11]	S[4]	S[11]	S[5]	S[6]	S[9]	S[1]	S[9]	S[8]	S[9]
+	miss	miss	miss	miss	HIT	miss	HIT	HIT	HIT	HIT	HIT
+
+Cache C's contents after the last memory reference:
+	Line[0]
+Set[0]	
+S[1]	17
+S[2]	
+S[3]	19
+S[4]	4
+S[5]	5
+S[6]	6
+S[7]	
+S[8]	56
+S[9]	9
+S[10]	
+S[11]	43
+S[12]	
+S[13]	
+S[14]	
+S[15]	
+
+ANSWER 2)
+
+4 Sets.  16 Lines per set. 1 word per line. 
+
+Word address    :	1	4	8	5	20	17	19	56
+Set number(n) and Line(l)
+ number(S[n][l]):	S[1][0]	S[0][0]	S[0][1]	S[1][1]	S[0][2]	S[1][2]	S[3][1]	S[0][3]
+Hit or miss     :	miss	miss	miss	miss	miss	miss	miss	miss
+
+
+	9	11	4	43	5	6	9	17	9	56	9
+	S[1][3]	S[3][1]	S[0][0]	S[3][2]	S[1][1]	S[2][0]	S[1][3]	S[1][2]	S[1][3]	S[0][3]	S[1][3]
+	miss	miss	HIT	miss	HIT	miss	HIT	HIT	HIT	HIT	HIT
+
+Cache contents after the last memory reference:
+
+	Line[0]	L[1]	L[2]	L[3]	L[4]	L[5]	...	L[15]
+
+Set[0]	4	8	20	56
+S[1]	1	5	17	9
+S[2]	6
+S[3]	19	11	43
+
+ANSWER 3)
+
+8 Sets.  2 Lines per set.  1 word per line.
+
+Word address    :	1	4	8	5	20	17	19	56
+Set number(n) and Line(l)
+ number(S[n][l]):	S[1][0]	S[4][0]	S[0][0]	S[5][0]	S[4][1]	S[1][1]	S[3][0]	S[0][1]
+Hit or miss     :	miss	miss	miss	miss	miss	miss	miss	miss
+
+
+	9	11	4	43	5	6	9	17	9	56	9
+	S[1][0]	S[3][1]	S[4][0]	S[3][0]	S[5][0]	S[6][0]	S[1][0]	S[1][1]	S[1][0]	S[0][1]	S[1][0]
+	miss	miss	HIT	miss	HIT	miss	HIT	HIT	HIT	HIT	HIT
+
+Cache contents after the last memory reference:
+
+	Line[0]	L[1]
+Set[0]	8	56
+S[1]	9	17
+S[2]	
+S[3]	43	11
+S[4]	4	20
+S[5]	5
+S[6]	6
+S[7]	
+
+
+ANSWER 4)
+
+1024 sets -> log(1024) = 10-bit for set identifier
+32 words per line -> log(32) = 5-bit for word offset
+32 - (10+5) = 17 tag bits "overhead".
+
++-------------+------------------------+--------------------+
+|17 tag bits  |  10-bit set identifier | 5-bits word offset |
++-------------+------------------------+--------------------+
+
+ANSWER 5)
+
+C1:
+2048 sets, 8 blocks per set, 32 words per block, 8 bits per word.
+
+The Capacity of C1 is 2048(sets) * 8(lines per set) * 32(words per line) * 8(bits per word) = 4,194,304 bits
+
+log(2048) = 11 bits for the set id
+log(32) = 5 bit word offset
+32 - (11 + 5) = 16 bits for the tag
+
+The directory size of C1 is 2048(# of sets) * 8(lines per sets) * 16(tag bits per line) = 262,144 bits (6.25% of the capacity)
+
+C2:
+8192 sets, 2 blocks per set, 32 words per block, 8 bits per word
+
+The capacity of C2 is 8192(sets) * 2(lines per set) * 32(words per line) * 8(bits per word) = 4,194,304 bits
+
+log(8192) = 13 bits for the set id
+log(32) = 5 bit word offset
+32 - (13 + 5) = 14 bits for the tag
+
+The directory size of C2 is 8192(sets) * 2(lines per set) * 14(tag bits per line) = 229,376 bits (about 5.47% of the capacity)
+
+The "data bit" capacities of both of these caches is the exact same, coming in at about 4.2 million bits.  The difference is in the overhead bit size between the two.  C1's directory bits come in at about .78% more bits taken up by directory.  The general principle that designing a cache with more sets that have less blocks(lines) will require slightly less data taken up as overhead than a cache with less sets that have more lines per set.  The trade off doesn't seem too bad though when we consider how C1 could potentially reduce the number of conflict misses.
+
+ANSWER 6)
+
+L2 cache with 4 blocks(lines) per set, 2048 sets, and 128 words per line(block)
+
+log(2048) = 11 bits for the set ID
+log(128) = 7 word off set
+32 - (11 + 7) = 14 bits left for tag bits
+
+
+11110000 11110000 11110000 11110000
+|-------------/\-----------/\-----|
+	a	      b		c
+
+(1)c = word offset (7 bits)
+(2)b = set identifier (11 bits)
+(3)a = Tag bits (14 bits)
+
+(4) Tags in the directory as a whole.  2048(sets) * 4(lines per set) * 14(tag bits) = 114,688 bit directory size.
+
+(5) unique tags in a set. A set has 4 blocks with 128 words per block so 4*128 = 512 is the number of directory tags that must be compared when a cache look up occurs.
+
+ANSWER 7)
+
+LRU is very bad for this situation.  We have 6 slots in cache, and 7 pieces of data that keeps looping in.  The loop is : 1, 4, 7, 8, 9, 11, 13.  Under the principles of LRU as the 13 enters it has to kick out the 1, and then the 1 has to kick out the 4 and then the 4 has to kick out the 7 and so on for the extent of the loop.  With this idea the computer is always kicking something out to make room for the new data(with LRU there will never be a hit), if the random replacement were implemented there would be a good change that the data put in next in the reference string would already be present and nothing would need to be kicked out (a 6/7 chance of that happening, and only 1/7 chance of needing to replace).  Thus random replacement would yield much better performance than LRU in a 6-way set associative cache for this reference string.

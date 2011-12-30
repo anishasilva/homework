@@ -1,0 +1,23 @@
+
+                                 CSC 373: Computer Systems 1
+                                      Summer Term, 2010
+                                          Homework 1
+
+Points: 100
+Due:    June 24th, before midnight
+
+You submit either via email to me (kalin@cs.depaul.edu) or by using the COL Web site.
+I strongly recommend that you submit plain text, as this minimizes errors with file
+uploads and the like.
+
+The easiest way is to furnish your answers as documentation in the code. Basically,
+you should focus on two questions:
+
+   1. What does the code do?
+   2. How does the code do what it does?
+
+There are three C programs, each to be compiled and executed.
+
+Good luck.
+
+--mgk

@@ -1,0 +1,119 @@
+Raymond ElwardCSC 37315 July 2010Homework 4
+
+ANSWER 1)
+code:
+int n = 1234;
+float f = 1234.0f;
+hex value:
+n: 00 00 04 d2
+f: 44 9a 40 00 
+lets look at the binary bits to see how they are correlated.
+n: 0000 0000 0000 0000 0000 0100 1101 0010
+
+f: 0100 0100 1001 1010 0100 0000 0000 0000
+
+in float the bits are separated as follows for f:
+
+0 10001001 00110100100000000000000
+s exponent significand
+
+if we take the representation in int and move it to match the significand of f then we can see how the bits in the integer and the floating point are correlated.  (adding the 1 bit to the leftmost of f's significand can be used to match the pattern of bits in n)
+
+f(significand):   0011010010...00
+n:           00É010011010010
+
+
+ANSWER 2)
+With this code the compiler will 'promote' n to a float before comparing the two at the bit level.  Basically the compiler takes the statement (n == f) and interprets it as ((float) n == f).  The compiler does this to look at both pieces of data in the same bit formats.
+
+ANSWER 3)
+None of the comparisons are coming up as equal because the == operator is comparing the double numbers on the bit level and they appear to be equal because they are being displayed using %f in a printf statement for external representation.  To see why these aren't equal you need to look at d1, d2, and d3 's hex values.
+
+d1: 1.0 / 10.0           == 9a 99 99 99 99 99 b9 3f
+d2: pow(2.0, -20.0) * d1 == 9a 99 99 99 99 99 79 3e
+d3: 9.54 * pow(10.0, -8) == 42 7e 73 8c d6 8b 79 3e
+
+Now it is obvious that none of them are equal in the machine level representation.
+
+ANSWER 4)
+NULL is a macro for 0 in the header file stdlib.h.  The compiler accepts this because in C an array of strings acts just like an array of chars in that it is a null-terminated array.  This means that after the last usable piece of data there is always a '\0' in the array to signify to C that it is the end of the array.  If any other int were to be put in the array during initialization the compiler would give you an error such as "warning initialization makes pointer from integer without a cast".  Here 0 is not seen as an int but as a null pointer.
+
+ANSWER 5)
+Defining buffer inside the function in this potentially endless loop is really bad practice.  The way the code is written now, with buffer as an extern variable, will be much less memory intensive for the program to do the same function.
+
+If we were to declare the function inside the prompt_and_read function we would keep allocating space on the stack for more and more buffer arrays that could eventually spill over.  With buffer as an extern variable the prompt and read function will return a pointer to the location of the array(buffer) where the beginning of the next 'string' will be so it can be output back to the user.
+
+ANSWER 6)
+
+1) diagram that depicts what q points to after the first loop in main executes:
+
+after the first for loop in main q is pointing to a pointer at the start of an array of pointers, allocated space on the heap from the malloc function.  The size of the array depends on user input.  And then each pointer in that array is pointing to the beginning of an array of ints which are also the depending on the size of user input.
+
+Lets say the user inputs 3 as n.  In that case we have blocked off 3 pointers for q to point to. 'q' or 'q[0]' will point to the first pointer.  'q+1' or 'q[1]' will point to the next pointer and 'q+2' or 'q[2]' will point to the 3rd. All of which point to their own 3 blocks of memory with the size of int.  We can then think of this like a multidimensional array of pointers.
+
+2) Explain what f1 does and how it does it.
+
+f1 takes pointer q and fills in all the 'int' type data pointed to inside the array with random numbers less than 100.  It does this by taking a loop to dereference q's offset and then another dereference to reach each individual int slot in the allocated memory.
+
+3)  Are q and q[0] of the same type? explain
+yes, both are pointers.  it is just semantics in the C language.  using q[0], q[1]...q[n] you can reference any part in the space allocated for q, but q just references the start of the allocation. 
+
+4) Explain what f2 does and how it does it.
+
+f2 returns a pointer to a pointer.  This new variable('int** t' inside the function) points to the same data  as q( but it points to it in a different order).  Thanks to the use of a counting down 'for' loop in f2 the pointing is swapped.  for example in the n = 3 example i used earlier this would be the case: q[0] == t[2], q[1] == t[1], and q[2] == t[0].  Basically f2 returns a reverse ordering of the int** that is passed in.  
+
+side note: The code never frees up the malloced data from f2, which I believe it should in the section that it frees up everything else that has been malloced.
+
+ANSWER 7)
+
+(for 7 I have an attached jpeg drawing(Q7 supplement) of the way in which the array is separated and where the pointers point) 
+
+-Explain how the dump array loop works.
+
+Dump array goes through the array 1 int at a time(even 3 dimensional arrays like this are represented as just a single array of data in C) and prints it out.  It is a nested loop that goes through each piece of data in the array by accessing each dimension of the array at a time.
+
+-Why does the compiler need D2 and D3 in the argument but not D1?
+
+Because the compiler doesn't care how many of the 2 sub-blocks you pass in, but it does need to know the size of those sub-blocks.
+
+
+-What is the size of (d3)? 72 bytes
+-what is sizeof(d3[1])? 24 bytes
+-what is sizeof(d3[1][0])? 12 bytes
+-what is sizeof(d3[1][1][1])? 4 bytes
+
+-In words, what is the data type of d3? pointer to a pointer to a pointer to an int (3 dimensional array)
+-in words, what is the data type of *d3? pointer to a pointer to an int (two dimensional array)
+-in words, what is the data type of **d3? pointer to an int (array)
+-in words, what is the data type of ***d3? int
+
+-In words, what is the data type of ptr? pointer to an int.
+
+
+-Why no warning/error on the line "int* ptr = (int*) d3;" why not? 
+
+There is no warning because it casts d3 which is a 3 dimensional array into just a pointer to an int.
+
+-What if the line changes to int* ptr = d3; what happens then with the compiler and why?
+
+Then the compiler is upset because you are trying to put a pointer of a different size(array pointer) to a pointer to an int.
+
+-what does this next C statement do? why is d3 cast to an int?
+
+It creates a pointer "foo" that will point to the address of the last piece of data in the array.(d3[2][1][2]).  it casts d3 to an int to get the location of d3 so foo can properly point to the "n" offset of d3's location.
+
+-Why, in the initialization of n above, do I subtract sizeof(int) at the end?
+
+To give room for when you add in the location in the next line. Basically n is created to give the distance from the first piece of data in d3(d3[0][0][0]) to the last piece of data in d3(d3[2][1][2]).
+
+-Explain in words and/or pictures what this loop does?
+
+It starts at the end of the array and fills the ints in with random 1 or 2 digit integers.  Then foo-- moves the pointer back one position at which point it loops back to the assignment until the array is full.  (when foo goes to a lower memory location than ptr, which is the last location in the array).  Side note: The loop could be changed to just one line of "*foo-- = rand() % UB;".
+
+-What would happen if the while test were changed to "while (foo > ptr)"?
+
+then the first piece of data in the array would not be filled. Basically: (d3[0][0][0] == 0) in that case, while the rest of the array would be full of random numbers.
+
+-could I call dump_array(ptr) here? Explain.
+
+No.  You can't call it that way because the parameters of the function is looking for a 3 dimensional array and not a pointer.
