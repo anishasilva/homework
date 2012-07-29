@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64240ADA14CC7C060008640C /* DisclosureDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64240AD914CC7C060008640C /* DisclosureDetailController.m */; };
+		64240ADE14CC7E660008640C /* DisclosureButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64240ADD14CC7E660008640C /* DisclosureButtonController.m */; };
+		642E5C3314CC8CEE00EF90FC /* DataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 642E5C3214CC8CEE00EF90FC /* DataSingleton.m */; };
+		64BB307314CC74390055F4D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64BB307214CC74390055F4D3 /* UIKit.framework */; };
+		64BB307514CC74390055F4D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64BB307414CC74390055F4D3 /* Foundation.framework */; };
+		64BB307714CC74390055F4D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64BB307614CC74390055F4D3 /* CoreGraphics.framework */; };
+		64BB307D14CC74390055F4D3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64BB307B14CC74390055F4D3 /* InfoPlist.strings */; };
+		64BB307F14CC74390055F4D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BB307E14CC74390055F4D3 /* main.m */; };
+		64BB308314CC74390055F4D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BB308214CC74390055F4D3 /* AppDelegate.m */; };
+		64BB308614CC74390055F4D3 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64BB308414CC74390055F4D3 /* MainStoryboard.storyboard */; };
+		64BB309614CC74540055F4D3 /* button_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309014CC74540055F4D3 /* button_down.png */; };
+		64BB309714CC74540055F4D3 /* button_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309114CC74540055F4D3 /* button_up.png */; };
+		64BB309814CC74540055F4D3 /* deleteMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309214CC74540055F4D3 /* deleteMeIcon.png */; };
+		64BB309914CC74540055F4D3 /* detailEditIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309314CC74540055F4D3 /* detailEditIcon.png */; };
+		64BB309A14CC74540055F4D3 /* disclosureButtonControllerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309414CC74540055F4D3 /* disclosureButtonControllerIcon.png */; };
+		64BB309B14CC74540055F4D3 /* moveMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB309514CC74540055F4D3 /* moveMeIcon.png */; };
+		64BB309E14CC74F30055F4D3 /* FirstLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BB309D14CC74F30055F4D3 /* FirstLevelViewController.m */; };
+		64BB30A114CC750D0055F4D3 /* SecondLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BB30A014CC750D0055F4D3 /* SecondLevelViewController.m */; };
+		64BB30A514CC763D0055F4D3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BB30A414CC763D0055F4D3 /* icon.png */; };
+		64D8EE5314CC866500690713 /* DisclosureDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64D8EE5214CC866500690713 /* DisclosureDetail.xib */; };
+		64D8EE5614CC891900690713 /* MoveMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8EE5514CC891900690713 /* MoveMeController.m */; };
+		64D8EE5914CC8A6A00690713 /* DeleteMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8EE5814CC8A6A00690713 /* DeleteMeController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		64240AD814CC7C060008640C /* DisclosureDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureDetailController.h; sourceTree = "<group>"; };
+		64240AD914CC7C060008640C /* DisclosureDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclosureDetailController.m; sourceTree = "<group>"; };
+		64240ADC14CC7E660008640C /* DisclosureButtonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisclosureButtonController.h; path = ../DisclosureButtonController.h; sourceTree = "<group>"; };
+		64240ADD14CC7E660008640C /* DisclosureButtonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisclosureButtonController.m; path = ../DisclosureButtonController.m; sourceTree = "<group>"; };
+		642E5C3114CC8CEE00EF90FC /* DataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSingleton.h; sourceTree = "<group>"; };
+		642E5C3214CC8CEE00EF90FC /* DataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSingleton.m; sourceTree = "<group>"; };
+		64BB306E14CC74390055F4D3 /* Assignment3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64BB307214CC74390055F4D3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		64BB307414CC74390055F4D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		64BB307614CC74390055F4D3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		64BB307A14CC74390055F4D3 /* Assignment3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Assignment3-Info.plist"; sourceTree = "<group>"; };
+		64BB307C14CC74390055F4D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		64BB307E14CC74390055F4D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		64BB308014CC74390055F4D3 /* Assignment3-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Assignment3-Prefix.pch"; sourceTree = "<group>"; };
+		64BB308114CC74390055F4D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		64BB308214CC74390055F4D3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		64BB308514CC74390055F4D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		64BB309014CC74540055F4D3 /* button_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_down.png; sourceTree = "<group>"; };
+		64BB309114CC74540055F4D3 /* button_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_up.png; sourceTree = "<group>"; };
+		64BB309214CC74540055F4D3 /* deleteMeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteMeIcon.png; sourceTree = "<group>"; };
+		64BB309314CC74540055F4D3 /* detailEditIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detailEditIcon.png; sourceTree = "<group>"; };
+		64BB309414CC74540055F4D3 /* disclosureButtonControllerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosureButtonControllerIcon.png; sourceTree = "<group>"; };
+		64BB309514CC74540055F4D3 /* moveMeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moveMeIcon.png; sourceTree = "<group>"; };
+		64BB309C14CC74F30055F4D3 /* FirstLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevelViewController.h; sourceTree = "<group>"; };
+		64BB309D14CC74F30055F4D3 /* FirstLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevelViewController.m; sourceTree = "<group>"; };
+		64BB309F14CC750D0055F4D3 /* SecondLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecondLevelViewController.h; path = ../SecondLevelViewController.h; sourceTree = "<group>"; };
+		64BB30A014CC750D0055F4D3 /* SecondLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecondLevelViewController.m; path = ../SecondLevelViewController.m; sourceTree = "<group>"; };
+		64BB30A414CC763D0055F4D3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		64D8EE5214CC866500690713 /* DisclosureDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclosureDetail.xib; sourceTree = "<group>"; };
+		64D8EE5414CC891900690713 /* MoveMeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveMeController.h; sourceTree = "<group>"; };
+		64D8EE5514CC891900690713 /* MoveMeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveMeController.m; sourceTree = "<group>"; };
+		64D8EE5714CC8A6A00690713 /* DeleteMeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMeController.h; sourceTree = "<group>"; };
+		64D8EE5814CC8A6A00690713 /* DeleteMeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMeController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64BB306B14CC74390055F4D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64BB307314CC74390055F4D3 /* UIKit.framework in Frameworks */,
+				64BB307514CC74390055F4D3 /* Foundation.framework in Frameworks */,
+				64BB307714CC74390055F4D3 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64BB306314CC74390055F4D3 = {
+			isa = PBXGroup;
+			children = (
+				64BB308F14CC74540055F4D3 /* Images */,
+				64BB307914CC74390055F4D3 /* Supporting Files */,
+				64BB307814CC74390055F4D3 /* Assignment3 */,
+				64BB307114CC74390055F4D3 /* Frameworks */,
+				64BB306F14CC74390055F4D3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64BB306F14CC74390055F4D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64BB306E14CC74390055F4D3 /* Assignment3.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		64BB307114CC74390055F4D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64BB307214CC74390055F4D3 /* UIKit.framework */,
+				64BB307414CC74390055F4D3 /* Foundation.framework */,
+				64BB307614CC74390055F4D3 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		64BB307814CC74390055F4D3 /* Assignment3 */ = {
+			isa = PBXGroup;
+			children = (
+				64BB308114CC74390055F4D3 /* AppDelegate.h */,
+				64BB308214CC74390055F4D3 /* AppDelegate.m */,
+				64BB308414CC74390055F4D3 /* MainStoryboard.storyboard */,
+				64D8EE5214CC866500690713 /* DisclosureDetail.xib */,
+				64BB309C14CC74F30055F4D3 /* FirstLevelViewController.h */,
+				64BB309D14CC74F30055F4D3 /* FirstLevelViewController.m */,
+				64BB309F14CC750D0055F4D3 /* SecondLevelViewController.h */,
+				64BB30A014CC750D0055F4D3 /* SecondLevelViewController.m */,
+				642E5C3114CC8CEE00EF90FC /* DataSingleton.h */,
+				642E5C3214CC8CEE00EF90FC /* DataSingleton.m */,
+				64240AD814CC7C060008640C /* DisclosureDetailController.h */,
+				64240AD914CC7C060008640C /* DisclosureDetailController.m */,
+				64240ADC14CC7E660008640C /* DisclosureButtonController.h */,
+				64240ADD14CC7E660008640C /* DisclosureButtonController.m */,
+				64D8EE5414CC891900690713 /* MoveMeController.h */,
+				64D8EE5514CC891900690713 /* MoveMeController.m */,
+				64D8EE5714CC8A6A00690713 /* DeleteMeController.h */,
+				64D8EE5814CC8A6A00690713 /* DeleteMeController.m */,
+			);
+			path = Assignment3;
+			sourceTree = "<group>";
+		};
+		64BB307914CC74390055F4D3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				64BB307A14CC74390055F4D3 /* Assignment3-Info.plist */,
+				64BB307B14CC74390055F4D3 /* InfoPlist.strings */,
+				64BB307E14CC74390055F4D3 /* main.m */,
+				64BB308014CC74390055F4D3 /* Assignment3-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = Assignment3;
+			sourceTree = "<group>";
+		};
+		64BB308F14CC74540055F4D3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				64BB30A414CC763D0055F4D3 /* icon.png */,
+				64BB309014CC74540055F4D3 /* button_down.png */,
+				64BB309114CC74540055F4D3 /* button_up.png */,
+				64BB309214CC74540055F4D3 /* deleteMeIcon.png */,
+				64BB309314CC74540055F4D3 /* detailEditIcon.png */,
+				64BB309414CC74540055F4D3 /* disclosureButtonControllerIcon.png */,
+				64BB309514CC74540055F4D3 /* moveMeIcon.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64BB306D14CC74390055F4D3 /* Assignment3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64BB308C14CC74390055F4D3 /* Build configuration list for PBXNativeTarget "Assignment3" */;
+			buildPhases = (
+				64BB306A14CC74390055F4D3 /* Sources */,
+				64BB306B14CC74390055F4D3 /* Frameworks */,
+				64BB306C14CC74390055F4D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Assignment3;
+			productName = Assignment3;
+			productReference = 64BB306E14CC74390055F4D3 /* Assignment3.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64BB306514CC74390055F4D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Raymond Elward";
+			};
+			buildConfigurationList = 64BB306814CC74390055F4D3 /* Build configuration list for PBXProject "Assignment3" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 64BB306314CC74390055F4D3;
+			productRefGroup = 64BB306F14CC74390055F4D3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64BB306D14CC74390055F4D3 /* Assignment3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64BB306C14CC74390055F4D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64BB307D14CC74390055F4D3 /* InfoPlist.strings in Resources */,
+				64BB308614CC74390055F4D3 /* MainStoryboard.storyboard in Resources */,
+				64BB309614CC74540055F4D3 /* button_down.png in Resources */,
+				64BB309714CC74540055F4D3 /* button_up.png in Resources */,
+				64BB309814CC74540055F4D3 /* deleteMeIcon.png in Resources */,
+				64BB309914CC74540055F4D3 /* detailEditIcon.png in Resources */,
+				64BB309A14CC74540055F4D3 /* disclosureButtonControllerIcon.png in Resources */,
+				64BB309B14CC74540055F4D3 /* moveMeIcon.png in Resources */,
+				64BB30A514CC763D0055F4D3 /* icon.png in Resources */,
+				64D8EE5314CC866500690713 /* DisclosureDetail.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64BB306A14CC74390055F4D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64BB307F14CC74390055F4D3 /* main.m in Sources */,
+				64BB308314CC74390055F4D3 /* AppDelegate.m in Sources */,
+				64BB309E14CC74F30055F4D3 /* FirstLevelViewController.m in Sources */,
+				64BB30A114CC750D0055F4D3 /* SecondLevelViewController.m in Sources */,
+				64240ADA14CC7C060008640C /* DisclosureDetailController.m in Sources */,
+				64240ADE14CC7E660008640C /* DisclosureButtonController.m in Sources */,
+				64D8EE5614CC891900690713 /* MoveMeController.m in Sources */,
+				64D8EE5914CC8A6A00690713 /* DeleteMeController.m in Sources */,
+				642E5C3314CC8CEE00EF90FC /* DataSingleton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		64BB307B14CC74390055F4D3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64BB307C14CC74390055F4D3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		64BB308414CC74390055F4D3 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64BB308514CC74390055F4D3 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		64BB308A14CC74390055F4D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		64BB308B14CC74390055F4D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		64BB308D14CC74390055F4D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Assignment3/Assignment3-Prefix.pch";
+				INFOPLIST_FILE = "Assignment3/Assignment3-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		64BB308E14CC74390055F4D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Assignment3/Assignment3-Prefix.pch";
+				INFOPLIST_FILE = "Assignment3/Assignment3-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64BB306814CC74390055F4D3 /* Build configuration list for PBXProject "Assignment3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64BB308A14CC74390055F4D3 /* Debug */,
+				64BB308B14CC74390055F4D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64BB308C14CC74390055F4D3 /* Build configuration list for PBXNativeTarget "Assignment3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64BB308D14CC74390055F4D3 /* Debug */,
+				64BB308E14CC74390055F4D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 64BB306514CC74390055F4D3 /* Project object */;
+}

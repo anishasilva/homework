@@ -1,0 +1,215 @@
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from lineorder, dwdate
+  where lo_orderdate =d_datekey and d_year =1993 and lo_discount
+          between 1 and 3 and lo_quantity < 25
+
+
+Section Code Page = 1208
+
+Estimated Cost = 44244.390625
+Estimated Cardinality = 1.000000
+
+Access Table Name = DB2INST1.DWDATE  ID = 3,8
+|  #Columns = 1
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 1
+|  |  Process Build Table for Hash Join
+Hash Join
+|  Early Out: Single Match Per Outer Row
+|  Estimated Build Size: 12000
+|  Estimated Probe Size: 22984000
+|  Access Table Name = DB2INST1.LINEORDER  ID = 3,9
+|  |  Index Scan:  Name = DB2INST1.Q123_INDEX1  ID = 2
+|  |  |  Regular Index (Not Clustered)
+|  |  |  Index Columns:
+|  |  |  |  1: LO_DISCOUNT (Ascending)
+|  |  |  |  2: LO_QUANTITY (Ascending)
+|  |  |  |  3: LO_ORDERDATE (Ascending)
+|  |  |  |  4: LO_EXTENDEDPRICE (Ascending)
+|  |  #Columns = 3
+|  |  Skip Inserted Rows
+|  |  Avoid Locking Committed Data
+|  |  Currently Committed for Cursor Stability
+|  |  #Key Columns = 2
+|  |  |  Start Key: Inclusive Value
+|  |  |  |  |  1: 1
+|  |  |  Stop Key: Exclusive Value
+|  |  |  |  |  1: 3
+|  |  |  |  |  2: 25
+|  |  Index-Only Access
+|  |  Index Prefetch: Eligible 5724
+|  |  Lock Intents
+|  |  |  Table: Intent Share
+|  |  |  Row  : Next Key Share
+|  |  Sargable Index Predicate(s)
+|  |  |  #Predicates = 1
+|  |  |  Process Probe Table for Hash Join
+Aggregation
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from lineorder, dwdate
+  where lo_orderdate =d_datekey and d_yearmonthnum =199401 and
+          lo_discount between 4 and 6 and lo_quantity between 26 and
+          35
+
+
+Section Code Page = 1208
+
+Estimated Cost = 38725.875000
+Estimated Cardinality = 1.000000
+
+Access Table Name = DB2INST1.DWDATE  ID = 3,8
+|  #Columns = 1
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 1
+|  |  Process Build Table for Hash Join
+Hash Join
+|  Early Out: Single Match Per Outer Row
+|  Estimated Build Size: 4000
+|  Estimated Probe Size: 9560000
+|  Bit Filter Size: 800
+|  Access Table Name = DB2INST1.LINEORDER  ID = 3,9
+|  |  Index Scan:  Name = DB2INST1.Q123_INDEX1  ID = 2
+|  |  |  Regular Index (Not Clustered)
+|  |  |  Index Columns:
+|  |  |  |  1: LO_DISCOUNT (Ascending)
+|  |  |  |  2: LO_QUANTITY (Ascending)
+|  |  |  |  3: LO_ORDERDATE (Ascending)
+|  |  |  |  4: LO_EXTENDEDPRICE (Ascending)
+|  |  #Columns = 3
+|  |  Skip Inserted Rows
+|  |  Avoid Locking Committed Data
+|  |  Currently Committed for Cursor Stability
+|  |  #Key Columns = 2
+|  |  |  Start Key: Inclusive Value
+|  |  |  |  |  1: 4
+|  |  |  |  |  2: 26
+|  |  |  Stop Key: Inclusive Value
+|  |  |  |  |  1: 6
+|  |  |  |  |  2: 35
+|  |  Index-Only Access
+|  |  Index Prefetch: Eligible 4968
+|  |  Lock Intents
+|  |  |  Table: Intent Share
+|  |  |  Row  : Next Key Share
+|  |  Sargable Index Predicate(s)
+|  |  |  #Predicates = 2
+|  |  |  Process Probe Table for Hash Join
+Aggregation
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from lineorder, dwdate
+  where lo_orderdate =d_datekey and d_weeknuminyear =6 and d_year =
+          1994 and lo_discount between 5 and 7 and lo_quantity
+          between 26 and 35
+
+Section Code Page = 1208
+
+Estimated Cost = 38236.828125
+Estimated Cardinality = 1.000000
+
+Access Table Name = DB2INST1.DWDATE  ID = 3,8
+|  #Columns = 1
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 2
+|  |  Process Build Table for Hash Join
+Hash Join
+|  Early Out: Single Match Per Outer Row
+|  Estimated Build Size: 4000
+|  Estimated Probe Size: 9436000
+|  Bit Filter Size: 800
+|  Access Table Name = DB2INST1.LINEORDER  ID = 3,9
+|  |  Index Scan:  Name = DB2INST1.Q123_INDEX1  ID = 2
+|  |  |  Regular Index (Not Clustered)
+|  |  |  Index Columns:
+|  |  |  |  1: LO_DISCOUNT (Ascending)
+|  |  |  |  2: LO_QUANTITY (Ascending)
+|  |  |  |  3: LO_ORDERDATE (Ascending)
+|  |  |  |  4: LO_EXTENDEDPRICE (Ascending)
+|  |  #Columns = 3
+|  |  Skip Inserted Rows
+|  |  Avoid Locking Committed Data
+|  |  Currently Committed for Cursor Stability
+|  |  #Key Columns = 2
+|  |  |  Start Key: Inclusive Value
+|  |  |  |  |  1: 5
+|  |  |  |  |  2: 26
+|  |  |  Stop Key: Inclusive Value
+|  |  |  |  |  1: 7
+|  |  |  |  |  2: 35
+|  |  Index-Only Access
+|  |  Index Prefetch: Eligible 4905
+|  |  Lock Intents
+|  |  |  Table: Intent Share
+|  |  |  Row  : Next Key Share
+|  |  Sargable Index Predicate(s)
+|  |  |  #Predicates = 2
+|  |  |  Process Probe Table for Hash Join
+Aggregation
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section

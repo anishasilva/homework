@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'LIOLI' target in the 'LIOLI' project
+//
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+#endif

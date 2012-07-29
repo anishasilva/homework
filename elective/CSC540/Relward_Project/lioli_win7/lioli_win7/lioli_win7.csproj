@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E591CF2A-87C7-4FE4-86DE-ACEAB21F9FAD}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>lioli_win7</RootNamespace>
+    <AssemblyName>lioli_win7</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>lioli_win7.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>lioli_win7.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WP7GapClassLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\Jesse\Documents\Visual Studio 2010\Projects\TwitterPluginTest\GapLib\WP7GapClassLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GapLib\WP7GapClassLib.dll" />
+    <Content Include="GapSourceDictionary.xml" />
+    <Content Include="www\icon.png" />
+    <Content Include="www\index.html" />
+    <Content Include="www\phonegap.js" />
+    <Content Include="www\randomPage.html" />
+    <Content Include="www\singleEntryPage.html" />
+    <Content Include="www\static\css\lioli-default.css" />
+    <Content Include="www\static\images\bannerForApp.png" />
+    <Content Include="www\static\images\DefaultSplash.png" />
+    <Content Include="www\static\images\DefaultSplash2x.png" />
+    <Content Include="www\static\images\DefaultSplash2xCrop.png" />
+    <Content Include="www\static\images\DefaultSplashCrop.png" />
+    <Content Include="www\static\images\lioli-icon3.png" />
+    <Content Include="www\static\images\lioli-icon32x.png" />
+    <Content Include="www\static\images\tabbar\broken-icon-white.png" />
+    <Content Include="www\static\images\tabbar\bubble-icon-white.png" />
+    <Content Include="www\static\images\tabbar\heart-icon-white.png" />
+    <Content Include="www\static\images\tabbar\magnify-icon-white.png" />
+    <Content Include="www\static\images\tabbar\question-icon-white.png" />
+    <Content Include="www\static\images\votebuttons\leaveButton.png" />
+    <Content Include="www\static\images\votebuttons\loveButton.png" />
+    <Content Include="www\static\images\votebuttons\NextButton.png" />
+    <Content Include="www\static\javascript\jquery-1.6.4.min.js" />
+    <Content Include="www\static\javascript\lioli.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\accessibility.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\features.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\getting-started.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\intro.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\about\platforms.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\data-attributes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\globalconfig.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\mediahelpers.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\api\themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\api-buttons.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-grouped.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-icons.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-inline.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\buttons-types.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\buttons\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\dialogTransition.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\iOSFullscreen.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\jq17b1.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\loadingMessage.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\minScrollBack.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\pageLoadErrorMessage.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\pageTransition.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\pushState.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\config\touchOverflow.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\api-content.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\content-collapsible-set.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\content-collapsible.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\content-grids.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\content-html.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\content-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\content\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\checkboxes\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\checkboxes\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\checkboxes\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\checkboxes\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\docs-forms.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-all-native.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-all.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-sample.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\plugin-eventsmethods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\radiobuttons\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\radiobuttons\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\radiobuttons\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\radiobuttons\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\search\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\search\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\search\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\search\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\selects\custom.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\selects\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\selects\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\selects\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\selects\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\slider\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\slider\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\slider\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\slider\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\switch\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\switch\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\switch\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\switch\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\textinputs\events.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\textinputs\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\textinputs\methods.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\textinputs\options.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\docs-lists.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-af.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-ag.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-bb.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-bk.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-hc.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-k.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-mg.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-ok.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-p.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-rh.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-ws.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\album-xx.jpg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\de.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\fi.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\gb.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\gf.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\sj.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\images\us.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-all-full.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-count.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-divider.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-formatting.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-forms-inset.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-forms.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-icons.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-inset.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-nested.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-ol.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-performance.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-readonly-inset.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-readonly.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-search-filtertext.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-search-inset.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-search-with-dividers.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-search.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-split-purchase.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-split.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-thumbnails.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\lists\lists-ul.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog-alt.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog-buttons.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog-overlay.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog-success.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog-with-select.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dialog.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\docs-links-urltest\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\animals.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\colors.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\sample-reuse-page-external.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\sample-reuse-page.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\vehicles.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\multipage-template.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-anatomy.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-cache.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-dialogs.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-dynamic.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-links.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-navmodel.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-scripting.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-template.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-titles.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\page-transitions.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes\theme-a.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes\theme-b.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes\theme-c.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes\theme-d.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\pages-themes\theme-e.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\phonegap.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\touchoverflow.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\transition-success.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\bars-fixed.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\bars-fullscreen.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\bars-themes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\docs-bars.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\docs-footers.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\docs-headers.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\docs-navbar.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\footer-persist-a.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\footer-persist-b.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\footer-persist-c.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\09-chat2.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\100-coffee.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\18-envelope.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\19-gear.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\21-skull.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\30-key.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\34-coffee.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\88-beermug.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\glyphish-icons\Read me first - license.txt" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\images\photo-run.jpeg" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\toolbars\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\css\jqm-docs.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\ios_icon.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\ios_startup.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\jqm-sitebg.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\jquery-logo.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\mobile-devices.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\px-ccc.gif" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\themroller-mobile-logo.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\images\version.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\js\jqm-docs.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\_assets\js\_viewsource.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\application.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\converter.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\jquery.tmpl.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\storage.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\google-maps\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\google-maps\map.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\google-maps\map.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\google-maps\map.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\jquery.easing.1.3.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\jquery.mobile.scrollview.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\jquery.mobile.scrollview.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\lists-divider.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\scrollview-direction.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\scrollview-nested.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\scrollview.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\sv-test-01.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\scrollview\sv-test-02.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\themeswitcher\jquery.mobile.themeswitcher.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\external\qunit.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\external\qunit.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\images\ajax-loader.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\images\icons-18-black.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\images\icons-18-white.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\images\icons-36-black.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\images\icons-36-white.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\jquery.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\jquery.mobile-1.0.1.min.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\jquery.mobile-1.0.1.min.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\functional\addrbar.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\functional\eventlogger.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\functional\gridlayout.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\functional\orientation.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\jquery.testHelper.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\basic-page.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\lists-ul.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\perf.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\startup.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\visualize\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\visualize\visualize.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\visualize\visualize.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\buttonMarkup\buttonMarkup_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\buttonMarkup\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\button\button_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\button\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\checkboxradio\checkboxradio_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\checkboxradio\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\collapsible\collapsible_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\collapsible\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\controlgroup\controlgroup_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\controlgroup\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\core\core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\core\core_scroll.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\core\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\degradeInputs\degradeInputs.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\degradeInputs\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\dialog\dialog_events.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\dialog\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\event\event_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\event\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\fieldContain\fieldContain_events.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\fieldContain\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\dialog-load-test.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\init_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\init_core_nopage.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\init_dialog.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\init\nopage.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\jquery.setNameSpace.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\cache-tests\cached-nested.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\cache-tests\clear.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\cache-tests\uncached-nested.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\listview_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\listview_pushstate.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\listview\pushstate-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\media\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\media\media_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navbar\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navbar\navbar_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\base-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\base-tests\app-base\base-page-1.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\base-tests\app-base\base-page-2.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\base-tests\content\content-page-1.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\base-tests\content\content-page-2.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\cached-external.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\data-url-tests\data-url.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\data-url-tests\nested.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\data-url-tests\non-data-url.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\data-url-tests\reverse-attr.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\data-url-tests\single-quotes.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\dialog-param-test\dialog-param.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\external.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\file.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\form-tests\changepage-data.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\form-tests\form-no-action.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_base.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_dialog_pushstate.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_helpers.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_paths.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\navigation_transitions.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\path-tests\file.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\path-tests\parent-ref.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\path-tests\parent\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\path-tests\sub-dir\file.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\path-tests\sub-dir\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\prefetched-dialog.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\prefetched.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\push-state-dialog-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\push-state-disabled-base-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\push-state-disabled-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\title1.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\title2.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\navigation\title3.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\page-sections\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\page-sections\page_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\page\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\page\page_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\runner.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\cached-dom-cache-true.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\cached-tests.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\cached.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\select_cached.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\select_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\select_events.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\select_native.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\suite.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\select\uncached-dom-cached-false.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\slider\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\slider\slider_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\slider\slider_events.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\support\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\support\support_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\swarminject.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\textinput\external.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\textinput\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\textinput\textinput_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\widget\index.html" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\widget\widget_core.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\widget\widget_init.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\images\ajax-loader.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\images\icons-18-black.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\images\icons-18-white.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\images\icons-36-black.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\images\icons-36-white.png" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile-1.0.1.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile-1.0.1.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile-1.0.1.min.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile-1.0.1.min.js" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile.structure-1.0.1.css" />
+    <Content Include="www\static\jquery.mobile-1.0.1\jquery.mobile.structure-1.0.1.min.css" />
+    <None Include="ManifestProcessor.js" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="www\static\font\Arial_Rounded_Bold.eot" />
+    <Content Include="www\static\font\Arial_Rounded_Bold.ttf" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-sample-response.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\forms\forms-sample-selfsubmit.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\docs\pages\dynamic-samples\category.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\.htaccess" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\converter\cache.manifest" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\experiments\weather\index.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\lists-ul-record.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\index.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\speed\stats\rev.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\index.php" />
+    <Content Include="www\static\jquery.mobile-1.0.1\demos\tests\unit\ls.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+  <PropertyGroup>
+    <PreBuildEvent>CScript "$(ProjectDir)/ManifestProcessor.js" "$(ProjectPath)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

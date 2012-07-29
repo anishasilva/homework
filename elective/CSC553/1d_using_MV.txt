@@ -1,0 +1,117 @@
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_year =1993 and lo_discount between 1 and 3 and lo_quantity
+          < 25
+
+
+Section Code Page = 1208
+
+Estimated Cost = 29359.537109
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  #Columns = 2
+|  Evaluate Block/Data Predicates Before Locking Committed Row
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 4
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_yearmonthnum =199401 and lo_discount between 4 and 6 and
+          lo_quantity between 26 and 35
+
+
+Section Code Page = 1208
+
+Estimated Cost = 29385.804688
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  #Columns = 2
+|  Evaluate Block/Data Predicates Before Locking Committed Row
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 5
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_weeknuminyear =6 and d_year =1994 and lo_discount between 5
+          and 7 and lo_quantity between 26 and 35
+
+
+Section Code Page = 1208
+
+Estimated Cost = 29392.210938
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  #Columns = 2
+|  Evaluate Block/Data Predicates Before Locking Committed Row
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 6
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section

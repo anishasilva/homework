@@ -1,0 +1,29 @@
+Raymond Elward
+CSC 553 - Assignment 1.
+
+
+Part 1:
+Email address used to register: rayelward@gmail.com
+
+Part 2:
+
+a)
+For a clustering index to work the table needs to be sorted on that index.  A table can't be sorted on two different indexes.
+
+B)
+SELECT model, year FROM cars WHERE make = 'Honda' AND price < 10000;
+
+no, the second expression would not be equal because it will result in gathering everything that matches either of the two where clauses.  The first will only get the tuples if they have both 'where' clauses as true.  (ie one uses AND the other uses OR)
+
+C)
+B+ tree.  using 512-byte blocks.  each child-node pointer and each index = 8 bytes.  the fan-out(or the order) of the tree is 32.  each internal  node can contain 31 values and 32 pointers.
+	1)16 is the smallest number of values held by non-root nodes.  This is because it needs 50% to be filled and has space for 31 values.  31 / 2 = ceiling(15.5) = 16.
+	2)  
+nodes - indexed:
+LEVEL 0: 1 - 31
+LEVEL 1: 32 - 992
+LEVEL 2: 1024 - 31744
+LEVEL 3: 32768 - 1015808
+The tree would have a height of 3. (3 steps to reach a leaf node starting from the root.)  
+	3) 825,000 values divided by 1,015,808 possible index slots = 0.81216… or 81.216% for average node utilization
+	4) For B+ tree the values are all indexed at the leaves. So a B+ tree of height 3 can index 1015808 values in the lowest level.

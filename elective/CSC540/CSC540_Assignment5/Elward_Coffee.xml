@@ -1,0 +1,80 @@
+<GRAMMAR LANGID="409">
+
+   <!-- Coffee grammar for CSC540 -->
+   <!-- Author: Adam Steele -->
+   <!-- Edited by RAYMOND ELWARD to add pastry order with your coffee -->
+
+   
+   <RULE NAME="exit" TOPLEVEL="ACTIVE">
+   	
+	<L>
+		<P>goodbye</P>
+		<P>exit</P>
+	</L>
+		
+   </RULE>
+
+   <RULE NAME="coffee" TOPLEVEL="ACTIVE">
+   	
+   	<O>please</O>
+   	
+	<L>
+		<P>give</P>
+		<P>get</P>
+	</L>
+	
+	<P>me a</P>
+	
+	<RULEREF NAME="size" />
+	<RULEREF NAME="type" />
+	
+	<O>with foam</O>
+	<O>
+		<RULEREF NAME="Pastry" />
+	</O>	
+   </RULE>
+   
+   
+   <RULE NAME="size">
+   
+      	<L>
+         	<P>tall</P>
+         	<P>large</P>
+	 	<P>venti</P>
+      	</L>
+      	
+   </RULE>
+ 
+   <RULE NAME="type">
+   
+      	<L>
+      		<P>coffee</P>
+         	<P>coffee of the day</P>
+         	<P>mocha</P>
+		<P>latte</P>
+		<P>americano</P>
+      	</L>
+      	
+   </RULE>
+   
+   <RULE NAME="Pastry">
+   		<p>and</p>
+		<L>
+			<p>a</p>
+			<p>an</p>
+		</L>
+		<L>
+			<p>bearclaw</p>
+			<p>croissant</p>
+			<p>apple turnover</p>
+			<p>strudel</p>
+			<p>baklava</p>
+			<p>danish</p>
+			<p>cherry turnover</p>
+			<p>pain au chocolate</p>
+			<p>chocolate eclare</p>
+			<p>profiterole</p>
+		</L>
+   </RULE>
+        
+</GRAMMAR>

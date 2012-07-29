@@ -1,0 +1,100 @@
+@charset "UTF-8";
+/* CSS Document */
+/*add in our favorite font*/
+@font-face {
+	font-family:Arial_Rounded_Bold;
+	src:url("../font/Arial_Rounded_Bold.eot");
+	src:local("Arial Rounded Bold"), local("Arial-Rounded-Bold"), url("../font/Arial_Rounded_Bold.ttf") format('truetype');
+}
+.ui-body-a, .ui-body-a input, .ui-body-a select, .ui-body-a textarea, .ui-body-a button .ui-body {
+	font-family:Arial_Rounded_Bold, Arial, Helvetica, sans-serif;
+}
+/*Some styling for output of searching an entry.*/
+#entry-loves, .love-display {
+	color: #F3C;
+	font-size: 1.5em;
+	display: inline-block;
+	float: left;
+	padding-left: 2px;
+}
+#entry-leaves, .leave-display {
+	color: #6FF;
+	font-size: 1.5em;
+	display: inline-block;
+	float: right;
+	padding-right: 2px;
+}
+#entry-age, #entry-gender, .age-display, .gender-display {
+	color: white;
+	font-size: 1.1em;
+	display: inline-block;
+}
+#entry-age, .age-display {
+	float: left;
+	padding-left: 10px;
+}
+#entry-gender, .gender-display {
+	float: right;
+	padding-right: 10px;
+}
+#buttonWrapper {
+	padding-top: 70px;
+}
+#voteForLove, #voteForLeave, #randomForLove, #randomForLeave, #nextButton {
+	display:none;
+}
+
+/*for nav bar icons */
+.nav-lioli .ui-btn .ui-icon { 
+	width: 30px!important; 
+	height: 30px!important; 
+	margin-left: -15px !important; 
+	margin-top: -5px !important;
+	box-shadow: none!important; 
+	-moz-box-shadow: none!important; 
+	-webkit-box-shadow: none!important; 
+	-webkit-border-radius: 0 !important; 
+	border-radius: 0 !important; 
+} 
+#recents .ui-icon { 
+	background:  url(../images/tabbar/heart-icon-white.png) 50% 50% no-repeat; 
+	background-size: 25px 20px; 
+}
+#random .ui-icon { 
+	background:  url(../images/tabbar/broken-icon-white.png) 50% 50% no-repeat; 
+	background-size: 25px 20px;  
+}
+#search .ui-icon { 
+	background:  url(../images/tabbar/magnify-icon-white.png) 50% 50% no-repeat;  
+	background-size: 25px 20px; 
+}
+#submit .ui-icon { 
+	background:  url(../images/tabbar/bubble-icon-white.png) 50% 50% no-repeat;  
+	background-size: 25px 20px; 
+}
+#about .ui-icon { 
+	background:  url(../images/tabbar/question-icon-white.png) 50% 50% no-repeat;  
+	background-size: 25px 20px;
+} 
+
+
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+.landscape, .landscape .ui-page, .portrait, .portrait .ui-page, .ui-content {
+	min-height: 100%;
+}
+.title {
+	background: transparent url(../images/bannerForApp.png) no-repeat;
+	width: 110%;
+	min-height: 39px;
+	margin-left: -20px;
+	border-bottom: 1px solid #A9A9A9;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}

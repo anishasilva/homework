@@ -1,0 +1,138 @@
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_year =1993 and lo_discount between 1 and 3 and lo_quantity
+          < 25
+
+
+Section Code Page = 1208
+
+Estimated Cost = 1733.584961
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  Index Scan:  Name = DB2INST1.MV123_FULL_INDEX  ID = 1
+|  |  Regular Index (Clustered)
+|  |  Index Columns:
+|  |  |  1: D_YEAR (Ascending)
+|  |  |  2: D_YEARMONTHNUM (Ascending)
+|  |  |  3: D_WEEKNUMINYEAR (Ascending)
+|  |  |  4: LO_DISCOUNT (Ascending)
+|  |  |  5: LO_QUANTITY (Ascending)
+|  |  |  6: LO_EXTENDEDPRICE (Ascending)
+|  #Columns = 2
+|  Evaluate Predicates Before Locking for Committed Key
+|  #Key Columns = 1
+|  |  Start Key: Inclusive Value
+|  |  |  |  1: 1993
+|  |  Stop Key: Inclusive Value
+|  |  |  |  1: 1993
+|  Index-Only Access
+|  Index Prefetch: Eligible 1500
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Index Predicate(s)
+|  |  #Predicates = 3
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_yearmonthnum =199401 and lo_discount between 4 and 6 and
+          lo_quantity between 26 and 35
+
+
+Section Code Page = 1208
+
+Estimated Cost = 29385.804688
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  #Columns = 2
+|  Evaluate Block/Data Predicates Before Locking Committed Row
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  #Predicates = 5
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+
+
+----------------------------------------
+
+Statement:
+
+  select sum(CAST(lo_extendedprice*lo_discount as BIGINT))as revenue
+  from MV123_FULL
+  where d_weeknuminyear =6 and d_year =1994 and lo_discount between 5
+          and 7 and lo_quantity between 26 and 35
+
+
+Section Code Page = 1208
+
+Estimated Cost = 1737.366699
+Estimated Cardinality = 1.000000
+
+Access Materialized Query Table Name = DB2INST1.MV123_FULL  ID = 3,10
+|  Index Scan:  Name = DB2INST1.MV123_FULL_INDEX  ID = 1
+|  |  Regular Index (Clustered)
+|  |  Index Columns:
+|  |  |  1: D_YEAR (Ascending)
+|  |  |  2: D_YEARMONTHNUM (Ascending)
+|  |  |  3: D_WEEKNUMINYEAR (Ascending)
+|  |  |  4: LO_DISCOUNT (Ascending)
+|  |  |  5: LO_QUANTITY (Ascending)
+|  |  |  6: LO_EXTENDEDPRICE (Ascending)
+|  #Columns = 2
+|  Evaluate Predicates Before Locking for Committed Key
+|  #Key Columns = 1
+|  |  Start Key: Inclusive Value
+|  |  |  |  1: 1994
+|  |  Stop Key: Inclusive Value
+|  |  |  |  1: 1994
+|  Index-Only Access
+|  Index Prefetch: Eligible 1500
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Index Predicate(s)
+|  |  #Predicates = 5
+|  |  Predicate Aggregation
+|  |  |  Column Function(s)
+Aggregation Completion
+|  Column Function(s)
+Return Data to Application
+|  #Columns = 1
+
+End of section
+
+

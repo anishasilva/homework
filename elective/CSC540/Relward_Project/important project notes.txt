@@ -1,0 +1,18 @@
+Raymond Elward
+CSC 540
+Prof. Steele
+March 15 2012
+Notes.
+
+The folders of the projects are named about as well as they can be.
+
+the iOS app is being reviewed by apple but the link is: http://itunes.apple.com/us/app/love-it-or-leave-it!/id436692112?ls=1&mt=8 .  When opening xcode you may have to repoint the www folder in the project to the www folder in the top level of the project.
+
+--edit 3/12/2012: apple accepted my phonegap/jqm version and it is now on the store at the link above.
+
+The Android version is in the marketplace at: https://play.google.com/store/apps/details?id=net.lioli
+
+The win7 version is not working properly.  I found this out after creating the project that there is a bug in phonegap (its on their public jira issue list and is currently being resolved).  The bug is that it can't properly load html into the dom via ajax right now.  This is a big issue since thats the main way that jQuery mobile loads pages.  The phonegap for win7 is only a few months old so it is still very much a work in progress but I have it completely set up like it should be and it should run properly in a future phonegap release.  
+
+The web version is live at http://students.depaul.edu/~relward/lioli_mobile/
+
