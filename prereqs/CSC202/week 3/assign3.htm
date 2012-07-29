@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<title>Assignment 3 -- CSC 202-901/910</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p><font color="#0000A0" size="4">CSC 2<span lang="en-us">02-901/910</span>: 
+<span lang="en-us">Discrete Structures in Computer Science</span></font></p>
+
+<h1><span lang="en-us">Assignment 3</span></h1>
+
+<p><font color="#FF0000">Due<span lang="en-us"> Monday, April 19th, 5:45 pm</span></font></p>
+
+<h2><font color="#0000A0">Reading</font></h2>
+
+<p><span lang="en-us">Review the sections about sets and set operations, 
+focusing on the Cartesian product and the power set, 
+and then read the sections about relations and properties of relations in your reference book.&nbsp; In <b>Discrete Mathematics and 
+with Applications</b></span>, by <span lang="en-us">Epp</span>,<span lang="en-us"> 
+Brooks/Cole Cengage Learning</span>, 200<span lang="en-us">4 those sections are 
+section 5.1 on pages 255 - 269 and sections 10.1, 10.2, 10.3, and 10.5 on pages 
+571 - 611 and 632 - 649.&nbsp; Note that the text covers more than we did in 
+class.&nbsp; You should focus on the concepts we covered in class when reading.</span></p>
+
+<h2><font color="#0000A0">Assignment</font></h2>
+
+<p><span lang="en-us">Answer the following questions:</span></p>
+<ol>
+	<li><span lang="en-us">[5 points] What specific result would the following 
+	SQL query produce?&nbsp; You should list the entries that would appear in 
+	the table of results if this query were run on a database engine using the 
+	university.sql data.&nbsp; How would you describe the entries in the table 
+	produced by the query?&nbsp; Your answer should describe the attributes 
+	listed in the query as well as the characteristic(s) that the entries share 
+	in order to have been selected by the query.</span></li>
+</ol>
+<blockquote>
+	<table border="0" cellpadding="0" cellspacing="0" width="249">
+		<tr>
+			<td>
+			<p class="MsoNormal">SELECT LastName, FirstName, SID</td>
+		</tr>
+		<tr>
+			<td>FROM Student</td>
+		</tr>
+		<tr>
+			<td>WHERE SID NOT IN</td>
+		</tr>
+		<tr>
+			<td><span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp; </span>(SELECT 
+			PresidentID</td>
+		</tr>
+		<tr>
+			<td>
+			<p class="MsoNormal"><span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>FROM StudentGroup</td>
+		</tr>
+		<tr>
+			<td><span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp; </span>WHERE 
+			PresidentID = SID);</td>
+		</tr>
+	</table>
+</blockquote>
+<ol start="2">
+	<li><span lang="en-us">[4 points] Let A = {1, 2, 3} and B = {Djengo, Simone, 
+	Hugin}.&nbsp; Compute the Cartesian product A x B.</span></li>
+	<li><span lang="en-us">[4 points] What is the power set of {a, {a}}?</span></li>
+	<li><span lang="en-us">[5 points] Compute P({Djengo, Simone, Hugin}) - 
+	P({Djengo, Simone, Joon}).&nbsp; Hint: Can you find an easier way to do this 
+	than just computing the two power sets independently and taking the difference?</span></li>
+	<li><span lang="en-us">[9 points each] For each of the following relations R(x,y) state whether it is reflexive, symmetric, and/or transitive.&nbsp; 
+	For each of the three properties briefly argue that the relation has the 
+	property or give a counterexample showing it does not.</span><ol type="a">
+		<li><span lang="en-us">&quot;x and y were born on the same date&quot; over the universe of all 
+	humans</span></li>
+		<li><span lang="en-us">&quot;x is an ancestor of y&quot; over the universe of all 
+	humans</span></li>
+		<li><span lang="en-us">&quot;x = y+1&quot; over the universe of the integers {..., -3, -2, -1, 0, 1, 
+	2, 3, ...}</span></li>
+		<li><span lang="en-us">&quot;x * y &gt;= 0&quot; over the universe of real numbers</span></li>
+	</ol></li>
+	<li><span lang="en-us">Consider the relation R(x,y) = &quot;|x| = |y|&quot; over the 
+	universe of real numbers where |x| is the absolute value of x.&nbsp; For 
+	example, |-3.1415| = 3.1415 and |8.75| = 8.75.</span><ol type="a">
+		<li><span lang="en-us">[9 points] Show that R is an equivalence relation.</span></li>
+		<li><span lang="en-us">[3 points] What are the equivalence classes of R?</span></li>
+	</ol></li>
+	<li><span lang="en-us">[10 points each] For each of the following relations R(x,y) state whether it is reflexive, 
+	anti-symmetric, and/or transitive on the real numbers.&nbsp; 
+	For each of the three properties briefly argue that the relation has the 
+	property or give a counterexample showing it does not.&nbsp; Identify those 
+	that are ordering relations (e.g. have all three properties).</span><ol type="a">
+	<li><span lang="en-us">R(x,y) = &quot;x + y = 0&quot;</span></li>
+	<li><span lang="en-us">R(x,y) = &quot;x * y &gt;= 0&quot;</span></li>
+	<li><span lang="en-us">R(x,y) = &quot;x = 2y&quot;</span></li>
+</ol></li>
+	<li><span lang="en-us"><font face="Times New Roman">[4 points] Write a 
+	statement telling me the thing that you found most enjoyable about this 
+	class this week and the thing that you found most frustrating about this 
+	class this week.&nbsp; If you are missing one (or both) of the experiences I 
+	asked about, substitute another class experience (e.g. most interesting, 
+	most surprising, etc.)</font></span></li>
+</ol>
+<h2><font color="#0000A0">Submitting the assignment</font></h2>
+<p><span lang="en-us">Students in section 901 (the &quot;traditional&quot; or 
+&quot;live&quot; section) must 
+submit the assignment in person at the beginning of class on the specified day 
+unless other arrangements have been made with me.&nbsp; Students in section 910 
+(the online section) must submit the assignment on the specified date </span>using the online 
+<span lang="en-us">homework submission </span>system on the<span lang="en-us">
+</span>COL site.<span lang="en-us">&nbsp; 
+<a href="../info/submitCOL.htm">Instructions on submitting assignments 
+using the COL site are available</a>.&nbsp; If you are submitting online and your 
+answers are (partially or entirely) handwritten, please scan your assignment and 
+submit it in a commonly readable format such as a PDF file.&nbsp; Handwritten 
+answers must be legible.&nbsp; Illegible answers may not earn full credit.&nbsp; 
+Your submission should have your name at the top of (at least) the first page -- 
+this includes online students.&nbsp; Unless other arrangements have been made 
+with me online submissions should consist of a single file.&nbsp; Submissions for this assignment</span> received after the deadline given above will 
+<span lang="en-us">not be accepted.</span>&nbsp; See
+<a href="../info/syllabus.htm">the syllabus</a> for<span lang="en-us"> more 
+information about grading policies in this course.</span></p>
+<h3><span lang="en-us"><font color="#0000A0">Academic Integrity</font></span></h3>
+<p><span lang="en-us">All work that you submit in this course must be your own.&nbsp; 
+Having someone else (including a tutor) write (even partial) answers to your 
+assignment, working so closely with another person so as to produce identical 
+answers, or looking up answers using any source are unacceptable for any assignment in this course.&nbsp; Each situation is</span> considered
+	<span lang="en-us">a </span>violation of
+    <a href="http://academicintegrity.depaul.edu/">the
+	<span lang="en-us">Academic</span> <span lang="en-us">Integrity</span> 
+	policy of DePaul University</a><span lang="en-us">.</span> </p>
+
+<h2><font color="#0000A0">Grading</font></h2>
+<p><span lang="en-us">The assignment is worth 100 points.&nbsp; The points for 
+each question are listed above.</span></p>
+
+<font size="3">
+
+<hr>
+<script type="text/javascript">
+document.write("Last modified: " + document.lastModified + "<br />");
+</script>
+
+</font>
+</body>
+</html>

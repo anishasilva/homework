@@ -1,0 +1,21 @@
+STATUS | wrapper  | 2010/01/30 16:13:23 | --> Wrapper Started as Console
+STATUS | wrapper  | 2010/01/30 16:13:24 | Launching a JVM...
+INFO   | jvm 1    | 2010/01/30 16:13:24 | Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+INFO   | jvm 1    | 2010/01/30 16:13:24 |   Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+INFO   | jvm 1    | 2010/01/30 16:13:24 | 
+INFO   | jvm 1    | 2010/01/30 16:13:24 | Web server running on http://192.168.0.112:8082 (only local connections)
+INFO   | jvm 1    | 2010/01/30 16:13:24 | TCP server running on tcp://192.168.0.112:9092 (only local connections)
+STATUS | wrapper  | 2010/01/30 16:13:31 | CTRL-C trapped.  Shutting down.
+WARN   | wrapper  | 2010/01/30 16:13:31 | JVM exited unexpectedly while stopping the application.
+STATUS | wrapper  | 2010/01/30 16:13:31 | <-- Wrapper Stopped
+STATUS | wrapper  | 2010/01/30 16:14:39 | --> Wrapper Started as Console
+STATUS | wrapper  | 2010/01/30 16:14:39 | Launching a JVM...
+INFO   | jvm 1    | 2010/01/30 16:14:40 | Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+INFO   | jvm 1    | 2010/01/30 16:14:40 |   Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+INFO   | jvm 1    | 2010/01/30 16:14:40 | 
+INFO   | jvm 1    | 2010/01/30 16:14:40 | Web server running on http://192.168.0.112:8082 (only local connections)
+INFO   | jvm 1    | 2010/01/30 16:14:40 | TCP server running on tcp://192.168.0.112:9092 (only local connections)
+STATUS | wrapper  | 2010/01/30 16:14:48 | CTRL-C trapped.  Shutting down.
+WARN   | wrapper  | 2010/01/30 16:14:48 | JVM exited unexpectedly while stopping the application.
+STATUS | wrapper  | 2010/01/30 16:14:48 | <-- Wrapper Stopped
+ERROR  | wrapper  | 2010/01/30 16:14:54 | The H2DatabaseService service is not installed - The specified service does not exist as an installed service. (0x424)
